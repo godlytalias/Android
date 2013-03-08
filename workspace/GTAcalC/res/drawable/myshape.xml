@@ -4,7 +4,7 @@
 <shape >
     
     <solid
-                android:color="#FFFFFF" />
+                android:color="#ef4444" />
     
       
     <corners android:bottomRightRadius="45dp"
@@ -14,7 +14,7 @@
     
      <stroke
                     android:width="1dp"
-                    android:color="#FFFFAA" />
+                    android:color="#992f2f" />
     
 
 </shape> </item>
@@ -22,12 +22,12 @@
 <item>
         <shape>
             <gradient
-        android:startColor="#FFFFFF"
-        android:endColor="#11FFFF"
-        android:angle="270"/>
+                android:startColor="#ef4444"
+                android:endColor="#992f2f"
+                android:angle="270" />
             <stroke
-                    android:width="1dp"
-                    android:color="#FFFFAA" />
+                android:width="1dp"
+                android:color="#992f2f" />
             <corners android:bottomRightRadius="45dp"
         android:bottomLeftRadius="45dp"  
         android:topRightRadius="45dp"

@@ -41,19 +41,19 @@ public class GTAcalC extends Activity {
 	
 	public void arraymanip(Double numbers[],Character chr[],int ptr,int limit)
 	{
-		
-		while(ptr<limit-1)
+	while(ptr<limit-1)
 		{
 			numbers[ptr]=numbers[ptr+1];
 			chr[ptr]=chr[ptr+1];
 			ptr++;
 		}
 		numbers[ptr]=numbers[ptr+1];
+		
 	}
 	
 	public int gcdfinder(int a,int b)
 	{
-		int temp;
+		int tempvar;
 		if(b<a)
 		{
 			a=a+b;
@@ -62,9 +62,9 @@ public class GTAcalC extends Activity {
 		}
 		while(a%b!=0)
 		{
-			temp=a%b;
+			tempvar=a%b;
 			a=b;
-			b=temp;
+			b=tempvar;
 				}
 	return b;
 	}
@@ -77,7 +77,7 @@ public class GTAcalC extends Activity {
 				setContentView(R.layout.activity_gtacal_c);
 		        
 		
-		textchange= (TextView)findViewById(R.id.result);
+		textchange= (TextView)findViewById(R.id.text);
 		textchange.setHint("Developed By Godly T.Alias\n\n");
 		numbers[0]=0.0;
 
@@ -500,6 +500,7 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 			{
 			case '*': 
 				if(numbers[temp+1]==0)
+				{
 					try{
 					if(	opnptr[temp+1]=='-')
 				{
@@ -511,12 +512,13 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 				catch(Exception e)
 				{
 					//do nothing
-				}
-				
+				}}
+			
 				store=numbers[temp]*numbers[temp+1];
 						numbers[temp+1]=store;
 						arraymanip(numbers, opnptr, temp, numptr);
 						numptr--;
+			
 						break;
 			case '/': 
 				
@@ -534,16 +536,20 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 					Toast.makeText(GTAcalC.this, "MATH ERROR", Toast.LENGTH_SHORT);
 					textchange.setText("Division by 0 not allowed!");
 				}
+				
+				
 				store=numbers[temp]/numbers[temp+1];
 				numbers[temp+1]=store;
 				arraymanip(numbers,opnptr, temp,numptr);
 				numptr--;
 				
+				
 			
 			break;
-			default: break;
+			default: temp++;
+					break;
 			}
-			temp++;
+			
 			
 		}while(temp<numptr);
 		temp=0;
