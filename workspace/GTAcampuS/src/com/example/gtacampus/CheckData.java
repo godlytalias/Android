@@ -59,8 +59,8 @@ public class CheckData extends ListActivity  {
 		String[] s1=s.split("-");
 		String coursename=s1[0];
 		String slot=s1[1];
-		message="       COURSE DETAILS\n\nCOURSE NAME           :  "+coursename+"\nSLOT                             :   "+slot;
-		message=message+"\n          CLASS HOURS\nDAY            TIME\n\n";
+		message="       COURSE DETAILS\n\nCOURSE NAME           :   "+coursename+"\nSLOT                             :   "+slot;
+		message=message+"\n          CLASS HOURS\nDAY             TIME\n\n";
 	    if(slot.equals("   A"))
 	    {
 	    	message=message+"MON            8:00 - 9:00\nWED             9:00 - 10:00\nFRI              10:15 - 11:15\n\nTUE (A+)      1:00 - 2:00";
