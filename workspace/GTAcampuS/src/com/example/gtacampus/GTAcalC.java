@@ -267,9 +267,7 @@ this.dec.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if(opflag==0)
-		{
-		if(gcdflag==0)
+			if(gcdflag==0)
 		{
 		decflag=10;
 		textchange.append(".");}
@@ -280,12 +278,7 @@ this.dec.setOnClickListener(new View.OnClickListener() {
 			numbers[numptr]=0.0;
 			decflag=0;
 		}
-	}
-	else
-	{
-		Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
-		
-	}
+	
 }});
 		
 this.sqroot.setOnClickListener(new View.OnClickListener() {
@@ -458,6 +451,7 @@ this.clr.setOnClickListener(new View.OnClickListener() {
 				}
 			Toast.makeText(GTAcalC.this," CLEARED ",Toast.LENGTH_SHORT).show();
 				textchange.setText("");
+				textchange.setHint("");
 			
 				numptr=0;
 				decflag=0;
