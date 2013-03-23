@@ -47,6 +47,12 @@ public class CampusActivity extends Activity {
 		startActivity(check);
 	}
 	
+	public void notes(View v)
+	{
+		Intent noteint=new Intent(CampusActivity.this,notedata.class);
+		startActivity(noteint);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

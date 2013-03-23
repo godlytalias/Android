@@ -8,23 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CampusActivity" >
 
-    <AnalogClock
-        android:id="@+id/analogClock1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
-   
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-       android:layout_marginRight="23dp"
-        android:layout_marginTop="25dp"
-       android:onClick="Calculator"
-        android:src="@drawable/ic_action_name" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -34,16 +17,6 @@
         android:layout_below="@+id/imageButton1"
         android:text="Calculator"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton1"
-        android:layout_alignTop="@+id/imageButton1"
-        android:layout_toRightOf="@+id/imageButton1"
-        android:onClick="slotdisp"
-        android:src="@drawable/slot" />
 
     <TextView
         android:id="@+id/textView2"
@@ -94,5 +67,52 @@
         android:layout_below="@+id/imageButton4"
         android:text="Courses"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="48dp"
+        android:onClick="notes"
+        android:src="@drawable/ic_note" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageButton1"
+        android:layout_marginRight="22dp"
+        android:layout_toLeftOf="@+id/analogClock1"
+        android:onClick="slotdisp"
+        android:src="@drawable/slot" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/imageButton3"
+        android:layout_below="@+id/imageButton5"
+        android:layout_marginRight="14dp"
+        android:text="Notes"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <AnalogClock
+        android:id="@+id/analogClock1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/analogClock1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="36dp"
+        android:onClick="Calculator"
+        android:src="@drawable/ic_action_name" />
 
 </RelativeLayout>
