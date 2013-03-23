@@ -39,6 +39,9 @@ public class addnote extends Activity{
 		Text2=t2.getText().toString();
 		this.dh = new DataManip(this);
 		this.dh.insert(Text1,Text2);
+		
+		Intent backtonotes=new Intent(this,notedata.class);
+		startActivity(backtonotes);
 		this.finish();
 	}
 	

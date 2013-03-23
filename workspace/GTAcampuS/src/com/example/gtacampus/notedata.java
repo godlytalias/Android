@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -59,8 +63,37 @@ public class notedata extends ListActivity{
 	{
 		Intent noteintent= new Intent(this,addnote.class);
 		startActivity(noteintent);
+		this.finish();
 	}
 	
+	@Override
+	public void onListItemClick(ListView parent, View v, int position, long id){
+		message=stg2[position];
+		showDialog(DIALOG_ID);
+	}
+	
+	protected final Dialog onCreateDialog(final int id) {
+		Dialog dialog = null;
+		switch(id) {
+		case DIALOG_ID:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(message)
+			.setCancelable(false)
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					notedata.this.finish();
+
+              }
+			});
+						AlertDialog alert = builder.create(); 
+			dialog = alert;
+			break;
+
+		default:
+
+		}
+		return dialog;
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
