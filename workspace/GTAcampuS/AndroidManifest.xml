@@ -28,6 +28,7 @@
         <activity android:name="CheckData"></activity>
         <activity android:name="addnote"></activity>
         <activity android:name="notedata"></activity>
+        <activity android:name="bunkom"></activity>
     </application>
 
 </manifest>

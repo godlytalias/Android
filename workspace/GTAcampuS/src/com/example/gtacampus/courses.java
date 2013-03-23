@@ -77,6 +77,8 @@ public class courses extends Activity {
 		Text1=mv.getText().toString();
 		Spinner spin = (Spinner)findViewById(R.id.slots);
 		Text2 = String.valueOf(spin.getSelectedItem());
+		String Text3;
+		Text3="0";
 		
 		for (String[] slots : names2) {
 			if(slots[2].equals(Text2))
@@ -94,7 +96,7 @@ public class courses extends Activity {
 		else
 		{
 		this.dh = new DataManipulator(this);
-		this.dh.insert(Text1,Text2);
+		this.dh.insert(Text1,Text2,Text3);
 		showDialog(DIALOG_ID);
 		Toast.makeText(this, "Course Added", Toast.LENGTH_SHORT).show();}
 	}

@@ -19,7 +19,7 @@ public class DataManipulator {
 	private SQLiteStatement insertStmt;
 	
     private static final String INSERT = "insert into "
-		+ TABLE_NAME + " (course,slot) values (?,?)";
+		+ TABLE_NAME + " (course,slot,bunk) values (?,?,?)";
 
 	public DataManipulator(Context context) {
 		DataManipulator.context = context;
@@ -28,9 +28,10 @@ public class DataManipulator {
 		this.insertStmt = DataManipulator.db.compileStatement(INSERT);
 
 	}
-	public long insert(String course,String slot) {
+	public long insert(String course,String slot, String bunk) {
 		this.insertStmt.bindString(1, course);
 		this.insertStmt.bindString(2, slot);
+		this.insertStmt.bindString(3, bunk);
 		
 		return this.insertStmt.executeInsert();
 	}
@@ -43,13 +44,13 @@ public class DataManipulator {
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME, new String[] { "id", "course","slot" },
+		Cursor cursor = db.query(TABLE_NAME, new String[] { "id", "course","slot","bunk" },
 				null, null, null, null, "slot asc"); 
 
 		int x=0;
 		if (cursor.moveToFirst()) {
 			do {
-				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)};
+				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)};
 
 				list.add(b1);
 
@@ -79,7 +80,7 @@ public class DataManipulator {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
 		}
 
 		@Override

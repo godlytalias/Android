@@ -48,17 +48,6 @@
         android:text="Add Course"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignTop="@+id/imageButton3"
-        android:onClick="coursecheck"
-        android:src="@drawable/course" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -111,8 +100,36 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/analogClock1"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="36dp"
+        android:layout_marginLeft="29dp"
         android:onClick="Calculator"
         android:src="@drawable/ic_action_name" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignTop="@+id/imageButton3"
+        android:onClick="coursecheck"
+        android:src="@drawable/course" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignRight="@+id/imageButton4"
+        android:onClick="bunk"
+        android:src="@drawable/ic_bunk" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageButton6"
+        android:layout_below="@+id/imageButton6"
+        android:text="Bunk-O-meter"
+        
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

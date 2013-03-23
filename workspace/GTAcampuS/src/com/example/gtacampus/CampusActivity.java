@@ -53,6 +53,12 @@ public class CampusActivity extends Activity {
 		startActivity(noteint);
 	}
 	
+	public void bunk(View v)
+	{
+		Intent bunkmeter=new Intent(CampusActivity.this,bunkom.class);
+		startActivity(bunkmeter);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
