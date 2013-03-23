@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:background="#000"
+    tools:context=".courses">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="122dp"
+        android:text="ADD ALL THE REGISTERED COURSES"
+        android:textColor="#FFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView1"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:textColor="#FFF" >
+
+        
+    </MultiAutoCompleteTextView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/multiAutoCompleteTextView1"
+        android:layout_toRightOf="@+id/textView1"
+        android:onClick="addata"
+        android:text="ADD" />
+
+    <Spinner
+        android:id="@+id/slots"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_alignTop="@+id/multiAutoCompleteTextView1"
+        android:layout_marginRight="109dp" />
+
+</RelativeLayout>

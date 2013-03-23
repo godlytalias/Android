@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent" 
+    tools:context=".Slot" >
+ <TableLayout
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" 
+    android:background="#7000" 
+    android:gravity="center_horizontal"
+ 
+     >
+
+
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="INSTITUTE SLOTS"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+</TableRow>
+
+<TableRow ><TextView /></TableRow>
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
+        android:text="THEORY COURSES"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+</TableRow>
+<TableRow ></TableRow>
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="#F00"
+        android:text="                           8:00-9:00       9:00-10:00       10:15-11:15       11:15-12:15       13:00-14:00       14:00-15:00       17:00-18:00" />
+
+    </TableRow>
+    <TableRow ></TableRow>
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/mon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="MON                          A                          F                          D                             B                             G                               E+                             H" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/tue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="TUE                            B                         G                          E                             C                             A+                             F+                             H" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/wed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="WED                           C                          A                          F                             D                             H                               G+                            E@" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/thu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="THU                           D                         B                          G                             E                               -                             C+                           G@" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/tue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:text="FRI                               E                          C                          A                              F                            H+                           B+                             D+" />
+
+    </TableRow>
+    
+<TableRow ><TextView /></TableRow>
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal" >
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14sp"
+        android:text="LABORATORY COURSES"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+</TableRow>
+<TableRow >
+    <TextView
+        android:id="@+id/time2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#F00"
+        android:text="                                                                            10:15-12:15                                                        14:00-17:00" />
+    
+</TableRow>
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/monp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+        android:text="MON                                                                          -                                                                              P" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/tuep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+         android:text="TUE                                                                          -                                                                              Q" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/wedp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+         android:text="WED                                                                          -                                                                              R" />
+
+    </TableRow>
+    
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/thup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+         android:text="THU                                                                          U                                                                              S" />
+
+    </TableRow>
+
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/frip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+         android:text="FRI                                                                          -                                                                                   t" />
+
+    </TableRow>
+</TableLayout></ScrollView>
