@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="11sp"
         android:textColor="#F00"
         android:text="                           8:00-9:00       9:00-10:00       10:15-11:15       11:15-12:15       13:00-14:00       14:00-15:00       17:00-18:00" />
 
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="MON                          A                          F                          D                             B                             G                               E+                             H" />
+        android:text="MON                    A                       F                         D                        B                       G                          E+                       H" />
 
     </TableRow>
     
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="TUE                            B                         G                          E                             C                             A+                             F+                             H" />
+        android:text="TUE                      B                       G                         E                        C                       A+                        F+                       H" />
 
     </TableRow>
     
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="WED                           C                          A                          F                             D                             H                               G+                            E@" />
+        android:text="WED                     C                       A                          F                       D                       H                          G+                      E@" />
 
     </TableRow>
     
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="THU                           D                         B                          G                             E                               -                             C+                           G@" />
+        android:text="THU                     D                       B                          G                        E                        -                          C+                      G@" />
 
     </TableRow>
     
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:text="FRI                               E                          C                          A                              F                            H+                           B+                             D+" />
+        android:text="FRI                       E                        C                         A                         F                       H+                      B+                       D+" />
 
     </TableRow>
     
@@ -190,7 +190,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
-         android:text="TUE                                                                          -                                                                              Q" />
+         android:text="TUE                                                                            -                                                                              Q" />
 
     </TableRow>
     
@@ -205,7 +205,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
-         android:text="WED                                                                          -                                                                              R" />
+         android:text="WED                                                                           -                                                                              R" />
 
     </TableRow>
     
@@ -235,7 +235,7 @@
         android:textStyle="bold"
         android:textSize="12sp"
         android:layout_gravity="center_horizontal"
-         android:text="FRI                                                                          -                                                                                   t" />
+         android:text="FRI                                                                             -                                                                                T" />
 
     </TableRow>
 </TableLayout></ScrollView>

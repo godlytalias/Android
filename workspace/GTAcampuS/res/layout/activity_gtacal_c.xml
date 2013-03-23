@@ -243,4 +243,48 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/log"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@+id/add"
+        android:layout_below="@+id/add"
+        android:layout_marginTop="63dp"
+        android:textColor="#FFFFFF"
+        android:text="Log" 
+        android:background="@drawable/myshape"/>
+
+    <Button
+        android:id="@+id/sin"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignBaseline="@+id/log"
+        android:layout_alignBottom="@+id/log"
+        android:layout_alignLeft="@+id/sub"
+        android:background="@drawable/myshape"
+        android:text="sin"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/cos"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignBaseline="@+id/sin"
+        android:layout_alignBottom="@+id/sin"
+        android:layout_alignLeft="@+id/mul"
+        android:background="@drawable/myshape"
+        android:text="cos"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/tan"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignBaseline="@+id/cos"
+        android:layout_alignBottom="@+id/cos"
+        android:layout_alignLeft="@+id/gcd"
+        android:background="@drawable/myshape"
+        android:text="tan"
+        android:textColor="#FFFFFF" />
+
  </RelativeLayout>

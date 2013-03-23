@@ -9,7 +9,7 @@ tools:context="com.example.gtacampus.CheckData">
 android:id="@+id/selection2"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:text="COURSE - SLOT"
+android:text=""
 android:textSize="20dp"
 android:textStyle="bold"
 />
