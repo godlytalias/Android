@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class bunkom extends ListActivity{
 	static final int DIALOG_ID = 0;
 	DataManipulator dm;
-	String[] stg2;
+	String[] stg2,stg3,bunkval;
 
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;
@@ -30,6 +30,8 @@ public class bunkom extends ListActivity{
 		 dm = new DataManipulator(this);
 	      names2 = dm.selectAll();
 	      String[] stg1=new String[names2.size()]; 
+	      stg3=new String[names2.size()]; 
+	      bunkval=new String[names2.size()]; 
 	      stg2=new String[names2.size()]; 
 
 			int x=0;
@@ -38,6 +40,8 @@ public class bunkom extends ListActivity{
 			for (String[] course : names2) {
 				stg = course[1]+"  -   "+course[3];
 				stg2[x]=course[1];
+				stg3[x]=course[0];
+				bunkval[x]=course[3];
 				stg1[x]=stg;
 				x++;
 			}
@@ -50,7 +54,12 @@ public class bunkom extends ListActivity{
 	}
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id){
-		Toast.makeText(this, stg2[position]+" BUNKED", Toast.LENGTH_LONG).show();
+		
+		Integer num=new Integer(Integer.parseInt(bunkval[position]));
+		num=num+1;
+		dm.update(stg3[position], num.toString());
+		Toast.makeText(this, stg2[position].toUpperCase()+" BUNKED", Toast.LENGTH_LONG).show();
+		this.finish();
 	}
 	
 	

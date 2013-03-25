@@ -27,28 +27,32 @@ public final class R {
         public static final int rect=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f080015;
-        public static final int add=0x7f080009;
+        public static final int action_settings=0x7f080019;
+        public static final int add=0x7f080007;
         public static final int clear=0x7f080004;
-        public static final int decimal=0x7f08000a;
-        public static final int div=0x7f08000f;
-        public static final int equal=0x7f080005;
-        public static final int exp=0x7f08000c;
-        public static final int gcd=0x7f08000b;
-        public static final int mul=0x7f08000e;
-        public static final int num0=0x7f080003;
-        public static final int num1=0x7f080007;
-        public static final int num2=0x7f080014;
-        public static final int num3=0x7f080008;
-        public static final int num4=0x7f080013;
-        public static final int num5=0x7f080001;
-        public static final int num6=0x7f080000;
-        public static final int num7=0x7f080012;
-        public static final int num8=0x7f080011;
-        public static final int num9=0x7f080002;
-        public static final int sqrt=0x7f080010;
-        public static final int sub=0x7f08000d;
-        public static final int text=0x7f080006;
+        public static final int cos=0x7f080016;
+        public static final int decimal=0x7f080015;
+        public static final int div=0x7f08000b;
+        public static final int equal=0x7f080006;
+        public static final int exp=0x7f080014;
+        public static final int gcd=0x7f08000a;
+        public static final int log=0x7f080010;
+        public static final int mul=0x7f080008;
+        public static final int num0=0x7f080005;
+        public static final int num1=0x7f080001;
+        public static final int num2=0x7f08000f;
+        public static final int num3=0x7f080012;
+        public static final int num4=0x7f080002;
+        public static final int num5=0x7f08000c;
+        public static final int num6=0x7f080011;
+        public static final int num7=0x7f080003;
+        public static final int num8=0x7f08000d;
+        public static final int num9=0x7f08000e;
+        public static final int sin=0x7f080013;
+        public static final int sqrt=0x7f080018;
+        public static final int sub=0x7f080009;
+        public static final int tan=0x7f080017;
+        public static final int text=0x7f080000;
     }
     public static final class layout {
         public static final int activity_gtacal_c=0x7f030000;

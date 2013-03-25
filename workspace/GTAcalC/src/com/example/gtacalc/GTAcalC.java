@@ -1,5 +1,7 @@
 package com.example.gtacalc;
 
+
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,7 +14,7 @@ public class GTAcalC extends Activity {
 	
 	Double numbers[] = new Double[400];
 	Double result;
-	Integer numptr=0,decflag=0,gcdflag=0,gcdres=1,resflag=0;
+	Integer numptr=0,decflag=0,gcdflag=0,gcdres=1,resflag=0,opflag=0;
 	Character opnptr[]=new Character[400];
 	TextView textchange;
 	
@@ -37,7 +39,7 @@ public class GTAcalC extends Activity {
 	Button gcd;
 	Button minus;
 	Button product;
-	Button divide;
+	Button divide,log,sin,cos,tan;
 	
 	public void arraymanip(Double numbers[],Character chr[],int ptr,int limit)
 	{
@@ -78,7 +80,7 @@ public class GTAcalC extends Activity {
 		        
 		
 		textchange= (TextView)findViewById(R.id.text);
-		textchange.setHint("Developed By Godly T.Alias\n\n");
+		textchange.setHint("Developed by Godly T.Alias");
 		numbers[0]=0.0;
 
 		numzero = (Button)findViewById(R.id.num0);
@@ -101,6 +103,123 @@ public class GTAcalC extends Activity {
 		minus=(Button)findViewById(R.id.sub);
 		product=(Button)findViewById(R.id.mul);
 		sqroot=(Button)findViewById(R.id.sqrt);
+		log=(Button)findViewById(R.id.log);
+		sin=(Button)findViewById(R.id.sin);
+		cos=(Button)findViewById(R.id.cos);
+		tan=(Button)findViewById(R.id.tan);
+		
+		
+this.sin.setOnClickListener(new View.OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
+		if(gcdflag==0)
+		{
+		 textchange.setText("sin(");
+		 opflag=1;
+		}
+		else
+		{
+			textchange.append(" , ");
+			numptr++;
+			numbers[numptr]=0.0;
+			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
+		}
+		
+	}
+});
+
+this.cos.setOnClickListener(new View.OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
+		if(gcdflag==0)
+		{
+		 textchange.setText("cos(");
+		 opflag=2;
+		}
+		else
+		{
+			textchange.append(" , ");
+			numptr++;
+			numbers[numptr]=0.0;
+			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
+		}
+		
+	}
+});
+
+this.tan.setOnClickListener(new View.OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
+		if(gcdflag==0)
+		{
+		 textchange.setText("tan(");
+		 opflag=3;
+		}
+		else
+		{
+			textchange.append(" , ");
+			numptr++;
+			numbers[numptr]=0.0;
+			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
+		}
+		
+	}
+});
+
+this.log.setOnClickListener(new View.OnClickListener() {
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
+		if(gcdflag==0)
+		{
+		 textchange.setText("log(");
+		 opflag=4;
+		}
+		else
+		{
+			textchange.append(" , ");
+			numptr++;
+			numbers[numptr]=0.0;
+			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
+		}
+		
+	}
+});
 		
 		this.numzero.setOnClickListener(new View.OnClickListener() {
 			
@@ -133,6 +252,7 @@ this.gcd.setOnClickListener(new View.OnClickListener() {
 			numptr=0;
 			numbers[0]=0.0;
 			decflag=0;
+			opflag=0;
 		}
 		else
 		{
@@ -149,7 +269,7 @@ this.dec.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if(gcdflag==0)
+			if(gcdflag==0)
 		{
 		decflag=10;
 		textchange.append(".");}
@@ -160,14 +280,16 @@ this.dec.setOnClickListener(new View.OnClickListener() {
 			numbers[numptr]=0.0;
 			decflag=0;
 		}
-	}
-});
+	
+}});
 		
 this.sqroot.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				if(opflag==0)
+				{
 				if(gcdflag==0)
 				{
 			Toast.makeText(GTAcalC.this," SQUARE ROOT ",Toast.LENGTH_SHORT).show();
@@ -183,6 +305,11 @@ this.sqroot.setOnClickListener(new View.OnClickListener() {
 					numptr++;
 					numbers[numptr]=0.0;
 					decflag=0;
+				}}
+				else
+				{
+					Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+					
 				}
 			}
 		});
@@ -192,6 +319,8 @@ this.power.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
 		if(gcdflag==0)
 		{
 		Toast.makeText(GTAcalC.this," RAISED TO ",Toast.LENGTH_SHORT).show();
@@ -207,6 +336,11 @@ this.power.setOnClickListener(new View.OnClickListener() {
 			numptr++;
 			numbers[numptr]=0.0;
 			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
 		}
 	}
 });
@@ -216,6 +350,8 @@ this.minus.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
 		if(gcdflag==0)
 		{
 		
@@ -232,6 +368,11 @@ this.minus.setOnClickListener(new View.OnClickListener() {
 			numptr++;
 			numbers[numptr]=0.0;
 			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
 		}
 		
 	}
@@ -242,6 +383,8 @@ this.product.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
 		if(gcdflag==0)
 		{
 		Toast.makeText(GTAcalC.this," * ", Toast.LENGTH_SHORT).show();
@@ -257,6 +400,11 @@ this.product.setOnClickListener(new View.OnClickListener() {
 			numptr++;
 			numbers[numptr]=0.0;
 			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
 		}
 		
 	}
@@ -267,6 +415,8 @@ this.divide.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
 		if(gcdflag==0)
 		{
 		Toast.makeText(GTAcalC.this," / ", Toast.LENGTH_SHORT).show();
@@ -282,6 +432,11 @@ this.divide.setOnClickListener(new View.OnClickListener() {
 			numptr++;
 			numbers[numptr]=0.0;
 			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
 		}
 		
 	}
@@ -298,11 +453,13 @@ this.clr.setOnClickListener(new View.OnClickListener() {
 				}
 			Toast.makeText(GTAcalC.this," CLEARED ",Toast.LENGTH_SHORT).show();
 				textchange.setText("");
-				textchange.setHint("Developed By Godly T.Alias");
+				textchange.setHint("");
+			
 				numptr=0;
 				decflag=0;
 				gcdflag=0;
 				resflag=0;
+				opflag=0;
 				numbers[numptr]=0.0;
 			}
 		});
@@ -466,13 +623,16 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View arg0) {
 		int temp;
+		Double store=0.0;
 		resflag=1;
 		// TODO Auto-generated method stub
 	try{	
 		temp=numptr-1;
-		Double store=0.0;
+		
 		if(gcdflag==0)
 		{
+			if(opflag==0)
+			{
 		do
 		{
 			switch(opnptr[temp])
@@ -537,7 +697,6 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 					textchange.setText("Division by 0 not allowed!");
 				}
 				
-				
 				store=numbers[temp]/numbers[temp+1];
 				numbers[temp+1]=store;
 				arraymanip(numbers,opnptr, temp,numptr);
@@ -569,7 +728,22 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 						}
 			temp++;
 		}
-		}
+		}}
+			else
+			{
+				switch(opflag)
+				{
+				case 1: result=Math.sin(numbers[0]);
+						break;
+				case 2: result=Math.cos(numbers[0]);
+						break;
+				case 3:result=Math.tan(numbers[0]);
+						break;
+				case 4: result=Math.log(numbers[0]);
+						break;
+				default:break;
+				}
+			}
 		
 	
 	Toast.makeText(GTAcalC.this,Double.toString(result),Toast.LENGTH_SHORT).show();
@@ -598,6 +772,7 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 	numbers[0]=0.0;
 	decflag=0;
 	gcdflag=0;
+	opflag=0;
 	}
 	catch(Exception e)
 	{
@@ -611,6 +786,8 @@ this.plus.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
+		if(opflag==0)
+		{
 		if(gcdflag==0)
 		{
 	Toast.makeText(GTAcalC.this," + ",Toast.LENGTH_LONG).show();
@@ -626,10 +803,19 @@ this.plus.setOnClickListener(new View.OnClickListener() {
 			numptr++;
 			numbers[numptr]=0.0;
 			decflag=0;
+		}}
+		else
+		{
+			Toast.makeText(GTAcalC.this,"NOT AVAILABLE",Toast.LENGTH_LONG).show();
+			
 		}
 	}
 });
 	}
+
+	
+		
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

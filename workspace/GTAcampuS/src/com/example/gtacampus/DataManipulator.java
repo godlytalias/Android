@@ -1,6 +1,7 @@
 package com.example.gtacampus;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +18,7 @@ public class DataManipulator {
 	static SQLiteDatabase db;
 
 	private SQLiteStatement insertStmt;
+	private SQLiteStatement updateStmt;
 	
     private static final String INSERT = "insert into "
 		+ TABLE_NAME + " (course,slot,bunk) values (?,?,?)";
@@ -28,12 +30,18 @@ public class DataManipulator {
 		this.insertStmt = DataManipulator.db.compileStatement(INSERT);
 
 	}
-	public long insert(String course,String slot, String bunk) {
+	public long insert(String course,String slot,String bunk) {
 		this.insertStmt.bindString(1, course);
 		this.insertStmt.bindString(2, slot);
 		this.insertStmt.bindString(3, bunk);
-		
 		return this.insertStmt.executeInsert();
+	}
+	
+	public void update(String idval , String newval)
+	{
+		ContentValues val=new ContentValues();
+		val.put("bunk", newval);
+		db.update(TABLE_NAME, val, String.format("%s = ?", "id"), new String[]{idval});
 	}
 
 	public void deleteAll() {
@@ -44,7 +52,7 @@ public class DataManipulator {
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME, new String[] { "id", "course","slot","bunk" },
+		Cursor cursor = db.query(TABLE_NAME, new String[] { "id", "course","slot","bunk"},
 				null, null, null, null, "slot asc"); 
 
 		int x=0;
