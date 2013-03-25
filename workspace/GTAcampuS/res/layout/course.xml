@@ -9,13 +9,21 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="122dp"
+        android:layout_marginTop="42dp"
+        android:gravity="center_horizontal"
         android:text="ADD ALL THE REGISTERED COURSES"
         android:textColor="#FFF"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/slots"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/multiAutoCompleteTextView1"
+        android:layout_alignParentRight="true" />
 
     <MultiAutoCompleteTextView
         android:id="@+id/multiAutoCompleteTextView1"
@@ -23,28 +31,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="52dp"
+        android:layout_toLeftOf="@+id/slots"
         android:ems="10"
         android:textColor="#FFF" >
 
-        
+        <requestFocus />
     </MultiAutoCompleteTextView>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/multiAutoCompleteTextView1"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="85dp"
         android:onClick="addata"
         android:text="ADD" />
-
-    <Spinner
-        android:id="@+id/slots"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_alignTop="@+id/multiAutoCompleteTextView1"
-        android:layout_marginRight="109dp" />
 
 </RelativeLayout>
