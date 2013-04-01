@@ -13,21 +13,23 @@ import java.util.List;
 public class DataManipulator {
 	private static final  String DATABASE_NAME = "mydb.db";
 	private static final int DATABASE_VERSION = 1;
-	static final String TABLE_NAME = "campus";
+	static final String TABLE_NAME1 = "campus";
+	static final String TABLE_NAME2 = "notes";
 	private static Context context;
 	static SQLiteDatabase db;
 
 	private SQLiteStatement insertStmt;
-	private SQLiteStatement updateStmt;
 	
-    private static final String INSERT = "insert into "
-		+ TABLE_NAME + " (course,slot,bunk) values (?,?,?)";
+    private static final String INSERT1 = "insert into "
+		+ TABLE_NAME1 + " (course,slot,bunk) values (?,?,?)";
+    private static final String INSERT2 = "insert into "
+    		+ TABLE_NAME2 + " (title,notes) values (?,?)";
 
 	public DataManipulator(Context context) {
 		DataManipulator.context = context;
 		OpenHelper openHelper = new OpenHelper(DataManipulator.context);
 		DataManipulator.db = openHelper.getWritableDatabase();
-		this.insertStmt = DataManipulator.db.compileStatement(INSERT);
+		this.insertStmt = DataManipulator.db.compileStatement(INSERT1);
 
 	}
 	public long insert(String course,String slot,String bunk) {
@@ -37,22 +39,26 @@ public class DataManipulator {
 		return this.insertStmt.executeInsert();
 	}
 	
+	public void insertnote(String title, String note)
+	{
+		db.execSQL("insert into "+TABLE_NAME2+" (title,notes) values ('" + title + "','" + note + "')");
+	}
 	public void update(String idval , String newval)
 	{
 		ContentValues val=new ContentValues();
 		val.put("bunk", newval);
-		db.update(TABLE_NAME, val, String.format("%s = ?", "id"), new String[]{idval});
+		db.update(TABLE_NAME1, val, String.format("%s = ?", "id"), new String[]{idval});
 	}
 
 	public void deleteAll() {
-		db.delete(TABLE_NAME, null, null);
+		db.delete(TABLE_NAME1, null, null);
 	}
 
 	public List<String[]> selectAll()
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME, new String[] { "id", "course","slot","bunk"},
+		Cursor cursor = db.query(TABLE_NAME1, new String[] { "id", "course","slot","bunk"},
 				null, null, null, null, "slot asc"); 
 
 		int x=0;
@@ -73,9 +79,28 @@ public class DataManipulator {
 		return list;
 	}
 
+	
+	public List<String[]> selectAllnotes()
+	{
+		List<String[]> list = new ArrayList<String[]>();
+		Cursor cursor=db.query(TABLE_NAME2, new String[] {"id","title","notes"}, null, null, null, null, null);
+		if(cursor.moveToFirst())
+		{
+		do
+		{
+			String[] b = new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)};
+			list.add(b);
+		}while(cursor.moveToNext());
+		
+		}
+		cursor.close();
+		return list;
+		
+				}
 
-	public void delete(int rowId) {
-		db.delete(TABLE_NAME, null, null); 
+	
+	public void deletenote(String note){
+		db.delete(TABLE_NAME2, String.format("%s=?","notes"), new String[]{note});
 	}
 
 
@@ -88,12 +113,14 @@ public class DataManipulator {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
 			onCreate(db);
 		}
 	}

@@ -21,11 +21,11 @@ public class notedata extends ListActivity{
 	static final int DIALOG_ID = 0;
 	
 	List<String> slots=new ArrayList<String>();
-	private DataManip dh;   
+	private DataManipulator dh;   
 	String message;
 	TextView selection;
 	public int idToModify; 
-	DataManip dm;
+	DataManipulator dm;
 
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;
@@ -37,8 +37,8 @@ public class notedata extends ListActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notes);
 		
-				  dm = new DataManip(this);
-		      names2 = dm.selectAll();
+				  dm = new DataManipulator(this);
+		      names2 = dm.selectAllnotes();
 		      stg1=new String[names2.size()]; 
 		      stg2=new String[names2.size()];
 
@@ -79,12 +79,23 @@ public class notedata extends ListActivity{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(message)
 			.setCancelable(false)
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			.setPositiveButton("BACK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
 					notedata.this.finish();
-
-              }
+				}})
+			.setNegativeButton("DELETE",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dm.deletenote(message);
+					notedata.this.finish();
+					
+				}
 			});
+
+              
+			
 						AlertDialog alert = builder.create(); 
 			dialog = alert;
 			break;

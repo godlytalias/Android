@@ -43,8 +43,8 @@
         android:layout_below="@+id/textView2"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPostalAddress" />
+        android:ems="40"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/button1"
@@ -55,5 +55,7 @@
         android:layout_centerHorizontal="true"
         android:onClick="save"
         android:text="Save" />
+
+    
 
 </RelativeLayout>

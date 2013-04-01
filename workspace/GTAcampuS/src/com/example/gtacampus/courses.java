@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class courses extends Activity {
 	
 	List<String> slots=new ArrayList<String>();
 	
-	MultiAutoCompleteTextView mv;
+	EditText mv;
 	private DataManipulator dh;     
 	static final int DIALOG_ID = 0;
 	
@@ -38,7 +39,7 @@ public class courses extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.course);
-		mv=(MultiAutoCompleteTextView) findViewById(R.id.multiAutoCompleteTextView1);
+		mv=(EditText) findViewById(R.id.et);
 		mv.setHint("Enter the course");
 		Spinner slotspin=(Spinner)findViewById(R.id.slots);
 		slots.add("Select Slot");
@@ -73,7 +74,7 @@ public class courses extends Activity {
 		List<String[]> names2 =null ;
 		DataManipulator dm = new DataManipulator(this);
 	      names2 = dm.selectAll();
-		mv=(MultiAutoCompleteTextView)findViewById(R.id.multiAutoCompleteTextView1);
+		mv=(EditText)findViewById(R.id.et);
 		Text1=mv.getText().toString();
 		Spinner spin = (Spinner)findViewById(R.id.slots);
 		Text2 = String.valueOf(spin.getSelectedItem());

@@ -18,26 +18,18 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/slots"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_alignBottom="@+id/multiAutoCompleteTextView1"
-        android:layout_alignParentRight="true" />
+    
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/multiAutoCompleteTextView1"
+    <EditText
+        android:id="@+id/et"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="52dp"
         android:layout_toLeftOf="@+id/slots"
-        android:ems="10"
-        android:textColor="#FFF" >
+        android:textColor="#FFF" />
 
-        <requestFocus />
-    </MultiAutoCompleteTextView>
 
     <Button
         android:id="@+id/button1"
@@ -48,5 +40,12 @@
         android:layout_marginBottom="85dp"
         android:onClick="addata"
         android:text="ADD" />
+
+    <Spinner
+        android:id="@+id/slots"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/et"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

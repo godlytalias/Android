@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+	<!-- Single menu item 
+		 Set id, icon and Title for each menu item
+	-->
+    <item android:id="@+id/about"
+        	android:layout_width="300dp"
+        	android:layout_height="100dp"
+    	  android:icon="@drawable/about"
+          android:title="About Application" />
+    
+   
+    
+    <item android:id="@+id/exit"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:icon="@drawable/ic_close"
+        android:title="Exit"/>
+    
+   
+    
+</menu>

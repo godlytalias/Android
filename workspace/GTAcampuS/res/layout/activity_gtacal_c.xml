@@ -23,7 +23,7 @@
         <Button
         android:id="@+id/num1"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_below="@id/text"
         android:background="@drawable/button"
@@ -36,7 +36,7 @@
     <Button
         android:id="@+id/num4"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@id/num1"
         android:layout_below="@id/num1"
         android:layout_marginTop="12dp"
@@ -46,7 +46,7 @@
         <Button
         android:id="@+id/num7"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_below="@id/num4"
         android:layout_alignLeft="@id/num4"
         android:layout_marginTop="12dp"
@@ -69,7 +69,7 @@
     <Button
         android:id="@+id/num0"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:background="@drawable/button"
         android:layout_alignBaseline="@id/clear"
         android:layout_alignBottom="@id/clear"
@@ -167,7 +167,7 @@
     <Button
         android:id="@+id/num5"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignBaseline="@id/num4"
         android:layout_alignBottom="@id/num4"
         android:layout_alignLeft="@id/num0"
@@ -177,7 +177,7 @@
     <Button
         android:id="@+id/num8"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignBaseline="@id/num7"
         android:layout_alignBottom="@id/num7"
         android:layout_alignLeft="@id/num5"
@@ -186,7 +186,7 @@
     <Button
         android:id="@+id/num9"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignBaseline="@id/num8"
         android:layout_alignBottom="@id/num8"
         android:layout_alignRight="@id/equal"
@@ -197,7 +197,7 @@
      <Button
         android:id="@+id/num2"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignLeft="@id/num5"
         android:layout_below="@id/text"
         android:background="@drawable/button"
@@ -219,7 +219,7 @@
      <Button
         android:id="@+id/num6"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:background="@drawable/button"
         android:layout_alignBaseline="@id/num5"
         android:layout_alignBottom="@id/num5"
@@ -230,7 +230,7 @@
      <Button
         android:id="@+id/num3"
         android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:layout_alignBaseline="@id/num2"
         android:layout_alignBottom="@id/num2"
         android:layout_alignLeft="@id/num6"

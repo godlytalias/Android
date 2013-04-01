@@ -18,7 +18,7 @@ public class addnote extends Activity{
 	static final int DIALOG_ID = 0;
 	String message;
 	
-	private DataManip dh;     
+	private DataManipulator dh;     
 	
 	
 	List<String> notes=new ArrayList<String>();
@@ -37,8 +37,8 @@ public class addnote extends Activity{
 		Text1=t1.getText().toString();
 		t2=(EditText)findViewById(R.id.editText2);
 		Text2=t2.getText().toString();
-		this.dh = new DataManip(this);
-		this.dh.insert(Text1,Text2);
+		this.dh = new DataManipulator(this);
+		this.dh.insertnote(Text1,Text2);
 		
 		Intent backtonotes=new Intent(this,notedata.class);
 		startActivity(backtonotes);

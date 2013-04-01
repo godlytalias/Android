@@ -78,7 +78,7 @@ public class GTAcalC extends Activity {
 		        
 		
 		textchange= (TextView)findViewById(R.id.text);
-		textchange.setHint("Welcome\n\n");
+		textchange.setHint("Welcome,  GTAcalC v1.0\n\n");
 		numbers[0]=0.0;
 
 		numzero = (Button)findViewById(R.id.num0);
