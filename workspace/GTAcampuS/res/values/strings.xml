@@ -4,5 +4,6 @@
     <string name="app_name">GTAcampuS</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="alarmtitle">Choose the time for alarm</string>
 
 </resources>
