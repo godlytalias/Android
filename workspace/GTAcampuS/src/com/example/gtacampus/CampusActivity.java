@@ -21,20 +21,42 @@ public class CampusActivity extends Activity {
 	
 	private static final int DIALOG_ID = 0;
 	MediaPlayer mediaplayer;
-
+	private Thread splashscreen;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_campus);
-		 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
+		
+	/*	 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
 		 mediaplayer.start();
 		while(mediaplayer.getCurrentPosition()<1600)
 		{
 			
 		}
 			mediaplayer.stop();
-			mediaplayer.release();
+			mediaplayer.release();*/
+		
+		splashscreen = new Thread() {
+		@Override
+		public void run()
+		{
+			try{
+				synchronized(this){
+					
+					wait(3000);
+				}
 			}
+			catch(Exception e){}
+			finally{
+			finish();
+			}
+		}
+		};
+		setContentView(R.layout.activity_gtacal_c);
+		splashscreen.start();
+		setContentView(R.layout.activity_campus);
+		}
+		
+			
 	
 	public void Calculator(View v)
 	{
