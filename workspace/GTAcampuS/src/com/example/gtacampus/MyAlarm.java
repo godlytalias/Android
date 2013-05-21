@@ -32,21 +32,12 @@ public class MyAlarm extends Service{
 	@Override
 	public void onStart(Intent i,int startId)
 	{
+		action(i);
 		try{
 			wl.release();
 		}
 		catch(Exception e){}
-		Calendar mycal= Calendar.getInstance();
-		 mycal.set(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0), i.getIntExtra("hour", 0), i.getIntExtra("minute", 0), 0);
 		
-		Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
-		PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent1,
-				PendingIntent.FLAG_UPDATE_CURRENT);
-	
-		@SuppressWarnings("static-access")
-		AlarmManager am = (AlarmManager) this.getSystemService(this
-				.getApplicationContext().ALARM_SERVICE);
-		am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),sender);
 			}
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -59,4 +50,34 @@ public class MyAlarm extends Service{
 		
 	}*/
 
+	public void action(Intent i)
+	{
+		String actiontodo= i.getAction();
+		if(actiontodo.equals("setalarm"))
+			setalarm(i);
+		if(actiontodo.equals("launchalarm"))
+			launchalarm(i);
+	}
+	
+	public void setalarm(Intent i)
+		{
+			Calendar mycal= Calendar.getInstance();
+			 mycal.set(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0), i.getIntExtra("hour", 0), i.getIntExtra("minute", 0), 0);
+			
+			Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
+			PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent1,
+					PendingIntent.FLAG_UPDATE_CURRENT);
+		
+			@SuppressWarnings("static-access")
+			AlarmManager am = (AlarmManager) this.getSystemService(this
+					.getApplicationContext().ALARM_SERVICE);
+			am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),sender);
+		}
+	
+	public void launchalarm(Intent i)
+	{
+		Intent notif = new Intent(getBaseContext(),alarmnotif.class);
+		notif.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_FROM_BACKGROUND);
+		startActivity(notif);
+	}
 }

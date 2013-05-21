@@ -45,11 +45,11 @@ public final class R {
         public static final int slot=0x7f020010;
     }
     public static final class id {
-        public static final int about=0x7f0a0030;
-        public static final int action_settings=0x7f0a0040;
+        public static final int about=0x7f0a0031;
+        public static final int action_settings=0x7f0a0041;
         public static final int add=0x7f0a0016;
-        public static final int alarmdate=0x7f0a002c;
-        public static final int alarmtime=0x7f0a002b;
+        public static final int albutton1=0x7f0a002c;
+        public static final int albutton2=0x7f0a002d;
         public static final int analogClock1=0x7f0a0000;
         public static final int button1=0x7f0a002a;
         public static final int clear=0x7f0a0013;
@@ -59,12 +59,12 @@ public final class R {
         public static final int editText1=0x7f0a0028;
         public static final int editText2=0x7f0a0029;
         public static final int equal=0x7f0a0015;
-        public static final int et=0x7f0a002e;
-        public static final int exit=0x7f0a0031;
+        public static final int et=0x7f0a002f;
+        public static final int exit=0x7f0a0032;
         public static final int exp=0x7f0a0023;
-        public static final int frip=0x7f0a003d;
+        public static final int frip=0x7f0a003e;
         public static final int gcd=0x7f0a0019;
-        public static final int heading=0x7f0a0032;
+        public static final int heading=0x7f0a0033;
         public static final int imageButton1=0x7f0a0001;
         public static final int imageButton2=0x7f0a0003;
         public static final int imageButton3=0x7f0a0005;
@@ -72,10 +72,10 @@ public final class R {
         public static final int imageButton5=0x7f0a0009;
         public static final int imageButton6=0x7f0a000b;
         public static final int imageButton7=0x7f0a000d;
-        public static final int imageView1=0x7f0a003e;
+        public static final int imageView1=0x7f0a003f;
         public static final int log=0x7f0a001f;
-        public static final int mon=0x7f0a0034;
-        public static final int monp=0x7f0a0039;
+        public static final int mon=0x7f0a0035;
+        public static final int monp=0x7f0a003a;
         public static final int mul=0x7f0a0017;
         public static final int num0=0x7f0a0014;
         public static final int num1=0x7f0a0010;
@@ -87,10 +87,11 @@ public final class R {
         public static final int num7=0x7f0a0012;
         public static final int num8=0x7f0a001c;
         public static final int num9=0x7f0a001d;
-        public static final int progressBar1=0x7f0a003f;
-        public static final int selection2=0x7f0a002d;
+        public static final int progressBar1=0x7f0a0040;
+        public static final int rootlayout=0x7f0a002b;
+        public static final int selection2=0x7f0a002e;
         public static final int sin=0x7f0a0022;
-        public static final int slots=0x7f0a002f;
+        public static final int slots=0x7f0a0030;
         public static final int sqrt=0x7f0a0027;
         public static final int sub=0x7f0a0018;
         public static final int tan=0x7f0a0026;
@@ -102,14 +103,14 @@ public final class R {
         public static final int textView5=0x7f0a000a;
         public static final int textView6=0x7f0a000c;
         public static final int textView7=0x7f0a000e;
-        public static final int thu=0x7f0a0037;
-        public static final int thup=0x7f0a003c;
-        public static final int time=0x7f0a0033;
-        public static final int time2=0x7f0a0038;
-        public static final int tue=0x7f0a0035;
-        public static final int tuep=0x7f0a003a;
-        public static final int wed=0x7f0a0036;
-        public static final int wedp=0x7f0a003b;
+        public static final int thu=0x7f0a0038;
+        public static final int thup=0x7f0a003d;
+        public static final int time=0x7f0a0034;
+        public static final int time2=0x7f0a0039;
+        public static final int tue=0x7f0a0036;
+        public static final int tuep=0x7f0a003b;
+        public static final int wed=0x7f0a0037;
+        public static final int wedp=0x7f0a003c;
     }
     public static final class layout {
         public static final int activity_campus=0x7f030000;

@@ -1,10 +1,17 @@
 package com.example.gtacampus;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.PowerManager;
+import android.sax.StartElementListener;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 public class MyAlarmBrdcst extends BroadcastReceiver
@@ -18,5 +25,10 @@ public class MyAlarmBrdcst extends BroadcastReceiver
 		Toast.makeText(context, "Alarm Started", Toast.LENGTH_SHORT).show();
 		MediaPlayer mediaplayer= MediaPlayer.create(context, R.raw.sundaychurch);
 		 mediaplayer.start();
+		 Intent i = new Intent(context,MyAlarm.class);
+		 i.setAction("launchalarm");
+		 context.startService(i);
 	}
 }
+
+

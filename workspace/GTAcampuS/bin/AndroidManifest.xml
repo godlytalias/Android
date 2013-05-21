@@ -9,6 +9,7 @@
         android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
 
     <application
         android:allowBackup="true"
@@ -33,6 +34,7 @@
         <activity android:name="bunkom"></activity>
         <receiver android:name="MyAlarmBrdcst"></receiver>
         <service android:name="MyAlarm"></service>
+        <activity android:name="alarmnotif" android:launchMode="singleInstance" android:theme="@android:style/Theme.Dialog"></activity>
         
     </application>
 

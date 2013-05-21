@@ -111,7 +111,7 @@ public class CampusActivity extends Activity {
 			alintent.putExtra("day", day);
 			alintent.putExtra("hour", hour);
 			alintent.putExtra("minute", Minute);
-			
+			alintent.setAction("setalarm");
 			startService(alintent);
 		}
 	};
@@ -140,7 +140,6 @@ public class CampusActivity extends Activity {
 		{
 		case R.id.exit:
 			this.finish();
-			System.exit(0);
 			break;
 		
 		case R.id.about:

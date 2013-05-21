@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="100dp"
+    android:orientation="horizontal" 
+    android:id="@+id/rootlayout">
 
-    <TimePicker
-        android:id="@+id/alarmtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+   
 
-    <DatePicker
-        android:id="@+id/alarmdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/alarmtime"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="19dp" />
+    <Button
+        android:id="@+id/albutton1"
+        android:layout_width="145dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rect"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="SNOOZE"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+    
+    
+     <Button
+        android:id="@+id/albutton2"
+        android:layout_width="145dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rect"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="STOP"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+</LinearLayout>
