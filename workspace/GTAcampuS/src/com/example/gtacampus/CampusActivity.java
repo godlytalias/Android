@@ -1,11 +1,10 @@
 package com.example.gtacampus;
 
 import java.util.Calendar;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,10 +15,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TimePicker;
 
-public class CampusActivity extends Activity {
+public class CampusActivity extends ListActivity {
 	
 	private static final int DIALOG_ID = 0;
 	private static final int ALARM_DIALOG_TIME=1;
@@ -27,14 +28,17 @@ public class CampusActivity extends Activity {
 	Calendar myCal;
 	public int Year,month,day,hour,Minute;
 	
-	
 	//MediaPlayer mediaplayer;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		setContentView(R.layout.activity_campus);
+		String[] functions = new String[]{"Calculator","Slots","Courses","Add Courses","Notes","Bunk-O-Meter","Alarm"};
+		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
+		this.setListAdapter(listadapter);
+
 	/*	 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
 		 mediaplayer.start();
 		while(mediaplayer.getCurrentPosition()<1600)
@@ -43,8 +47,7 @@ public class CampusActivity extends Activity {
 		}
 			mediaplayer.stop();
 			mediaplayer.release();*/
-		
-				setContentView(R.layout.activity_campus);
+
 		if(isUpgraded())
 		{
 			Intent i = new Intent(CampusActivity.this,Initialize.class);
@@ -178,6 +181,29 @@ public class CampusActivity extends Activity {
 			}
 		
 		return true;
+	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		switch(position)
+		{
+		case 0:Calculator(v);
+				break;
+		case 1:slotdisp(v);
+				break;
+		case 2:coursecheck(v);
+				break;
+		case 3:coursefn(v);
+				break;
+		case 4:notes(v);
+				break;
+		case 5:bunk(v);
+				break;
+		case 6:alarm(v);
+				break;
+		}
 	}
 	
 	
