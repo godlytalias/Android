@@ -1,12 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+    
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:id="@+id/linearlayout">
+  
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFF"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:id="@+id/alarmtitle"
+        android:text="@string/alarm_title"
+        android:textSize="25sp"
+        android:textIsSelectable="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    
+    <TextView 
+        android:id="@+id/alerts"
+        android:textIsSelectable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+ <LinearLayout 
     android:layout_width="320dp"
     android:layout_height="100dp"
-    android:orientation="horizontal" 
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
     android:id="@+id/rootlayout">
-
-   
-
     <Button
         android:id="@+id/albutton1"
         android:layout_width="145dp"
@@ -14,11 +43,10 @@
         android:background="@drawable/rect"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="SNOOZE"
+        android:text="@string/snooze"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
-    
     
      <Button
         android:id="@+id/albutton2"
@@ -27,9 +55,9 @@
         android:background="@drawable/rect"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="STOP"
+        android:text="@string/stop"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
-
+</LinearLayout>
 </LinearLayout>

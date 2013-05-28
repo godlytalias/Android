@@ -15,30 +15,31 @@ public class DataManipulator {
 	private static final int DATABASE_VERSION = 1;
 	static final String TABLE_NAME1 = "campus";
 	static final String TABLE_NAME2 = "notes";
+	static final String TABLE_NAME3 = "alarms";
 	private static Context context;
+	OpenHelper openHelper;
+	ContentValues alarm;
 	static SQLiteDatabase db;
-
-	private SQLiteStatement insertStmt;
-	
-    private static final String INSERT1 = "insert into "
-		+ TABLE_NAME1 + " (course,slot,bunk) values (?,?,?)";
-    private static final String INSERT2 = "insert into "
-    		+ TABLE_NAME2 + " (title,notes) values (?,?)";
 
 	public DataManipulator(Context context) {
 		DataManipulator.context = context;
-		OpenHelper openHelper = new OpenHelper(DataManipulator.context);
+		openHelper = new OpenHelper(DataManipulator.context);
 		DataManipulator.db = openHelper.getWritableDatabase();
-		this.insertStmt = DataManipulator.db.compileStatement(INSERT1);
-
-	}
-	public long insert(String course,String slot,String bunk) {
-		this.insertStmt.bindString(1, course);
-		this.insertStmt.bindString(2, slot);
-		this.insertStmt.bindString(3, bunk);
-		return this.insertStmt.executeInsert();
 	}
 	
+	
+	public void insert(String course,String slot,String bunk) {
+		ContentValues cval = new ContentValues();
+		cval.put("course", course);
+		cval.put("slot", slot);
+		cval.put("bunk", bunk);
+		db.insert(TABLE_NAME1, null, cval);
+	}
+	
+	public void close()
+	{
+		openHelper.close();
+	}
 	public void insertnote(String title, String note)
 	{
 		db.execSQL("insert into "+TABLE_NAME2+" (title,notes) values ('" + title + "','" + note + "')");
@@ -98,6 +99,21 @@ public class DataManipulator {
 		
 				}
 
+	public long alarmsave(int year, int month, int day, int hour,int minute)
+	{
+		alarm = new ContentValues();
+		alarm.put("hour", hour);
+		alarm.put("minute", minute);
+		alarm.put("year", year);
+		alarm.put("month", month);
+		alarm.put("day",day);
+		return db.insert(TABLE_NAME3, null, alarm);
+	}
+	
+	public Cursor fetchalarms()
+	{
+		return db.query(TABLE_NAME3, null, null, null, null, null, null);
+	}
 	
 	public void deletenote(String note){
 		db.delete(TABLE_NAME2, String.format("%s=?","notes"), new String[]{note});
@@ -115,12 +131,14 @@ public class DataManipulator {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER)");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
 			onCreate(db);
 		}
 	}

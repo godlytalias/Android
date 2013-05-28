@@ -153,25 +153,24 @@
         android:text="Bunk-O-meter"
         android:textAppearance="?android:attr/textAppearanceSmall" />
      
-     <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignLeft="@id/imageButton1"
-        android:layout_below="@id/imageButton5"
-        android:layout_marginTop="60dp"
-        android:onClick="alarm"
-        android:src="@drawable/ic_bunk" />
-     
      <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton1"
+        android:layout_alignLeft="@+id/imageButton7"
         android:layout_below="@id/imageButton7"
         android:layout_marginLeft="12dp"
 		android:textColor="#FFF"
         android:text="Alarm"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+     <ImageButton
+         android:id="@+id/imageButton7"
+         android:layout_width="70dp"
+         android:layout_height="70dp"
+         android:layout_alignTop="@+id/imageButton2"
+         android:layout_centerHorizontal="true"
+         android:onClick="alarm"
+         android:src="@drawable/ic_bunk" />
 
 </RelativeLayout></ScrollView>

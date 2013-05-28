@@ -1,12 +1,15 @@
 package com.example.gtacampus;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ProgressBar;
 
 
 public class splash extends Activity{
@@ -18,7 +21,7 @@ public class splash extends Activity{
 		super.onCreate(savedInstanceState);
 		fade = AnimationUtils.loadAnimation(this, R.anim.magfade);
 		setContentView(R.layout.splashscr);
-		findViewById(R.id.textView1).startAnimation(fade);
+		findViewById(R.id.appimage).startAnimation(fade);
 		splashscreen = new Thread() {
 			@Override
 			public void run()
@@ -45,4 +48,6 @@ public class splash extends Activity{
 		getMenuInflater().inflate(R.layout.menu, menu);
 		return true;
 	}
+	
+		
 }

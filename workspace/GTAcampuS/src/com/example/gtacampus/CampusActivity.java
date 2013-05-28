@@ -1,7 +1,5 @@
 package com.example.gtacampus;
 
-import java.io.ObjectOutputStream.PutField;
-import java.sql.Date;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -9,18 +7,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.media.MediaPlayer;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class CampusActivity extends Activity {
@@ -28,12 +24,9 @@ public class CampusActivity extends Activity {
 	private static final int DIALOG_ID = 0;
 	private static final int ALARM_DIALOG_TIME=1;
 	private static final int ALARM_DIALOG_DATE = 2;
-	Calendar myCal = Calendar.getInstance();
-	public int Year = myCal.get(Calendar.YEAR);
-	public int month= myCal.get(Calendar.MONTH);
-	public int day = myCal.get(Calendar.DAY_OF_MONTH);
-	public int hour = myCal.get(Calendar.HOUR);
-	public int Minute = myCal.get(Calendar.MINUTE);
+	Calendar myCal;
+	public int Year,month,day,hour,Minute;
+	
 	
 	//MediaPlayer mediaplayer;
 
@@ -52,6 +45,11 @@ public class CampusActivity extends Activity {
 			mediaplayer.release();*/
 		
 				setContentView(R.layout.activity_campus);
+		if(isUpgraded())
+		{
+			Intent i = new Intent(CampusActivity.this,Initialize.class);
+			startActivity(i);
+		}
 		}
 		
 			
@@ -94,6 +92,12 @@ public class CampusActivity extends Activity {
 	
 	public void alarm(View v)
 	{
+		myCal = Calendar.getInstance();
+		Year  = myCal.get(Calendar.YEAR);
+	    month= myCal.get(Calendar.MONTH);
+		day = myCal.get(Calendar.DAY_OF_MONTH);
+		hour = myCal.get(Calendar.HOUR_OF_DAY);
+		Minute = myCal.get(Calendar.MINUTE);
 		showDialog(ALARM_DIALOG_TIME);
 							}
 	private DatePickerDialog.OnDateSetListener dateselector = new DatePickerDialog.OnDateSetListener() {
@@ -126,6 +130,31 @@ public class CampusActivity extends Activity {
 			showDialog(ALARM_DIALOG_DATE);
 		}
 	};
+	
+	public boolean isUpgraded(){
+		try{
+			SharedPreferences ver = getSharedPreferences("AutoAppLauncherPrefs", Context.MODE_PRIVATE);
+			int lastVer = ver.getInt("last_version", 0);
+			int curVer = getVer();
+			if(lastVer!=curVer){
+				SharedPreferences.Editor verEdit = ver.edit();
+				verEdit.putInt("last_version", curVer);
+				verEdit.commit();
+				return true;
+			}
+		}
+		catch(Exception e){e.printStackTrace();	}
+		return false;
+	}
+	
+	public int getVer(){
+		int version = 0;
+		try{
+			version=getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+			}
+		catch(NameNotFoundException e){}
+		return version;
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
