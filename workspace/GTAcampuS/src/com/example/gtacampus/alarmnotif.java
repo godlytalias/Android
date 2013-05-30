@@ -68,7 +68,7 @@ public class alarmnotif extends Activity{
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			// TODO Auto-generated method stub
-			if(event.values[0]>10.0)
+			if(event.values[0]>12.0)
 			{
 				Intent i = new Intent(getBaseContext(),MyAlarm.class);
 				i.setAction("snooze");

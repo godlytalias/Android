@@ -1,40 +1,28 @@
-<RelativeLayout  xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:animateLayoutChanges="true"
-    android:background="#22000000"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CampusActivity" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:drawable/screen_background_dark"
+        android:orientation="horizontal">
 
         <AnalogClock
         android:id="@+id/analogClock1"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@android:id/list"
-        android:layout_marginLeft="98dp" />
-        
+        android:layout_marginLeft="50dp" />
     <ListView
+        android:layout_marginLeft="50dp"
         android:id="@android:id/list"
+        style="@style/ListTheme"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="140dp"
-        android:layout_toRightOf="@id/analogClock1"
-        android:background="@drawable/ic_launcher"
+        android:background="@drawable/book"
         android:drawSelectorOnTop="false"
         android:divider="#333"
-        android:dividerHeight="1dp"
-        style="bold"
-        android:listSelector="#d70"
+        android:dividerHeight="2dp"
+        android:listSelector="@drawable/list_style"
         android:smoothScrollbar="false" >
 
     </ListView>
 
-
-
-</RelativeLayout>
+</LinearLayout>

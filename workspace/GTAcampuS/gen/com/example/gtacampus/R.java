@@ -27,24 +27,28 @@ public final class R {
     }
     public static final class drawable {
         public static final int about=0x7f020000;
-        public static final int button=0x7f020001;
-        public static final int calculator_icon=0x7f020002;
-        public static final int campus=0x7f020003;
-        public static final int course=0x7f020004;
-        public static final int gtacampus=0x7f020005;
-        public static final int ic_action_name=0x7f020006;
-        public static final int ic_bunk=0x7f020007;
-        public static final int ic_close=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int ic_note=0x7f02000a;
-        public static final int ic_notes=0x7f02000b;
-        public static final int ic_slot=0x7f02000c;
-        public static final int iconcourse=0x7f02000d;
-        public static final int myshape=0x7f02000e;
-        public static final int nitc=0x7f02000f;
-        public static final int rect=0x7f020010;
-        public static final int sgtacampus=0x7f020011;
-        public static final int slot=0x7f020012;
+        public static final int book=0x7f020001;
+        public static final int button=0x7f020002;
+        public static final int calculator_icon=0x7f020003;
+        public static final int campus=0x7f020004;
+        public static final int course=0x7f020005;
+        public static final int gtacampus=0x7f020006;
+        public static final int hand=0x7f020007;
+        public static final int ic_action_name=0x7f020008;
+        public static final int ic_bunk=0x7f020009;
+        public static final int ic_close=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int ic_note=0x7f02000c;
+        public static final int ic_notes=0x7f02000d;
+        public static final int ic_slot=0x7f02000e;
+        public static final int iconcourse=0x7f02000f;
+        public static final int list_style=0x7f020010;
+        public static final int myshape=0x7f020011;
+        public static final int nitc=0x7f020012;
+        public static final int notes=0x7f020013;
+        public static final int rect=0x7f020014;
+        public static final int sgtacampus=0x7f020015;
+        public static final int slot=0x7f020016;
     }
     public static final class id {
         public static final int about=0x7f0a0028;
@@ -168,5 +172,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int ListTheme=0x7f080002;
     }
 }

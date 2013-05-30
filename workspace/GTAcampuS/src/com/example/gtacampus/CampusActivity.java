@@ -35,9 +35,13 @@ public class CampusActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_campus);
+		ListView list = (ListView)findViewById(android.R.id.list);
+		list.setFocusable(false);
+		list.setScrollbarFadingEnabled(true);
 		String[] functions = new String[]{"Calculator","Slots","Courses","Add Courses","Notes","Bunk-O-Meter","Alarm"};
 		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
 		this.setListAdapter(listadapter);
+		
 
 	/*	 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
 		 mediaplayer.start();

@@ -27,7 +27,7 @@
             </intent-filter>
         </activity><activity
             android:name="com.example.gtacampus.CampusActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" android:theme="@android:style/Theme.WallpaperSettings" android:logo="@drawable/ic_launcher">
         </activity>
         <activity android:name="GTAcalC" android:theme="@style/AppBaseTheme"></activity>
         <activity android:name="Slot" android:screenOrientation="landscape"></activity>
@@ -38,7 +38,7 @@
         <activity android:name="bunkom"></activity>
         <receiver android:name="MyAlarmBrdcst"></receiver>
         <service android:name="MyAlarm" android:singleUser="false" android:enabled="true" android:stopWithTask="false" android:isolatedProcess="false"></service>
-        <activity android:name="alarmnotif" android:launchMode="singleInstance" android:theme="@android:style/Theme.Dialog" ></activity>
+        <activity android:name="alarmnotif" android:launchMode="singleInstance" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name="Initialize" android:theme="@android:style/Theme.Dialog"></activity>
         <receiver android:name="BootsetAlarm" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>

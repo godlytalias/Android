@@ -92,19 +92,21 @@ public class MyAlarm extends Service{
 	{
 		Cursor alarms = db.fetchalarms();
 		Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
-		setalarm= PendingIntent.getBroadcast(this, 0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
-		am.cancel(setalarm);
 		if(alarms!=null)
 		alarms.moveToFirst();
+		String toaster = new String();
 		while(!alarms.isAfterLast())
 		{
+			PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
 			mycal=Calendar.getInstance();
-			mycal.set(alarms.getInt(1), alarms.getInt(2), alarms.getInt(3), alarms.getInt(4), alarms.getInt(5), 0);
+			mycal.set(alarms.getInt(1), alarms.getInt(2), alarms.getInt(3), alarms.getInt(4), alarms.getInt(5));
 			am = (AlarmManager) this.getSystemService(this
 					.getApplicationContext().ALARM_SERVICE);
-			am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),setalarm);
+			am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),pendingalarms);
+			//toaster = toaster + String.format("%d %d %d %d %d\n", alarms.getInt(1), alarms.getInt(2), alarms.getInt(3), alarms.getInt(4), alarms.getInt(5));
 			alarms.moveToNext();
 		}
+	//	Toast.makeText(this, toaster, Toast.LENGTH_LONG).show();
 		alarms.close();
 	}
 	
