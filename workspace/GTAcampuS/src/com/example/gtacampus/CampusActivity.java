@@ -10,11 +10,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -34,6 +37,7 @@ public class CampusActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	    this.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
 		setContentView(R.layout.activity_campus);
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
@@ -59,7 +63,15 @@ public class CampusActivity extends ListActivity {
 		}
 		}
 		
-			
+	public void exit(View v)
+	{
+		this.finish();
+	}
+	
+	public void about(View v)
+	{
+		showDialog(DIALOG_ID);
+	}
 	
 	public void Calculator(View v)
 	{
@@ -99,44 +111,10 @@ public class CampusActivity extends ListActivity {
 	
 	public void alarm(View v)
 	{
-		myCal = Calendar.getInstance();
-		Year  = myCal.get(Calendar.YEAR);
-	    month= myCal.get(Calendar.MONTH);
-		day = myCal.get(Calendar.DAY_OF_MONTH);
-		hour = myCal.get(Calendar.HOUR_OF_DAY);
-		Minute = myCal.get(Calendar.MINUTE);
-		showDialog(ALARM_DIALOG_TIME);
+		Intent alarmintent = new Intent(CampusActivity.this,Alarmsetter.class);
+		startActivity(alarmintent);
 							}
-	private DatePickerDialog.OnDateSetListener dateselector = new DatePickerDialog.OnDateSetListener() {
-		
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
-			// TODO Auto-generated method stub
-			Year=year;
-			month=monthOfYear;
-			day=dayOfMonth;
-			Intent alintent=new Intent(CampusActivity.this,MyAlarm.class);
-			alintent.putExtra("year", Year);
-			alintent.putExtra("month", month);
-			alintent.putExtra("day", day);
-			alintent.putExtra("hour", hour);
-			alintent.putExtra("minute", Minute);
-			alintent.setAction("setalarm");
-			startService(alintent);
-		}
-	};
-	
-	private TimePickerDialog.OnTimeSetListener timeselector = new TimePickerDialog.OnTimeSetListener() {
-		
-		@Override
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO Auto-generated method stub
-			hour=hourOfDay;
-			Minute=minute;
-			showDialog(ALARM_DIALOG_DATE);
-		}
-	};
+
 	
 	public boolean isUpgraded(){
 		try{
@@ -229,23 +207,7 @@ public class CampusActivity extends ListActivity {
 	 dialog=alert;
 		return dialog;
 		
-		case ALARM_DIALOG_TIME:
-			return new TimePickerDialog(this, timeselector, hour, Minute, false);
-	
-		case ALARM_DIALOG_DATE:
-			/*
-			LayoutInflater inflate = this.getLayoutInflater();
-			AlertDialog.Builder alarmDialog = new AlertDialog.Builder(this);
-			alarmDialog.setTitle(R.string.alarmtitle)
-			.setView(inflate.inflate(R.layout.alarm, null))
-			.setPositiveButton("Set", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					Intent alintent=new Intent(CampusActivity.this,MyAlarm.class);
-					startActivity(alintent);});*/
-			return new DatePickerDialog(this,dateselector,Year,month,day);
+		
 				}
 			
 		return null;

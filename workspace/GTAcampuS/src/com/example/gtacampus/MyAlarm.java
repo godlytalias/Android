@@ -144,7 +144,7 @@ public class MyAlarm extends Service{
 			am = (AlarmManager) this.getSystemService(this
 					.getApplicationContext().ALARM_SERVICE);
 			am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),setalarm);
-			db.alarmsave(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0),i.getIntExtra("hour",0), i.getIntExtra("minute", 0));
+			db.alarmsave(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0),i.getIntExtra("hour",0), i.getIntExtra("minute", 0), i.getStringExtra("title"));
 		}
 	
 	public void launchalarm(Intent i)

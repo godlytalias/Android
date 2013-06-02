@@ -99,7 +99,7 @@ public class DataManipulator {
 		
 				}
 
-	public long alarmsave(int year, int month, int day, int hour,int minute)
+	public long alarmsave(int year, int month, int day, int hour,int minute,String title)
 	{
 		alarm = new ContentValues();
 		alarm.put("hour", hour);
@@ -107,6 +107,7 @@ public class DataManipulator {
 		alarm.put("year", year);
 		alarm.put("month", month);
 		alarm.put("day",day);
+		alarm.put("title", title);
 		return db.insert(TABLE_NAME3, null, alarm);
 	}
 	
@@ -131,7 +132,7 @@ public class DataManipulator {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
-			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT, year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT)");
 		}
 
 		@Override

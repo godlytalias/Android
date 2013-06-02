@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      
+      	<TextView android:id="@+id/android:empty"
+          android:gravity="center"
+          android:textColor="#FFF"
+          android:textStyle="bold"
+          android:layout_width="fill_parent"
+          android:textSize="18sp"
+          android:layout_height="wrap_content"
+          android:text="No Custom Alarms"/>
+    
+    <ListView android:id="@+id/android:list"
+          android:layout_height="wrap_content"
+          android:layout_width="fill_parent"/>
+    
+ <LinearLayout android:layout_width="fill_parent"
+     android:layout_height="50dp"
+     android:padding="2dp"
+     android:gravity="center"
+     android:background="#77888888"
+     android:layout_alignParentBottom="true"
+     android:orientation="horizontal">
+     
+    <Button 
+        android:id="@+id/add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="5dp" 
+        android:background="@drawable/rect" 
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:padding="2dp" 
+        android:text="New Task"></Button>
+    
+    <Button 
+        android:id="@+id/add_alarm"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="5dp" 
+        android:layout_marginRight="10dp"
+        android:layout_weight="1" 
+        android:background="@drawable/rect" 
+        android:textStyle="bold"
+        android:padding="2dp" 
+        android:text="New Alarm"></Button>
+    
+    
+    </LinearLayout> 
+</RelativeLayout>
