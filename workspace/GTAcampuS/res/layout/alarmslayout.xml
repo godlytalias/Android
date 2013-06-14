@@ -34,7 +34,7 @@
         android:textStyle="bold"
         android:layout_weight="1"
         android:padding="2dp" 
-        android:text="New Task"></Button>
+        android:text="New Task / Submission"></Button>
     
     <Button 
         android:id="@+id/add_alarm"
@@ -47,7 +47,7 @@
         android:background="@drawable/rect" 
         android:textStyle="bold"
         android:padding="2dp" 
-        android:text="New Alarm"></Button>
+        android:text="New Alarm / Extra-Class"></Button>
     
     
     </LinearLayout> 

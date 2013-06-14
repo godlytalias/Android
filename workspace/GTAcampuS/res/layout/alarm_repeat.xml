@@ -235,7 +235,7 @@
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Tuesday"></TextView>
+	    android:text="Thursday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 

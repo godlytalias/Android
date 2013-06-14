@@ -26,17 +26,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class AlarmOptions extends Activity {
-	Boolean alarmstatus=true,snooze=false,sh_snooze=true,sun=false,mon=false,tue=false,wed=false,thu=false,fri=false,sat=false;
+	Boolean alarmstatus=true,snooze=false,sh_snooze=true,mathsolver=false,sun=false,mon=false,tue=false,wed=false,thu=false,fri=false,sat=false;
 	int snoozetimeout,hour,minute,day,month,year,itemid,alarmid;
 	String AlarmTitle;
-	LinearLayout enable,title,time,repeat,disnooze,snoozetout,shake,titlechanger;
+	LinearLayout enable,title,time,repeat,disnooze,snoozetout,shake,titlechanger,mathprblm;
 	Button save,discard,delete;
 	Intent i;
 	SeekBar snoozetime;
 	TextView alarmrpt,alarmrptxt,snoozesel,altitle,t,alarmtime;
-	CheckBox en_alarm,dis_snooze,shake_mode;
+	CheckBox en_alarm,dis_snooze,shake_mode,mathchck;
 	EditText tit;
 	final int CHANGE_TITLE=0,CHANGE_DATE=1,CHANGE_TIME=2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -50,6 +51,7 @@ public class AlarmOptions extends Activity {
 		hour=i.getIntExtra("hour", Calendar.HOUR_OF_DAY);
 		minute=i.getIntExtra("minute", Calendar.MINUTE);
 		itemid=i.getIntExtra("itemid", 0);
+		
 		if(itemid==1)
 		{
 			alarmrpt.setText("Alarm Date");
@@ -85,6 +87,11 @@ public class AlarmOptions extends Activity {
 		snoozetime=(SeekBar)findViewById(R.id.snoozetime);
 		snoozetime.setProgress(snoozetimeout);
 		snoozetime.setOnSeekBarChangeListener(snoozetimechanged);
+		mathprblm=(LinearLayout) findViewById(R.id.ll_stopprblm);
+		mathsolver=i.getBooleanExtra("mathsolver", false);
+		mathchck = (CheckBox)findViewById(R.id.mathstop);
+		mathchck.setChecked(mathsolver);
+		mathprblm.setOnClickListener(en_solver);
 		disnooze = (LinearLayout) findViewById(R.id.ll_disablesnooze);
 		dis_snooze=(CheckBox)findViewById(R.id.disablesnooze);
 		snooze=(snoozetimeout>0)?true:false;
@@ -125,7 +132,8 @@ public class AlarmOptions extends Activity {
 			results.putExtra("alarmtitle", AlarmTitle);
 			results.putExtra("alarmstatus",alarmstatus);
 			results.putExtra("snoozetime", snoozetimeout);
-			results.putExtra("shake_mode", true);
+			results.putExtra("mathsolver", mathsolver);
+			results.putExtra("shake_mode", sh_snooze);
 			results.putExtra("sun", sun);
 			results.putExtra("mon", mon);
 			results.putExtra("tue", tue);
@@ -173,6 +181,16 @@ public class AlarmOptions extends Activity {
 		}
 	};
 	
+	final View.OnClickListener en_solver = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			mathchck.setChecked(!mathchck.isChecked());
+			mathsolver = mathchck.isChecked();
+		}
+	};
+	
 	final View.OnClickListener snoozeshake = new View.OnClickListener() {
 		
 		@Override
@@ -190,7 +208,7 @@ public class AlarmOptions extends Activity {
 			// TODO Auto-generated method stub
 			dis_snooze.setChecked(!dis_snooze.isChecked());
 			snooze=dis_snooze.isChecked();
-			if(!snooze)
+			if(snooze)
 				snoozetime.setProgress(0);
 		}
 	};
@@ -209,6 +227,13 @@ public class AlarmOptions extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			i = new Intent(AlarmOptions.this,AlarmRepeater.class);
+			i.putExtra("Sun",sun);
+			i.putExtra("Mon", mon);
+			i.putExtra("Tue", tue);
+			i.putExtra("Wed", wed);
+			i.putExtra("Thu", thu);
+			i.putExtra("Fri", fri);
+			i.putExtra("Sat", sat);
 			startActivityForResult(i, 1);
 		}
 	};
@@ -228,32 +253,32 @@ public class AlarmOptions extends Activity {
 	private void setxtinrpt(Intent data)
 	{CharSequence rptsq= " ";
 	
-		if(data.getBooleanExtra("sun", false))
+		if(data.getBooleanExtra("sun", true))
 		{
 			rptsq = "Sun - ";
 			sun=true;}
 		else sun=false;
-		if(data.getBooleanExtra("mon", false)){
+		if(data.getBooleanExtra("mon", true)){
 			rptsq = rptsq + "Mon - ";
 			mon=true;}
 		else mon=false;
-		if(data.getBooleanExtra("tue", false)){
+		if(data.getBooleanExtra("tue", true)){
 			rptsq = rptsq + "Tue - ";
 			tue=true;}
 		else tue=false;
-		if(data.getBooleanExtra("wed", false)){
+		if(data.getBooleanExtra("wed", true)){
 			rptsq = rptsq + "Wed - ";
 			wed=true;}
 		else wed=false;
-		if(data.getBooleanExtra("thu", false)){
+		if(data.getBooleanExtra("thu", true)){
 			rptsq = rptsq + "Thu - ";
 			thu=true;}
 		else thu=false;
-		if(data.getBooleanExtra("fri", false)){
+		if(data.getBooleanExtra("fri", true)){
 			rptsq = rptsq + "Fri - ";
 			fri=true;}
 		else fri=false;
-		if(data.getBooleanExtra("sat", false)){
+		if(data.getBooleanExtra("sat", true)){
 			rptsq = rptsq + "Sat";
 			sat=true;}
 		else sat=false;

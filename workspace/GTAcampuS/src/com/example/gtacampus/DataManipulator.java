@@ -4,6 +4,7 @@ package com.example.gtacampus;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,6 +38,7 @@ public class DataManipulator {
 		cval.put("bunk", bunk);
 		db.insert(TABLE_NAME1, null, cval);
 	}
+	
 	
 	public void close()
 	{
@@ -115,22 +117,26 @@ public class DataManipulator {
 		db.update(TABLE_NAME3, alarm, String.format("id=%d", alarmid), null);
 	}
 	
+	public void disablealarm(int alarmid){
+		db.execSQL("UPDATE " + TABLE_NAME3 + " SET status=0 WHERE id=" + alarmid);
+	}
 	
 	public ContentValues putvalues(Intent intent, ContentValues alarm){
 		alarm.put("hour",intent.getIntExtra("hour", Calendar.HOUR_OF_DAY));
 		alarm.put("minute",intent.getIntExtra("minute", Calendar.MINUTE));
 		alarm.put("title", intent.getStringExtra("alarmtitle"));
 		alarm.put("type", intent.getStringExtra("type"));
-		alarm.put("status", intent.getBooleanExtra("alarmstatus",true));
+		alarm.put("status", intent.getBooleanExtra("alarmstatus",true)?1:0);
 		alarm.put("snooze", intent.getIntExtra("snoozetime", 5));
-		alarm.put("shakemode", intent.getBooleanExtra("shake_mode", true));
-			alarm.put("sun", intent.getBooleanExtra("sun", false));
-			alarm.put("mon", intent.getBooleanExtra("mon", false));
-			alarm.put("tue", intent.getBooleanExtra("tue", false));
-			alarm.put("wed", intent.getBooleanExtra("wed", false));
-			alarm.put("thu", intent.getBooleanExtra("thu", false));
-			alarm.put("fri", intent.getBooleanExtra("fri", false));
-			alarm.put("sat", intent.getBooleanExtra("sat", false));
+		alarm.put("shakemode", intent.getBooleanExtra("shake_mode", true)?1:0);
+		alarm.put("mathsolver", intent.getBooleanExtra("mathsolver", false)?1:0);
+			alarm.put("sun", intent.getBooleanExtra("sun", false)?1:0);
+			alarm.put("mon", intent.getBooleanExtra("mon", false)?1:0);
+			alarm.put("tue", intent.getBooleanExtra("tue", false)?1:0);
+			alarm.put("wed", intent.getBooleanExtra("wed", false)?1:0);
+			alarm.put("thu", intent.getBooleanExtra("thu", false)?1:0);
+			alarm.put("fri", intent.getBooleanExtra("fri", false)?1:0);
+			alarm.put("sat", intent.getBooleanExtra("sat", false)?1:0);
 			alarm.put("day", intent.getIntExtra("day", Calendar.DAY_OF_MONTH));
 			alarm.put("month", intent.getIntExtra("month", Calendar.MONTH));
 			alarm.put("year", intent.getIntExtra("year", Calendar.YEAR));
@@ -142,6 +148,10 @@ public class DataManipulator {
 	{
 		return db.query(TABLE_NAME3, null, null, null, null, null, null);
 	}
+	
+	public Cursor fetchenabledalarms()
+	{
+		return db.query(TABLE_NAME3, null, "status=?", new String[]{"1"}, null, null, null);}
 	
 	public void deletenote(String note){
 		db.delete(TABLE_NAME2, String.format("%s=?","notes"), new String[]{note});
@@ -161,8 +171,8 @@ public class DataManipulator {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
-			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT, type TEXT, status BOOLEAN, snooze INTEGER, shakemode BOOLEAN, sun BOOLEAN,mon BOOLEAN,tue BOOLEAN, wed BOOLEAN,thu BOOLEAN, fri BOOLEAN,sat BOOLEAN)");
-		}
+			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT, type TEXT, status INTEGER, snooze INTEGER, shakemode INTEGER, mathsolver INTEGER, sun INTEGER,mon INTEGER,tue INTEGER, wed INTEGER,thu INTEGER, fri INTEGER,sat INTEGER)");
+		}												//0										1				2				3			4				5			6			7			8				9				10					11
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

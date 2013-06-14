@@ -1,6 +1,9 @@
 package com.example.gtacampus;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +16,7 @@ public class AlarmRepeater extends Activity {
 	private Button done,cancel;
 	private LinearLayout all,week,sun,mon,tue,wed,thu,fri,sat;
 	private CheckBox c_all,c_week,c_sun,c_mon,c_tue,c_wed,c_thu,c_fri,c_sat;
+	final int REPEAT=0;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,10 +47,7 @@ public class AlarmRepeater extends Activity {
 		sat=(LinearLayout)findViewById(R.id.repeat_saturday);
 		sat.setOnClickListener(sel_sat); 
 		
-		c_all=(CheckBox)findViewById(R.id.all_check);
-		c_all.setChecked(i.getBooleanExtra("all", false));
-		c_week=(CheckBox)findViewById(R.id.week_check);
-		c_week.setChecked(i.getBooleanExtra("week", false));
+		
 		c_sun=(CheckBox)findViewById(R.id.sun_check);
 		c_sun.setChecked(i.getBooleanExtra("Sun", false));
 		c_mon=(CheckBox)findViewById(R.id.mon_check);
@@ -61,6 +62,10 @@ public class AlarmRepeater extends Activity {
 		c_fri.setChecked(i.getBooleanExtra("Fri", false));
 		c_sat=(CheckBox)findViewById(R.id.sat_check);
 		c_sat.setChecked(i.getBooleanExtra("Sat", false));
+		c_all=(CheckBox)findViewById(R.id.all_check);
+		c_all.setChecked(c_sun.isChecked() && c_mon.isChecked() && c_tue.isChecked() && c_wed.isChecked() && c_thu.isChecked() && c_fri.isChecked() && c_sat.isChecked());
+		c_week=(CheckBox)findViewById(R.id.week_check);
+		c_week.setChecked((!c_sun.isChecked()) && c_mon.isChecked() && c_tue.isChecked() && c_wed.isChecked() && c_thu.isChecked() && c_fri.isChecked() && !c_sat.isChecked());
 		
 
 		
@@ -73,15 +78,18 @@ public class AlarmRepeater extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent repeat = new Intent();
-			repeat.putExtra("Sun", c_sun.isChecked());
-			repeat.putExtra("Mon", c_mon.isChecked());
-			repeat.putExtra("Tue", c_tue.isChecked());
-			repeat.putExtra("Wed", c_wed.isChecked());
-			repeat.putExtra("Thu", c_thu.isChecked());
-			repeat.putExtra("Fri", c_fri.isChecked());
-			repeat.putExtra("Sat", c_sat.isChecked());
-			setResult(Activity.RESULT_OK, repeat);
-			finish();
+			repeat.putExtra("sun", c_sun.isChecked());
+			repeat.putExtra("mon", c_mon.isChecked());
+			repeat.putExtra("tue", c_tue.isChecked());
+			repeat.putExtra("wed", c_wed.isChecked());
+			repeat.putExtra("thu", c_thu.isChecked());
+			repeat.putExtra("fri", c_fri.isChecked());
+			repeat.putExtra("sat", c_sat.isChecked());
+			if(c_sun.isChecked() || c_mon.isChecked() || c_tue.isChecked() || c_wed.isChecked() || c_thu.isChecked() || c_fri.isChecked() || c_sat.isChecked())
+			{setResult(Activity.RESULT_OK, repeat);
+			finish();}
+			else
+				showDialog(REPEAT);
 		}
 	};
 	
@@ -206,4 +214,23 @@ final View.OnClickListener sel_sat = new View.OnClickListener() {
 			c_all.setChecked(false);
 		}
 	};
+	
+	protected final Dialog onCreateDialog(final int id){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		switch(id)
+		{
+		case REPEAT :
+			alert.setMessage("Atleast one day should be\nselected for an alarm")
+			.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+				   dialog.dismiss();
+				}
+			} )
+			.setCancelable(false);
+		}
+		return alert.create();
+	}
 }

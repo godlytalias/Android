@@ -270,6 +270,47 @@
 			
 </LinearLayout>
 
+
+<LinearLayout android:focusable="true" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:layout_height="wrap_content" 
+    android:gravity="center_vertical" 
+    android:id="@+id/ll_stopprblm"
+    android:padding="10dp" 
+    android:minHeight="80dp">
+
+<LinearLayout android:layout_height="wrap_content" 
+    android:orientation="vertical" 
+    android:layout_width="wrap_content" 
+    android:layout_weight="1">
+
+<TextView android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:textSize="18sp" 
+     android:textColor="#FFF" 
+     android:layout_weight="1" 
+     android:text="Math problem on stop">
+				</TextView>
+
+<TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Check this option to stop the alarm by solving a math problem"></TextView>
+
+</LinearLayout>
+				
+<CheckBox android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:focusable="false" 
+    android:focusableInTouchMode="false" 
+    android:clickable="false"
+    android:id="@+id/mathstop"></CheckBox>
+			
+</LinearLayout>
+
+
 </LinearLayout>
 </ScrollView>
 

@@ -126,8 +126,8 @@ public class Alarmsetter extends ListActivity {
 		if(resultCode==Activity.RESULT_OK)
 		{
 			if(data.getStringExtra("operation").equals("delete"))
-				showDialog(DELETE_ALARM);
-		
+				 showDialog(DELETE_ALARM);
+				
 			else
 			{
 			if(requestCode==2)
@@ -137,8 +137,11 @@ public class Alarmsetter extends ListActivity {
 				db.alarmupdate(data,alarmid);
 		
 		initlist();
+		Intent i = new Intent(getBaseContext(),MyAlarm.class);
+		i.setAction("setalarm");
+		startService(i);
 			}
-		
+			
 		}
 	};
 	
@@ -211,6 +214,9 @@ public class Alarmsetter extends ListActivity {
 					// TODO Auto-generated method stub
 					db.deletealarm(alarmid);
 					initlist();
+					Intent i = new Intent(getBaseContext(),MyAlarm.class);
+					i.setAction("setalarm");
+					startService(i);
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -244,18 +250,19 @@ public class Alarmsetter extends ListActivity {
 		if(alarms.getString(7).equals("alarm"))
 			itemid=0;
 		else itemid=1;
-		
+
 		alintent.putExtra("itemid", itemid);
 		alintent.putExtra("alarmstat", !(alarms.getInt(8)==0));
 		alintent.putExtra("snoozetime", alarms.getInt(9));
 		alintent.putExtra("shake_snooze", (alarms.getInt(10)!=0));
-		alintent.putExtra("sun", !(alarms.getInt(11)==0));
-		alintent.putExtra("mon", !(alarms.getInt(12)==0));
-		alintent.putExtra("tue", !(alarms.getInt(13)==0));
-		alintent.putExtra("wed", !(alarms.getInt(14)==0));
-		alintent.putExtra("thu", !(alarms.getInt(15)==0));
-		alintent.putExtra("fri", !(alarms.getInt(16)==0));
-		alintent.putExtra("sat", !(alarms.getInt(17)==0));
+		alintent.putExtra("mathsolver", !(alarms.getInt(11)==0));
+		alintent.putExtra("sun", !(alarms.getInt(12)==0));
+		alintent.putExtra("mon", !(alarms.getInt(13)==0));
+		alintent.putExtra("tue", !(alarms.getInt(14)==0));
+		alintent.putExtra("wed", !(alarms.getInt(15)==0));
+		alintent.putExtra("thu", !(alarms.getInt(16)==0));
+		alintent.putExtra("fri", !(alarms.getInt(17)==0));
+		alintent.putExtra("sat", !(alarms.getInt(18)==0));
 		startActivityForResult(alintent, 3);
 	}
 }
