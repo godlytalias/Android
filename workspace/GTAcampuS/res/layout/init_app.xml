@@ -1,44 +1,171 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_coursetimingmain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    android:id="@+id/initialize"
     android:background="#000000" >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:text="@string/init_text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-   <LinearLayout android:layout_width="wrap_content"
+    
+    <View android:layout_width="fill_parent"
+    android:layout_height="2dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+    
+   <LinearLayout android:id="@+id/ll_alarmtiming1"
+       android:layout_width="wrap_content"
+       android:layout_gravity="center|center_horizontal"
+       android:gravity="center"
        android:layout_height="wrap_content"
-       android:layout_weight="2"
+       android:padding="10dp"
+       android:layout_marginTop="70dp"
+       android:orientation="horizontal">
+       
+       <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text = "Enter the no: of class hours in a day "
+        android:textStyle="bold"
+        android:textColor="#0f0"
+        android:textSize="20sp"/>
+       
+      <Spinner android:id="@+id/classhours"
+          android:layout_weight="1"
+          android:textAlignment="viewStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/hourvalues" /> 
+   </LinearLayout>
+   
+   <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+   
+  <LinearLayout android:id="@+id/ll_alarmtiming2"
+      android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:padding="10dp"
+       android:layout_gravity="right"
+       android:orientation="horizontal"> 
+       
+         <Button
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:onClick="skip"
+       android:text="SKIP"/>
+   
+   <Button android:id="@+id/next"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:drawableRight="@drawable/nextbutton"
+       android:text="GO  "/>
+       </LinearLayout>
+       
+  <LinearLayout
+      android:id="@+id/ll_classtimings"
+      android:layout_width="fill_parent"
+       android:layout_height="match_parent"
+       android:padding="10dp"
+       android:visibility="invisible"
+       android:orientation="vertical">
+   
+      <LinearLayout
+      android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:padding="10dp"
+       android:orientation="horizontal">
+       
+          <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#0f0"
+        android:text = "ENTER THE TIMING OF "
+        android:textSize="20sp"/>
+          
+          <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timeseltext"
+        android:textStyle="bold"
+        android:textColor="#0f0"
+        android:text = ""
+        android:textSize="20sp"/>
+          
+          <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#0f0"
+        android:text = " HOUR"
+        android:textSize="20sp"/>
+          
+          </LinearLayout>
+          
+<View android:layout_width="fill_parent"
+    android:layout_height="2dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+   
+      <LinearLayout
+      android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
        android:padding="10dp"
        android:orientation="horizontal">
        
        <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Enter the daily no: of class hours      "
+        android:text = "Start Time      "
         android:textSize="18sp"/>
-       
-       <Spinner android:id="@+id/classhours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/hourvalues" />
-   </LinearLayout>
    
-   <TextView android:layout_weight="1"
+      <Spinner android:id="@+id/classtimings1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:text="Provide the timings of each hour"/>
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:entries="@array/hours"/>
+      </LinearLayout>
+      
+      <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+      
+      <LinearLayout
+      android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:padding="10dp"
+       android:orientation="horizontal">
        
+       <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "End Time       "
+        android:textSize="18sp"/>
+   
+      <Spinner android:id="@+id/classtimings2"
+          android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:entries="@array/hours"/>
+      </LinearLayout>
+      
+         <Button android:id="@+id/timingdone"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="left"
+       android:drawableRight="@drawable/nextbutton"
+       android:text="NEXT  "/>
+   
+      </LinearLayout>
        
+  
    </LinearLayout>

@@ -39,7 +39,7 @@ public class MyAlarm extends Service{
 	Notification alarmnotification;
 	NotificationManager alarmnotifier;
 	private int ALARM_NOTIFICATION =10;
-	private final Handler alarmhandler = new Handler();
+	
 	
 	@Override
 	public void onCreate() {
@@ -107,12 +107,18 @@ public class MyAlarm extends Service{
 			
 			if(nxt_time!=0)
 			pushalarm(nxt_time, pendingalarms);
+					
 	}
 	
 	public void snoozealarm()
 	{
 		SharedPreferences alpref=getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-	long snoozetime = System.currentTimeMillis() + ((alpref.getInt("alarmsnooze", 5))*60000);
+		long snoozetime = System.currentTimeMillis() + ((alpref.getInt("alarmsnooze", 5))*60000);
+		snoozealarm(snoozetime);
+		}
+	
+	public void snoozealarm(long snoozetime)
+	{
 	Intent i = new Intent(this,MyAlarmBrdcst.class);
 	setalarm = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 	am.cancel(setalarm);
@@ -185,13 +191,16 @@ public class MyAlarm extends Service{
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/4, AudioManager.FLAG_VIBRATE);
 		playalarmtone();
-		alarmhandler.post(alarmdialog);
+		Thread alarmhandler = new Thread(alarmdialog);
+		alarmhandler.start();
 	}
 	
 	private Ringtone getalarmtone(){
 		Ringtone r = null;
+		
 		try{
-			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+			//r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("content://com.example.gtacampus/res/raw/sundaychurch"));
 			r.setStreamType(AudioManager.STREAM_ALARM);
 		}
 		catch(Exception e){
@@ -261,14 +270,11 @@ public class MyAlarm extends Service{
 		alert.setDaemon(true);
 		alert.start();
 		 Thread volume = new Thread(volup);
+		 volume.setDaemon(true);
 		 volume.start();
 	}
 	
-	public void wakesnooze()
-	{
 		
-	}
-	
 	public int getday(int day, int dayofweek, ContentValues week){
 		while(true){
 		if(dayofweek==Calendar.SUNDAY){

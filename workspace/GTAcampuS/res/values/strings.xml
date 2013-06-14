@@ -3,7 +3,7 @@
     <string name="app_name">GTAcampuS</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="init_text">Please provide the following details to initialize the application. If you skip this step default values will be used for the slots and timings.</string>
+    <string name="init_text">PLEASE PROVIDE THE FOLLOWING DETAILS TO INITIALIZE THE APPLICATION. IF YOU SKIP THIS STEP DEFAULT VALUES WILL BE USED FOR CLASS TIMINGS. PLEASE SPEND SOME TIME TO INITIALIZE THE APPLICATION.</string>
     <string name="rights">All rights reserved</string>
     <string name="copyright">Copyright © 2013</string>
     <string name="developer">Developed by Godly T.Alias</string>
@@ -21,6 +21,49 @@
         <item >8</item>
         <item >9</item>
         <item >10</item>
+    </string-array>
+    <string-array name="hours">
+        <item >8:00 AM</item>
+        <item >8:15 AM</item>
+        <item >8:30 AM</item>
+        <item >8:45 AM</item>
+        <item >9:00 AM</item>
+        <item >9:15 AM</item>
+        <item >9:30 AM</item>
+        <item >9:45 AM</item>
+        <item >10:00 AM</item>
+        <item >10:15 AM</item>
+        <item >10:30 AM</item>
+        <item >10:45 AM</item>
+        <item >11:00 AM</item>
+        <item >11:15 AM</item>
+        <item >11:30 AM</item>
+        <item >11:45 AM</item>
+        <item >12:00 PM</item>
+        <item >12:15 PM</item>
+        <item >12:30 PM</item>
+        <item >12:45 PM</item>
+        <item >1:00 PM</item>
+        <item >1:15 PM</item>
+        <item >1:30 PM</item>
+        <item >1:45 PM</item>
+        <item >2:00 PM</item>
+        <item >2:15 PM</item>
+        <item >2:30 PM</item>
+        <item >2:45 PM</item>
+        <item >3:00 PM</item>
+        <item >3:15 PM</item>
+        <item >3:30 PM</item>
+        <item >3:45 PM</item>
+        <item >4:00 PM</item>
+        <item >4:15 PM</item>
+        <item >4:30 PM</item>
+        <item >4:45 PM</item>
+        <item >5:00 PM</item>
+        <item >5:15 PM</item>
+        <item >5:30 PM</item>
+        <item >5:45 PM</item>
+        <item >6:00 PM</item>
     </string-array>
 
 </resources>

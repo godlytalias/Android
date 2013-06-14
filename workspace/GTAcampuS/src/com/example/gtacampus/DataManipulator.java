@@ -19,6 +19,7 @@ public class DataManipulator {
 	static final String TABLE_NAME1 = "campus";
 	static final String TABLE_NAME2 = "notes";
 	static final String TABLE_NAME3 = "alarms";
+	static final String TABLE_NAME4 = "courses";
 	private static Context context;
 	OpenHelper openHelper;
 	ContentValues alarm;
@@ -99,10 +100,24 @@ public class DataManipulator {
 		}while(cursor.moveToNext());
 		
 		}
-		cursor.close();
+		cursor.close(); 
 		return list;
 		
 				}
+	
+	public void coursetableinit(int column)
+	{
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
+		int i;
+		String columnstring;
+		columnstring="DAY_ID INTEGER PRIMARY KEY AUTOINCREMENT, ";
+		for(i=1;i<column;i++)
+		{
+			columnstring=columnstring+ "HOUR" + i + " TEXT, ";
+		}
+		columnstring = columnstring + "HOUR" + i + " TEXT";
+		db.execSQL("CREATE TABLE " + TABLE_NAME4 + " (" + columnstring + " )");
+	}
 
 	public void alarmsave(Intent intent)
 	{
@@ -154,6 +169,51 @@ public class DataManipulator {
 	{
 		return db.query(TABLE_NAME3, null, "status=?", new String[]{"1"}, null, null, null);}
 	
+	public void coursetimings(String[] array,int size)
+	{
+		ContentValues values = new ContentValues();
+		int i=0;
+		for(i=1;i<=size;i++)
+		{
+			values.put("HOUR"+i, array[i]);
+		}
+		db.insert(TABLE_NAME4, null, values);
+	}
+	
+	public void initdays(int size)
+	{
+		ContentValues courses = new ContentValues();
+		for(int i=1;i<=size;i++)
+		{
+			courses.put("HOUR"+i, " - ");
+		}
+		for(int i=0;i<5;i++)
+		db.insert(TABLE_NAME4, null, courses);
+	}
+	
+	public Cursor slotstat()
+	{
+		return db.query(TABLE_NAME4, null, "DAY_ID > 2", null, null,null , null);
+	}
+	
+	public String[] gettimings()
+	{
+		Cursor time = db.query(TABLE_NAME4, null, null, null, null, null, null, "2");
+		int i = time.getColumnCount()-1;
+		String[] timings = new String[i];
+		int j;
+		
+		for(j=0;j<i;j++)
+		{
+			time.moveToFirst();
+			timings[j]=time.getString(j+1);
+			time.moveToNext();
+			timings[j]=timings[j]+" - " + time.getString(j+1);
+		}
+		time.close();
+		return timings;
+	}
+	
 	public void deletenote(String note){
 		db.delete(TABLE_NAME2, String.format("%s=?","notes"), new String[]{note});
 	}
@@ -180,6 +240,7 @@ public class DataManipulator {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
 			onCreate(db);
 		}
 	}

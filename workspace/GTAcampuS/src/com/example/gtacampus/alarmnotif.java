@@ -89,6 +89,7 @@ public class alarmnotif extends Activity{
 				alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 				if(!getIntent().getBooleanExtra("snoozingstat", false))
 				snoozeit();
+				shakesensor.unregisterListener(shakelistener, shake);
 				finish();
 			}
 		}
@@ -131,6 +132,7 @@ public class alarmnotif extends Activity{
 			alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 			if(!getIntent().getBooleanExtra("snoozingstat", false))
 			snoozeit();
+			shakesensor.unregisterListener(shakelistener, shake);
 			finish();
 		}
 	};
@@ -138,8 +140,8 @@ public class alarmnotif extends Activity{
 	private void snoozeit()
 	{
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-		Notification snoozenotify = new Notification(R.drawable.ic_launcher,"Snoozing!" + alarmpref.getString("alarmtitle", "Custom Alert"),System.currentTimeMillis());
-		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), "snoozing...", alarmnotification);
+		Notification snoozenotify = new Notification(R.drawable.ic_launcher,"Snoozing!.. " + alarmpref.getString("alarmtitle", "Custom Alert"),System.currentTimeMillis());
+		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), " snoozing...", alarmnotification);
 		alarmnotifier.notify("GTACampuS",SNOOZE_NOTIFICATION, snoozenotify);
 		SharedPreferences.Editor alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 		alarmdet.putString("alarmdetails", "snoozing...");
@@ -188,6 +190,7 @@ public class alarmnotif extends Activity{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			shakesensor.unregisterListener(shakelistener, shake);
 			if(alarmpref.getBoolean("alarmmath", false))
 			{
 				Thread volume = new Thread(volup);

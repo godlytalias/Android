@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -140,13 +141,13 @@ public class Alarmsetter extends ListActivity {
 				db.alarmupdate(data,alarmid);
 		
 		initlist();
-		db.close();
 		Intent i = new Intent(getBaseContext(),MyAlarm.class);
 		i.setAction("setalarm");
 		startService(i);
 			}
 			
 		}
+		db.close();
 	};
 	
 	protected final Dialog onCreateDialog(final int id)
@@ -239,11 +240,14 @@ public class Alarmsetter extends ListActivity {
 		}
 		return null;
 	}
+	
+	
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
+		
 		db = new DataManipulator(Alarmsetter.this);
 		alarms = db.fetchalarms();
 		alarms.moveToPosition(position);
@@ -273,6 +277,7 @@ public class Alarmsetter extends ListActivity {
 		alintent.putExtra("fri", !(alarms.getInt(17)==0));
 		alintent.putExtra("sat", !(alarms.getInt(18)==0));
 		startActivityForResult(alintent, 3);
+		
 		alarms.close();
 		db.close();
 	}
