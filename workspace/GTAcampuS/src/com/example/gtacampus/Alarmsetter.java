@@ -33,7 +33,6 @@ public class Alarmsetter extends ListActivity {
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmslayout);
-		db = new DataManipulator(this);
 		initlist();
 		myCal = Calendar.getInstance();
 		Year  = myCal.get(Calendar.YEAR);
@@ -54,8 +53,10 @@ public class Alarmsetter extends ListActivity {
 		alarms.close();
 		db.close();
 	}
+
 	
 	private void initlist(){
+		db = new DataManipulator(this);
 		alarms = db.fetchalarms();
 		String[] alarmlist = new String[alarms.getCount()];
 		alarmdetails = new ContentValues[alarms.getCount()];
@@ -72,6 +73,8 @@ public class Alarmsetter extends ListActivity {
 		ArrayAdapter<String> alarmadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,alarmlist);
 		this.setListAdapter(alarmadapter);
 		}
+		alarms.close();
+		db.close();
 	}
 	
 	private View.OnClickListener setalarm = new View.OnClickListener() {
@@ -122,7 +125,7 @@ public class Alarmsetter extends ListActivity {
 	};
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+		db=new DataManipulator(this);
 		if(resultCode==Activity.RESULT_OK)
 		{
 			if(data.getStringExtra("operation").equals("delete"))
@@ -137,6 +140,7 @@ public class Alarmsetter extends ListActivity {
 				db.alarmupdate(data,alarmid);
 		
 		initlist();
+		db.close();
 		Intent i = new Intent(getBaseContext(),MyAlarm.class);
 		i.setAction("setalarm");
 		startService(i);
@@ -186,6 +190,7 @@ public class Alarmsetter extends ListActivity {
 					alintent.putExtra("minute", Minute);
 					alintent.putExtra("itemid", itemid);
 					startActivityForResult(alintent, 2);
+					alarms.close();
 				}
 			})
 			
@@ -212,8 +217,10 @@ public class Alarmsetter extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					db = new DataManipulator(Alarmsetter.this);
 					db.deletealarm(alarmid);
 					initlist();
+					db.close();
 					Intent i = new Intent(getBaseContext(),MyAlarm.class);
 					i.setAction("setalarm");
 					startService(i);
@@ -237,6 +244,8 @@ public class Alarmsetter extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
+		db = new DataManipulator(Alarmsetter.this);
+		alarms = db.fetchalarms();
 		alarms.moveToPosition(position);
 		Intent alintent=new Intent(Alarmsetter.this,AlarmOptions.class);
 		alarmid = alarms.getInt(0);
@@ -264,5 +273,7 @@ public class Alarmsetter extends ListActivity {
 		alintent.putExtra("fri", !(alarms.getInt(17)==0));
 		alintent.putExtra("sat", !(alarms.getInt(18)==0));
 		startActivityForResult(alintent, 3);
+		alarms.close();
+		db.close();
 	}
 }

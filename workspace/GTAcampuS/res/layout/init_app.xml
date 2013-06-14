@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:id="@+id/initialize"
     android:background="#000000" >
 
     <TextView
         android:id="@+id/textView1"
+        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="22dp"
         android:textColor="#FFFFFF"
         android:text="@string/init_text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+   <LinearLayout android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_weight="2"
+       android:padding="10dp"
+       android:orientation="horizontal">
+       
+       <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Enter the daily no: of class hours      "
+        android:textSize="18sp"/>
+       
+       <Spinner android:id="@+id/classhours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/hourvalues" />
+   </LinearLayout>
    
-
-</RelativeLayout>
+   <TextView android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:text="Provide the timings of each hour"/>
+       
+       
+   </LinearLayout>

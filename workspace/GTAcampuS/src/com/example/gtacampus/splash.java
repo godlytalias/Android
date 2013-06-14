@@ -8,8 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 public class splash extends Activity{
@@ -21,6 +24,7 @@ public class splash extends Activity{
 		super.onCreate(savedInstanceState);
 		fade = AnimationUtils.loadAnimation(this, R.anim.magfade);
 		setContentView(R.layout.splashscr);
+		
 		findViewById(R.id.appimage).startAnimation(fade);
 		splashscreen = new Thread() {
 			@Override

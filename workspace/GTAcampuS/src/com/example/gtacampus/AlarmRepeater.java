@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class AlarmRepeater extends Activity {
 	
-	private Button done,cancel;
+	private Button done,cancel,settitle;
+	private EditText entertitle;
 	private LinearLayout all,week,sun,mon,tue,wed,thu,fri,sat;
 	private CheckBox c_all,c_week,c_sun,c_mon,c_tue,c_wed,c_thu,c_fri,c_sat;
 	final int REPEAT=0;
@@ -21,6 +23,9 @@ public class AlarmRepeater extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent i = getIntent();
+		
+		
+		if(i.getAction().equals("repeat")){
 		setContentView(R.layout.alarm_repeat);
 		setTitle("Repeat Alarm");
 		
@@ -69,7 +74,26 @@ public class AlarmRepeater extends Activity {
 		
 
 		
-
+	}
+		else if(i.getAction().equals("title"))
+		{
+			setContentView(R.layout.addtitle);
+			entertitle = (EditText) findViewById(R.id.getalarmtitle);
+			settitle = (Button) findViewById(R.id.settitle);
+			settitle.setOnClickListener(changingtitle);
+		}
+	};
+	
+	final View.OnClickListener changingtitle = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Intent data = new Intent();
+			data.putExtra("title", entertitle.getText().toString());
+			setResult(Activity.RESULT_OK, data);
+			finish();
+		}
 	};
 
 	final View.OnClickListener done_handler = new View.OnClickListener() {
@@ -91,6 +115,8 @@ public class AlarmRepeater extends Activity {
 			else
 				showDialog(REPEAT);
 		}
+		
+		
 	};
 	
 	final View.OnClickListener cancel_handler = new View.OnClickListener() {

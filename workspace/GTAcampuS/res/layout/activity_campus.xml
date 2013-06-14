@@ -10,22 +10,60 @@
     	android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        
+    <LinearLayout
+    	android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="60dp"
+        android:orientation="vertical">
 
         <AnalogClock
         android:id="@+id/analogClock1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="50dp" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="60dp"
+        android:layout_gravity="center|center_vertical" />
         
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="NEXT ALERT"
+            android:textColor="#0f0"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id = "@+id/alarm_title1"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:id = "@+id/alarm_title2"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:id = "@+id/alarm_title3"/>
+
+        </LinearLayout>
 
     <ListView
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/book"
         android:drawSelectorOnTop="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:divider="#333"
         android:dividerHeight="2dp"
         android:listSelector="@drawable/list_style"
@@ -39,20 +77,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
     
-    <ImageButton
+    <Button
             android:id="@+id/imageButton1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_close" 
+            android:background="@drawable/button_cancel" 
             android:onClick="exit"/>
     
-    <ImageButton
+    <Button
             android:id="@+id/imageButton2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/about" 
+            android:background="@drawable/about" 
             android:onClick="about"/>
     
 </LinearLayout>

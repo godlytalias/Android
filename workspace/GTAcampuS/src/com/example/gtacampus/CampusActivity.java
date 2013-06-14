@@ -21,6 +21,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 public class CampusActivity extends ListActivity {
@@ -39,6 +40,19 @@ public class CampusActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	    this.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
 		setContentView(R.layout.activity_campus);
+		
+		SharedPreferences alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE);
+		String details = alarmdet.getString("alarmdetails", "none");
+		if(!details.equals("none"))
+		{
+			TextView alarmdet1 = (TextView) findViewById(R.id.alarm_title1);
+			alarmdet1.setVisibility(View.VISIBLE);
+			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
+			TextView alarmdet2 = (TextView) findViewById(R.id.alarm_title2);
+			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
+			TextView alarmdet3 = (TextView) findViewById(R.id.alarm_title3);
+			alarmdet3.setText(details);
+		}
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
 		list.setScrollbarFadingEnabled(true);

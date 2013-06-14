@@ -43,6 +43,7 @@ public class DataManipulator {
 	public void close()
 	{
 		openHelper.close();
+		db.close();
 	}
 	public void insertnote(String title, String note)
 	{

@@ -2,6 +2,8 @@ package com.example.gtacampus;
 
 import java.util.Calendar;
 
+import org.w3c.dom.Text;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
@@ -10,10 +12,15 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.text.AndroidCharacter;
+import android.text.method.TextKeyListener;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -234,6 +241,7 @@ public class AlarmOptions extends Activity {
 			i.putExtra("Thu", thu);
 			i.putExtra("Fri", fri);
 			i.putExtra("Sat", sat);
+			i.setAction("repeat");
 			startActivityForResult(i, 1);
 		}
 	};
@@ -242,9 +250,15 @@ public class AlarmOptions extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		
-		if(resultCode==Activity.RESULT_OK && requestCode==1)
+		if(resultCode==Activity.RESULT_OK)
 		{
+			if(requestCode==1)
 			setxtinrpt(data);
+			if(requestCode==5)
+			{
+				AlarmTitle = data.getStringExtra("title");
+				altitle.setText(AlarmTitle);
+			}
 		}
 	};
 	
@@ -344,13 +358,20 @@ public class AlarmOptions extends Activity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			titlechanger = new LinearLayout(AlarmOptions.this);
-			t = new TextView(AlarmOptions.this);
+		/*	titlechanger = new LinearLayout(AlarmOptions.this);
+			LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			titlechanger.setLayoutParams(params);
+			t = new TextView(getBaseContext());
 			t.setText("Enter the Title   ");
 			tit= new EditText(AlarmOptions.this);
+			tit.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+			tit.setKeyListener(TextKeyListener.getInstance());
 			titlechanger.addView(t);
 			titlechanger.addView(tit);
-			showDialog(CHANGE_TITLE);
+			showDialog(CHANGE_TITLE);*/
+			Intent i = new Intent(getBaseContext(),AlarmRepeater.class);
+			i.setAction("title");
+			startActivityForResult(i, 5);
 		}
 	};
 	

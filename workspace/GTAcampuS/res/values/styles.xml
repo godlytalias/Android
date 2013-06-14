@@ -17,5 +17,16 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <style name="ListTheme" parent="android:Theme.Black"></style>
+    <style name="Menu_Button" parent="@android:style/Widget.Button">
+	<item name="android:layout_height">wrap_content</item>
+	<item name="android:paddingTop">10dp</item>
+	<item name="android:paddingBottom">5dp</item>
+	<item name="android:paddingLeft">5dp</item>
+	<item name="android:textColor">#fff</item>
+	<item name="android:background">@drawable/buttonstyle</item>
+	<item name="android:gravity">center_vertical|center_horizontal</item>
+	<item name="android:drawablePadding">0dp</item>
+	<item name="android:layout_width">fill_parent</item>    
+  </style>
 
 </resources>

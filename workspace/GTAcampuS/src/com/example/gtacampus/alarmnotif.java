@@ -17,6 +17,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.renderscript.Type;
@@ -64,10 +65,10 @@ public class alarmnotif extends Activity{
 		bt2.setOnClickListener(stopalarm);
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
 		alarmnotifier = (NotificationManager)getSystemService(getBaseContext().NOTIFICATION_SERVICE);
-		Notification alarmnotify = new Notification(R.drawable.ic_launcher, getString(R.string.alarm_title), System.currentTimeMillis());
+		Notification alarmnotify = new Notification(R.drawable.ic_launcher, alarmpref.getString("alarmtitle", "Custom Alert"), System.currentTimeMillis());
 		if(!i.getBooleanExtra("snoozingstat", false))
 		{
-		alarmnotify.setLatestEventInfo(getBaseContext(), "GTAcampuS", getText(R.string.alarm_title), alarmnotification);
+		alarmnotify.setLatestEventInfo(getBaseContext(), "GTAcampuS", alarmpref.getString("alarmtitle", "Custom Alert"), alarmnotification);
 		alarmnotify.deleteIntent = alarmnotification;
 		alarmnotify.flags=Notification.FLAG_SHOW_LIGHTS | Notification.DEFAULT_VIBRATE ;
 		alarmnotifier.notify("GTAcampuS", ALARM_NOTIFICATION, alarmnotify);}
@@ -136,9 +137,13 @@ public class alarmnotif extends Activity{
 	
 	private void snoozeit()
 	{
-		Notification snoozenotify = new Notification(R.drawable.ic_launcher,getString(R.string.alarm_title),System.currentTimeMillis());
-		snoozenotify.setLatestEventInfo(getBaseContext(), getString(R.string.alarm_title), "snoozing...", alarmnotification);
+		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
+		Notification snoozenotify = new Notification(R.drawable.ic_launcher,"Snoozing!" + alarmpref.getString("alarmtitle", "Custom Alert"),System.currentTimeMillis());
+		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), "snoozing...", alarmnotification);
 		alarmnotifier.notify("GTACampuS",SNOOZE_NOTIFICATION, snoozenotify);
+		SharedPreferences.Editor alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
+		alarmdet.putString("alarmdetails", "snoozing...");
+		alarmdet.commit();
 	}
 	
 	private void stoppingalarm(){
@@ -150,10 +155,33 @@ public class alarmnotif extends Activity{
 		{
 			alarmnotifier.cancel("GTACampuS",SNOOZE_NOTIFICATION);
 		}
+		if(alarmpref.getString("alarmtype", "alarm").equals("task")){
 		DataManipulator db = new DataManipulator(this);
 		db.disablealarm(alarmpref.getInt("alarmid", -1));
+		db.close();}
 		finish();
 	}
+	
+	private Runnable volup = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
+			int cur_vol,max_vol;
+			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+			cur_vol=max_vol/6;
+			while(cur_vol<max_vol){
+				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
+				cur_vol++;
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}}
+	};
 	
 	private View.OnClickListener stopalarm = new View.OnClickListener() {
 		
@@ -161,7 +189,10 @@ public class alarmnotif extends Activity{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(alarmpref.getBoolean("alarmmath", false))
-				showDialog(MATH_ALARM);
+			{
+				Thread volume = new Thread(volup);
+				 volume.start();
+				showDialog(MATH_ALARM);}
 			else
 				stoppingalarm();
 		}
@@ -183,7 +214,9 @@ public class alarmnotif extends Activity{
 		eq.setTextSize(30);
 		num2.setTextSize(30);
 		final EditText result = new EditText(this);
+		result.setWidth(50);
 		result.setTextSize(30);
+		result.requestFocus();
 		result.setInputType(EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_DATETIME_VARIATION_NORMAL);
 		num1.setText(no1 + "  ");
 		num2.setText(no2 + "  ");
