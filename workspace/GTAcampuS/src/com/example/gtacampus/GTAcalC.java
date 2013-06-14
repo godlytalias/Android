@@ -290,8 +290,7 @@ this.sqroot.setOnClickListener(new View.OnClickListener() {
 				{
 				if(gcdflag==0)
 				{
-			Toast.makeText(GTAcalC.this," SQUARE ROOT ",Toast.LENGTH_SHORT).show();
-				textchange.append("√");
+			textchange.append("√");
 				decflag=0;
 				opnptr[numptr]='s';
 			    numptr++;
@@ -321,7 +320,6 @@ this.power.setOnClickListener(new View.OnClickListener() {
 		{
 		if(gcdflag==0)
 		{
-		Toast.makeText(GTAcalC.this," RAISED TO ",Toast.LENGTH_SHORT).show();
 		textchange.append("^");
 		decflag=0;
 		opnptr[numptr]='^';
@@ -353,7 +351,6 @@ this.minus.setOnClickListener(new View.OnClickListener() {
 		if(gcdflag==0)
 		{
 		
-		Toast.makeText(GTAcalC.this," - ", Toast.LENGTH_SHORT).show();
 		textchange.append("-");
 		opnptr[numptr]='-';
 		numptr++;
@@ -385,7 +382,6 @@ this.product.setOnClickListener(new View.OnClickListener() {
 		{
 		if(gcdflag==0)
 		{
-		Toast.makeText(GTAcalC.this," * ", Toast.LENGTH_SHORT).show();
 		textchange.append("*");
 		opnptr[numptr]='*';
 		numptr++;
@@ -417,7 +413,6 @@ this.divide.setOnClickListener(new View.OnClickListener() {
 		{
 		if(gcdflag==0)
 		{
-		Toast.makeText(GTAcalC.this," / ", Toast.LENGTH_SHORT).show();
 		textchange.append("/");
 		opnptr[numptr]='/';
 		numptr++;
@@ -449,8 +444,7 @@ this.clr.setOnClickListener(new View.OnClickListener() {
 				{
 					System.exit(CONTEXT_INCLUDE_CODE);
 				}
-			Toast.makeText(GTAcalC.this," CLEARED ",Toast.LENGTH_SHORT).show();
-				textchange.setText("");
+			textchange.setText("");
 				textchange.setHint("");
 			
 				numptr=0;
@@ -691,7 +685,6 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 					}
 				catch(Exception e)
 				{
-					Toast.makeText(GTAcalC.this, "MATH ERROR", Toast.LENGTH_SHORT);
 					textchange.setText("Division by 0 not allowed!");
 				}
 				
@@ -774,7 +767,6 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 	}
 	catch(Exception e)
 	{
-		Toast.makeText(GTAcalC.this,"SYNTAX ERROR",Toast.LENGTH_LONG).show();
 		textchange.setText("SYNTAX ERROR");
 	}
 	}
@@ -788,8 +780,7 @@ this.plus.setOnClickListener(new View.OnClickListener() {
 		{
 		if(gcdflag==0)
 		{
-	Toast.makeText(GTAcalC.this," + ",Toast.LENGTH_LONG).show();
-		textchange.append("+");
+	textchange.append("+");
 		opnptr[numptr]='+';
 		numptr++;
 		numbers[numptr]=0.0;

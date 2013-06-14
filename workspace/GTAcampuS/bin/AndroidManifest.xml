@@ -52,6 +52,8 @@
             </intent-filter>
         </receiver>
         <activity android:name="Alarmsetter"></activity>
+        <activity android:name="AlarmOptions"></activity>
+        <activity android:name="AlarmRepeater"  android:theme="@android:style/Theme.InputMethod"></activity>
         
     </application>
 

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_height="fill_parent" 
+    android:layout_width="fill_parent" 
+    android:orientation="vertical">
+	
+	
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_weight="1">
+		
+<LinearLayout android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent">
+		
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:background="@android:drawable/dark_header">
+    
+    <TextView android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:textColor="#FFF" 
+        android:padding="2dp" 
+        android:textStyle="bold" 
+        android:text="Alarm Settings"></TextView>
+    
+    
+</LinearLayout>
+					
+<View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+<LinearLayout android:focusable="true" 
+    android:id = "@+id/ll_enablealarm"
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:layout_height="wrap_content" 
+    android:gravity="center_vertical" 
+    android:padding="10dp" 
+    android:minHeight="80dp">
+    
+    
+				<TextView android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:textSize="18sp" 
+				    android:textColor="#FFF"
+				    android:layout_weight="1" 
+				    android:text="Enable Alarm">
+				</TextView>
+				<CheckBox android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:id="@+id/enablealarm" 
+				    android:focusable="false" 
+				    android:clickable="false"
+				    android:focusableInTouchMode="false">
+				</CheckBox>
+			
+</LinearLayout><View android:layout_width="fill_parent" android:layout_height="1dip" android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+<LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:orientation="vertical" 
+    android:minHeight="80dp" 
+    android:id="@+id/ll_alarmtitle">
+				
+			<TextView android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:textColor="#FFF" 
+			    android:textSize="18sp" android:text="Alarm Title"></TextView>
+			
+			<TextView android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:text="Enter a title to be displayed" android:id="@+id/alarmtitle"></TextView>
+			
+</LinearLayout>
+
+<View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+<LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:id="@+id/ll_alarmtime"
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:orientation="vertical" 
+    android:minHeight="80dp">
+			
+ 
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18sp" 
+    android:textColor="#FFF" 
+    android:text="Alarm Time"></TextView>
+
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:id="@+id/alarmtime"></TextView>
+
+</LinearLayout>
+			
+<View android:layout_width="fill_parent" 
+    android:layout_height="1dip" 
+    android:background="@android:drawable/divider_horizontal_dark"></View>
+
+<LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dip" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:id="@+id/ll_repeat"
+    android:orientation="vertical" >
+
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="18sp" 
+    android:id="@+id/alarmsettings"
+    android:text="Repeat Settings"></TextView>
+
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:id="@+id/alarm_repeat"></TextView>
+</LinearLayout>	
+			
+<View android:layout_width="fill_parent" 
+    android:layout_height="1dip" 
+    android:background="@android:drawable/divider_horizontal_dark"></View>
+
+<LinearLayout android:layout_height="wrap_content" 
+    android:layout_width="fill_parent" 
+    android:background="@android:drawable/dark_header">
+
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:padding="2dip" 
+    android:textStyle="bold" 
+    android:text="Snooze Options"></TextView>
+</LinearLayout>
+
+<LinearLayout android:focusable="true" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:layout_height="wrap_content" 
+    android:gravity="center_vertical" 
+    android:id="@+id/ll_disablesnooze"
+    android:padding="10dp" 
+    android:minHeight="80dp">
+
+<LinearLayout android:layout_height="wrap_content" 
+    android:orientation="vertical" 
+    android:layout_width="wrap_content" 
+    android:layout_weight="1">
+
+<TextView android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:textSize="18sp" 
+     android:textColor="#FFF" 
+     android:layout_weight="1" 
+     android:text="Disable Snooze">
+				</TextView>
+
+<TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Check this option to disable snooze option of alarm"></TextView>
+
+</LinearLayout>
+				
+<CheckBox android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:focusable="false" 
+    android:focusableInTouchMode="false" 
+    android:clickable="false"
+    android:id="@+id/disablesnooze"></CheckBox>
+			
+</LinearLayout>
+
+<View android:layout_width="fill_parent" 
+    android:layout_height="1dp" 
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+<LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:id="@+id/ll_snoozetimeout"
+    android:orientation="vertical" 
+    android:minHeight="80dp" >
+	
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="18sp" 
+    android:text="Snooze Time-Out              ">
+    </TextView>
+
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="16sp" 
+    android:id = "@+id/snoozeseltime"
+    android:text="">
+    </TextView>
+
+    </LinearLayout>	
+<SeekBar android:layout_height="wrap_content"
+    android:layout_width = "fill_parent"
+    android:max="60"
+    android:progress="1"
+    android:secondaryProgress="1"
+    android:id="@+id/snoozetime"/>
+
+</LinearLayout>
+
+<LinearLayout android:focusable="true" 
+    android:orientation="horizontal" 
+    android:layout_width="fill_parent" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:layout_height="wrap_content" 
+    android:gravity="center_vertical" 
+    android:id="@+id/ll_shakesnooze"
+    android:padding="10dp" 
+    android:minHeight="80dp">
+
+<LinearLayout android:layout_height="wrap_content" 
+    android:orientation="vertical" 
+    android:layout_width="wrap_content" 
+    android:layout_weight="1">
+
+<TextView android:layout_width="wrap_content"
+     android:layout_height="wrap_content" 
+     android:textSize="18sp" 
+     android:textColor="#FFF" 
+     android:layout_weight="1" 
+     android:text="Snooze mode on shake">
+				</TextView>
+
+<TextView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Check this option to snooze the alarm by shaking the device"></TextView>
+
+</LinearLayout>
+				
+<CheckBox android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:focusable="false" 
+    android:focusableInTouchMode="false" 
+    android:clickable="false"
+    android:id="@+id/shakesnooze"></CheckBox>
+			
+</LinearLayout>
+
+</LinearLayout>
+</ScrollView>
+
+<LinearLayout android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:padding="2dp"
+     android:layout_weight="0.5"
+     android:gravity="center"
+     android:background="#77888888"
+     android:layout_alignParentBottom="true"
+     android:orientation="horizontal">
+     
+    <Button 
+        android:id="@+id/alarm_save"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="5dp" 
+        android:background="@drawable/myshape" 
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:padding="2dp" 
+        android:text="Save"></Button>
+    
+    <Button 
+        android:id="@+id/alarm_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="5dp" 
+        android:background="@drawable/myshape" 
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:padding="2dp" 
+        android:text="Delete"></Button>
+    
+    <Button 
+        android:id="@+id/alarm_cancel"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="5dp" 
+        android:layout_marginRight="10dp"
+        android:layout_weight="1" 
+        android:background="@drawable/myshape" 
+        android:textStyle="bold"
+        android:padding="2dp" 
+        android:text="Cancel"></Button>
+    
+    
+    </LinearLayout> 
+</LinearLayout>
+      

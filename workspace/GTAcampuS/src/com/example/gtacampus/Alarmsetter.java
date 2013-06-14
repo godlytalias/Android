@@ -2,11 +2,13 @@ package com.example.gtacampus;
 
 import java.util.Calendar;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,22 +16,49 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TimePicker;
 
 public class Alarmsetter extends ListActivity {
 	
 	Calendar myCal;
-	int Year,month,day,hour,Minute,count=0;
-	final int ALARM_DIALOG_TIME=0, ALARM_DIALOG_DATE=1,FINALIZE=2;
-	Button newalarm;
+	int Year,month,day,hour,Minute,count=0,itemid=0, alarmid=-1;
+	final int ALARM_DIALOG_TIME=0, ALARM_DIALOG_DATE=1,FINALIZE=2,DELETE_ALARM=3;
+	int[] ids;
+	Cursor alarms;
+	Button newalarm, newtask;
 	DataManipulator db;
+	ContentValues[] alarmdetails;
 	
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmslayout);
 		db = new DataManipulator(this);
-		Cursor alarms = db.fetchalarms();
+		initlist();
+		myCal = Calendar.getInstance();
+		Year  = myCal.get(Calendar.YEAR);
+	    month= myCal.get(Calendar.MONTH);
+		day = myCal.get(Calendar.DAY_OF_MONTH);
+		hour = myCal.get(Calendar.HOUR_OF_DAY);
+		Minute = myCal.get(Calendar.MINUTE);
+		newtask=(Button)findViewById(R.id.add_new);
+		newtask.setOnClickListener(settask);
+		newalarm = (Button)findViewById(R.id.add_alarm);
+		newalarm.setOnClickListener(setalarm);
+	};
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		alarms.close();
+		db.close();
+	}
+	
+	private void initlist(){
+		alarms = db.fetchalarms();
 		String[] alarmlist = new String[alarms.getCount()];
+		alarmdetails = new ContentValues[alarms.getCount()];
 		if(alarms!=null)
 		{
 			alarms.moveToFirst();
@@ -42,23 +71,24 @@ public class Alarmsetter extends ListActivity {
 			}
 		ArrayAdapter<String> alarmadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,alarmlist);
 		this.setListAdapter(alarmadapter);
-		alarms.close();
 		}
-		myCal = Calendar.getInstance();
-		Year  = myCal.get(Calendar.YEAR);
-	    month= myCal.get(Calendar.MONTH);
-		day = myCal.get(Calendar.DAY_OF_MONTH);
-		hour = myCal.get(Calendar.HOUR_OF_DAY);
-		Minute = myCal.get(Calendar.MINUTE);
-		newalarm=(Button)findViewById(R.id.add_new);
-		newalarm.setOnClickListener(setalarm);
-	};
+	}
 	
 	private View.OnClickListener setalarm = new View.OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			itemid=0;
+			showDialog(ALARM_DIALOG_TIME);
+		}
+	};
+	private View.OnClickListener settask = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			itemid=1;
 			showDialog(ALARM_DIALOG_TIME);
 		}
 	};
@@ -83,9 +113,33 @@ public class Alarmsetter extends ListActivity {
 			// TODO Auto-generated method stub
 			hour=hourOfDay;
 			Minute=minute;
+			if(itemid==1)
 			showDialog(ALARM_DIALOG_DATE);
+			else
+			showDialog(FINALIZE);
 		}
 			
+	};
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode==Activity.RESULT_OK)
+		{
+			if(data.getStringExtra("operation").equals("delete"))
+				showDialog(DELETE_ALARM);
+		
+			else
+			{
+			if(requestCode==2)
+					db.alarmsave(data);
+					
+		if(requestCode==3)
+				db.alarmupdate(data,alarmid);
+		
+		initlist();
+			}
+		
+		}
 	};
 	
 	protected final Dialog onCreateDialog(final int id)
@@ -112,9 +166,7 @@ public class Alarmsetter extends ListActivity {
 			
 		case FINALIZE:
 			AlertDialog.Builder confirm = new AlertDialog.Builder(this);
-			confirm.setTitle("Setting new alarm")
-			
-			.setMessage("\nTIME    " + hour +" : " + Minute + "\n\nDATE    " + day + " / " + month + " / " +Year+"\n\n")
+			confirm.setTitle("Setting new alert")
 			
 			.setCancelable(false)
 			
@@ -122,16 +174,15 @@ public class Alarmsetter extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					Intent alintent=new Intent(Alarmsetter.this,MyAlarm.class);
+					Intent alintent=new Intent(Alarmsetter.this,AlarmOptions.class);
 					alintent.putExtra("year", Year);
 					alintent.putExtra("month", month);
 					alintent.putExtra("day", day);
+					alintent.putExtra("alarmid", -1);
 					alintent.putExtra("hour", hour);
 					alintent.putExtra("minute", Minute);
-					alintent.putExtra("title", "Custom Alarm");
-					alintent.setAction("setalarm");
-					startService(alintent);
-					finish();
+					alintent.putExtra("itemid", itemid);
+					startActivityForResult(alintent, 2);
 				}
 			})
 			
@@ -143,9 +194,68 @@ public class Alarmsetter extends ListActivity {
 					closeOptionsMenu();
 				}
 			});
+			if(itemid==1)
+				confirm.setMessage("\nTask Time           " + hour + " : " + Minute + "\n\nAlarm Date          " + day + " / " +month+ " / " + Year + "\n\n");
+			if(itemid==0)
+				confirm.setMessage("\nAlarm Time          " + hour + " : " + Minute + "\n\n");
 			return confirm.create();
+			
+		case DELETE_ALARM :
+			AlertDialog.Builder delalarm = new AlertDialog.Builder(this);
+			delalarm.setTitle("Deleting alert")
+			.setMessage("Are you sure to delete the alert? ")
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					db.deletealarm(alarmid);
+					initlist();
+				}
+			})
+			.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			})
+			.setCancelable(false);
+			return delalarm.create();
 		}
 		return null;
 	}
 
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		alarms.moveToPosition(position);
+		Intent alintent=new Intent(Alarmsetter.this,AlarmOptions.class);
+		alarmid = alarms.getInt(0);
+		alintent.putExtra("year", alarms.getInt(1));
+		alintent.putExtra("month", alarms.getInt(2));
+		alintent.putExtra("day", alarms.getInt(3));
+		alintent.putExtra("alarmid", alarmid);
+		alintent.putExtra("hour", alarms.getInt(4));
+		alintent.putExtra("minute", alarms.getInt(5));
+		alintent.putExtra("alarmtitle", alarms.getString(6));
+		if(alarms.getString(7).equals("alarm"))
+			itemid=0;
+		else itemid=1;
+		
+		alintent.putExtra("itemid", itemid);
+		alintent.putExtra("alarmstat", !(alarms.getInt(8)==0));
+		alintent.putExtra("snoozetime", alarms.getInt(9));
+		alintent.putExtra("shake_snooze", (alarms.getInt(10)!=0));
+		alintent.putExtra("sun", !(alarms.getInt(11)==0));
+		alintent.putExtra("mon", !(alarms.getInt(12)==0));
+		alintent.putExtra("tue", !(alarms.getInt(13)==0));
+		alintent.putExtra("wed", !(alarms.getInt(14)==0));
+		alintent.putExtra("thu", !(alarms.getInt(15)==0));
+		alintent.putExtra("fri", !(alarms.getInt(16)==0));
+		alintent.putExtra("sat", !(alarms.getInt(17)==0));
+		startActivityForResult(alintent, 3);
+	}
 }

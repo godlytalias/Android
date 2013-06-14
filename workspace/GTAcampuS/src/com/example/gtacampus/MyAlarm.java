@@ -135,7 +135,7 @@ public class MyAlarm extends Service{
 	public void setalarm(Intent i)
 		{
 			mycal= Calendar.getInstance();
-			 mycal.set(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0), i.getIntExtra("hour", 0), i.getIntExtra("minute", 0), 0);
+			 mycal.set(i.getIntExtra("year", Calendar.YEAR), i.getIntExtra("month", Calendar.MONTH), i.getIntExtra("day", Calendar.DAY_OF_MONTH), i.getIntExtra("hour", Calendar.HOUR_OF_DAY), i.getIntExtra("minute", Calendar.MINUTE), 0);
 			
 			Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
 			setalarm= PendingIntent.getBroadcast(this, 0, intent1,
@@ -144,8 +144,7 @@ public class MyAlarm extends Service{
 			am = (AlarmManager) this.getSystemService(this
 					.getApplicationContext().ALARM_SERVICE);
 			am.set(AlarmManager.RTC_WAKEUP,mycal.getTimeInMillis(),setalarm);
-			db.alarmsave(i.getIntExtra("year", 2013), i.getIntExtra("month", 0), i.getIntExtra("day", 0),i.getIntExtra("hour",0), i.getIntExtra("minute", 0), i.getStringExtra("title"));
-		}
+			}
 	
 	public void launchalarm(Intent i)
 	{
