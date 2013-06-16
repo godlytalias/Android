@@ -36,6 +36,7 @@ public class alarmnotif extends Activity{
 	NotificationManager alarmnotifier;
 	PendingIntent alarmnotification;
 	SharedPreferences alarmpref;
+	private Boolean courseflag;
 	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1;
 	private int SNOOZE_NOTIFICATION = 1;
 	private LinearLayout rootlayout;
@@ -47,8 +48,8 @@ public class alarmnotif extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		setContentView(R.layout.alarm);
+		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		Intent i = getIntent();
 		shakesensor = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -60,6 +61,19 @@ public class alarmnotif extends Activity{
 		bt1=(Button)findViewById(R.id.albutton1);
 		bt2=(Button)findViewById(R.id.albutton2);
 		bt2.setSoundEffectsEnabled(true);
+		courseflag=false;
+		if(alarmpref.getString("alarmtype", "alarm").equals("course")){
+			DataManipulator db = new DataManipulator(this);
+			TextView alerts = (TextView)findViewById(R.id.alerts);
+			alerts.setText("Bunked " + db.getbunk(alarmpref.getString("alarmtitle", "Custom Alert")) + " Class/es");
+			alerts.setVisibility(View.VISIBLE);
+			db.close();
+			bt2.setText("GOING");
+			courseflag=true;
+			Button bt3 = (Button)findViewById(R.id.albutton3);
+			bt3.setVisibility(View.VISIBLE);
+			bt3.setOnClickListener(bunkit);
+		}
 		if(alarmpref.getInt("alarmsnooze", 5)>0)
 		bt1.setOnClickListener(snoozealarm);
 		bt2.setOnClickListener(stopalarm);
@@ -172,8 +186,10 @@ public class alarmnotif extends Activity{
 			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+			//max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			cur_vol=max_vol/6;
 			while(cur_vol<max_vol){
+				//
 				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
 				cur_vol++;
 				try {
@@ -191,7 +207,7 @@ public class alarmnotif extends Activity{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
-			if(alarmpref.getBoolean("alarmmath", false))
+			if(alarmpref.getBoolean("alarmmath", false)&&(!courseflag))
 			{
 				Thread volume = new Thread(volup);
 				 volume.start();
@@ -199,6 +215,17 @@ public class alarmnotif extends Activity{
 			else
 				stoppingalarm();
 		}
+	};
+	
+private View.OnClickListener bunkit = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			shakesensor.unregisterListener(shakelistener, shake);
+				Thread volume = new Thread(volup);
+				 volume.start();
+				showDialog(MATH_ALARM);		}
 	};
 	
 	public View makeprblm()
@@ -241,7 +268,18 @@ public class alarmnotif extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(result.getText().toString().equals(ans.toString()))
-				stoppingalarm();
+				{
+				if(courseflag) {
+					DataManipulator db = new DataManipulator(alarmnotif.this);
+					db.update(alarmpref.getString("alarmtitle", "Custom Alert"));
+					db.close();
+					Notification notifydet = new Notification (R.drawable.nitc,"ALERT!!",System.currentTimeMillis());	
+					NotificationManager mNotificationManager =
+						    (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
+					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "Bunked " + alarmpref.getString("alarmtitle", "Custom Alert") , null);
+					mNotificationManager.notify(10000,notifydet);
+				}
+				stoppingalarm();}
 				}
 		};
 		done.setOnClickListener(calculate);

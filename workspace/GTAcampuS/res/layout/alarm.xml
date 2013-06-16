@@ -22,27 +22,31 @@
     
     <TextView 
         android:id="@+id/alerts"
-        android:textIsSelectable="true"
+        android:textIsSelectable="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
+    
+    <LinearLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
 
  <LinearLayout 
-    android:layout_width="320dp"
-    android:layout_height="100dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginTop="10dp"
+    android:layout_margin="10dp"
     android:id="@+id/rootlayout">
     <Button
         android:id="@+id/albutton1"
         android:layout_width="145dp"
         android:layout_height="80dp"
         android:background="@drawable/rect"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:text="@string/snooze"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
@@ -54,10 +58,24 @@
         android:layout_height="80dp"
         android:background="@drawable/rect"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
         android:text="@string/stop"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
+     
 </LinearLayout>
+     <Button
+        android:id="@+id/albutton3"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:background="@drawable/rect"
+        android:layout_marginLeft="10dp"
+        android:text="BUNK"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+     </LinearLayout>
 </LinearLayout>

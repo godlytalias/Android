@@ -29,7 +29,6 @@ public class Alarmsetter extends ListActivity {
 	Cursor alarms;
 	Button newalarm, newtask;
 	DataManipulator db;
-	ContentValues[] alarmdetails;
 	
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,16 +50,13 @@ public class Alarmsetter extends ListActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		alarms.close();
-		db.close();
-	}
+			}
 
 	
 	private void initlist(){
 		db = new DataManipulator(this);
 		alarms = db.fetchalarms();
 		String[] alarmlist = new String[alarms.getCount()];
-		alarmdetails = new ContentValues[alarms.getCount()];
 		if(alarms!=null)
 		{
 			alarms.moveToFirst();
@@ -126,7 +122,6 @@ public class Alarmsetter extends ListActivity {
 	};
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		db=new DataManipulator(this);
 		if(resultCode==Activity.RESULT_OK)
 		{
 			if(data.getStringExtra("operation").equals("delete"))
@@ -134,12 +129,13 @@ public class Alarmsetter extends ListActivity {
 				
 			else
 			{
+				db=new DataManipulator(this);
 			if(requestCode==2)
 					db.alarmsave(data);
 					
 		if(requestCode==3)
 				db.alarmupdate(data,alarmid);
-		
+		db.close();
 		initlist();
 		Intent i = new Intent(getBaseContext(),MyAlarm.class);
 		i.setAction("setalarm");
@@ -147,8 +143,7 @@ public class Alarmsetter extends ListActivity {
 			}
 			
 		}
-		db.close();
-	};
+			};
 	
 	protected final Dialog onCreateDialog(final int id)
 	{
@@ -191,7 +186,6 @@ public class Alarmsetter extends ListActivity {
 					alintent.putExtra("minute", Minute);
 					alintent.putExtra("itemid", itemid);
 					startActivityForResult(alintent, 2);
-					alarms.close();
 				}
 			})
 			
@@ -220,8 +214,8 @@ public class Alarmsetter extends ListActivity {
 					// TODO Auto-generated method stub
 					db = new DataManipulator(Alarmsetter.this);
 					db.deletealarm(alarmid);
-					initlist();
 					db.close();
+					initlist();
 					Intent i = new Intent(getBaseContext(),MyAlarm.class);
 					i.setAction("setalarm");
 					startService(i);

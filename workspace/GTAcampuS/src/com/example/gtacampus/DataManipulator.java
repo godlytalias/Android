@@ -32,11 +32,12 @@ public class DataManipulator {
 	}
 	
 	
-	public void insert(String course,String slot,String bunk) {
+	public void insert(String course,String code,String teacher) {
 		ContentValues cval = new ContentValues();
 		cval.put("course", course);
-		cval.put("slot", slot);
-		cval.put("bunk", bunk);
+		cval.put("code", code);
+		cval.put("bunk", 0);
+		cval.put("teacher", teacher);
 		db.insert(TABLE_NAME1, null, cval);
 	}
 	
@@ -50,11 +51,16 @@ public class DataManipulator {
 	{
 		db.execSQL("insert into "+TABLE_NAME2+" (title,notes) values ('" + title + "','" + note + "')");
 	}
-	public void update(String idval , String newval)
+	public void update(String course)
 	{
-		ContentValues val=new ContentValues();
-		val.put("bunk", newval);
-		db.update(TABLE_NAME1, val, String.format("%s = ?", "id"), new String[]{idval});
+		db.execSQL("UPDATE "+TABLE_NAME1 + " SET bunk=bunk+1 WHERE course = '" + course +"'");
+	}
+	
+	public int getbunk(String course)
+	{
+		Cursor bunkval= db.query(TABLE_NAME1, new String[]{"bunk"}, "course = ?", new String[]{course}, null, null, null);
+		bunkval.moveToFirst();
+		return bunkval.getInt(0);
 	}
 
 	public void deleteAll() {
@@ -65,8 +71,8 @@ public class DataManipulator {
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME1, new String[] { "id", "course","slot","bunk"},
-				null, null, null, null, "slot asc"); 
+		Cursor cursor = db.query(TABLE_NAME1, new String[] { "id", "course","code","bunk"},
+				null, null, null, null, null); 
 
 		int x=0;
 		if (cursor.moveToFirst()) {
@@ -165,6 +171,11 @@ public class DataManipulator {
 		return db.query(TABLE_NAME3, null, null, null, null, null, null);
 	}
 	
+	public void addcourse(int day_id,ContentValues val)
+	{
+		db.update(TABLE_NAME4, val, "DAY_ID="+day_id, null);
+	}
+	
 	public Cursor fetchenabledalarms()
 	{
 		return db.query(TABLE_NAME3, null, "status=?", new String[]{"1"}, null, null, null);}
@@ -185,10 +196,29 @@ public class DataManipulator {
 		ContentValues courses = new ContentValues();
 		for(int i=1;i<=size;i++)
 		{
-			courses.put("HOUR"+i, " - ");
+			courses.put("HOUR"+i, "-");
 		}
 		for(int i=0;i<5;i++)
 		db.insert(TABLE_NAME4, null, courses);
+	}
+	
+	public Cursor gethourtimings()
+	{
+		return db.query(TABLE_NAME4, null, "DAY_ID=1", null, null, null, null);
+	}
+	
+	public ContentValues get_time(int hourno)
+	{
+		ContentValues time = new ContentValues();
+		Cursor timings = gethourtimings();
+		timings.moveToFirst();
+		String t = timings.getString(hourno);
+		String[] t_split = t.split(":");
+		time.put("hour", Integer.parseInt(t_split[0]));
+		String[] tmin_split = t_split[1].split(" ");
+		time.put("minute", Integer.parseInt(tmin_split[0]));
+		time.put("am_pm", (tmin_split[1].equals("AM"))?0:1);
+		return time;
 	}
 	
 	public Cursor slotstat()
@@ -230,7 +260,7 @@ public class DataManipulator {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, slot TEXT,bunk INTEGER)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, code TEXT,bunk INTEGER,teacher TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT, type TEXT, status INTEGER, snooze INTEGER, shakemode INTEGER, mathsolver INTEGER, sun INTEGER,mon INTEGER,tue INTEGER, wed INTEGER,thu INTEGER, fri INTEGER,sat INTEGER)");
 		}												//0										1				2				3			4				5			6			7			8				9				10					11

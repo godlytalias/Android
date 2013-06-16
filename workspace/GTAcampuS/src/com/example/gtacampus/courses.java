@@ -10,91 +10,96 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class courses extends Activity {
 	
 	List<String> slots=new ArrayList<String>();
 	
-	EditText mv;
-	private DataManipulator dh;     
-	static final int DIALOG_ID = 0;
+	static final int DIALOG_ID = 0,NOT_FREE=1;
+	EditText course_name,course_code,course_teacher;
+	LinearLayout c_timing;
+	Spinner course_day, course_time;
+	DataManipulator db;
+	int class_count;
+	int[] day_id,hour_pos;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.course);
-		mv=(EditText) findViewById(R.id.et);
-		mv.setHint("Enter the course");
-		Spinner slotspin=(Spinner)findViewById(R.id.slots);
-		slots.add("Select Slot");
-		slots.add("A");
-		slots.add("B");
-		slots.add("C");
-		slots.add("D");
-		slots.add("E");
-		slots.add("F");
-		slots.add("G");
-		slots.add("H");
-		slots.add("P");
-		slots.add("Q");
-		slots.add("R");
-		slots.add("S");
-		slots.add("T");
-		slots.add("U");
-		
+		course_name = (EditText) findViewById(R.id.course_name);
+		course_teacher = (EditText) findViewById(R.id.course_teacher);
+		course_code = (EditText) findViewById(R.id.course_code);
+		c_timing = (LinearLayout)findViewById(R.id.ll_course_timing);
+		course_day = (Spinner)findViewById(R.id.course_day);
+		course_time=(Spinner)findViewById(R.id.course_time);
+		db = new DataManipulator(this);
+		Cursor hourtimings = db.gethourtimings();
+		hourtimings.moveToFirst();
+		for(int i=1;i<hourtimings.getColumnCount();i++)
+		{
+			slots.add(hourtimings.getString(i));
+		}
+		hourtimings.close();
+		db.close();
 		ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, R.layout.spinner, slots);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		slotspin.setAdapter(adapter);
-		
-		
-		
+		course_time.setAdapter(adapter);
+		class_count=0;
+		day_id = new int[15];
+		hour_pos = new int[15];
 	}
+	
+	public void addtime(View v)
+	{
+		if(class_count<15){
+		db = new DataManipulator(this);
+		int day = course_day.getSelectedItemPosition();
+		int hour_ps = course_time.getSelectedItemPosition()+1;
+		Cursor slotstat = db.slotstat();
+		slotstat.moveToPosition(day);
+		if(slotstat.getString(hour_ps).equals("-"))
+		{
+		TextView check = new TextView(this);
+		check.setText("   " + course_day.getSelectedItem().toString() + "           " + course_time.getSelectedItem());
+		c_timing.addView(check);
+		day_id[class_count]=day+3;
+		hour_pos[class_count] = hour_ps;
+		class_count++;
+		}
+		else showDialog(NOT_FREE);
+		slotstat.close();
+		db.close();
+	}}
 		
 	
 	public void addata(View v)
 	{
-		String Text2,Text1;
-		int flag=0;
-		List<String[]> names2 =null ;
-		DataManipulator dm = new DataManipulator(this);
-	      names2 = dm.selectAll();
-		mv=(EditText)findViewById(R.id.et);
-		Text1=mv.getText().toString();
-		Spinner spin = (Spinner)findViewById(R.id.slots);
-		Text2 = String.valueOf(spin.getSelectedItem());
-		String Text3;
-		Text3="0";
-		
-		for (String[] slots : names2) {
-			if(slots[2].equals(Text2))
-			{
-				flag=1;
-				Toast.makeText(this, "Slot already assigned", Toast.LENGTH_SHORT).show();
-				break;
-			}
-		}
-		
-		if((Text2.equals("Select Slot"))||(flag==1))
+		db = new DataManipulator(this);
+		for(int i=0;i<class_count;i++)
 		{
-			Toast.makeText(this, "Select a slot first", Toast.LENGTH_SHORT).show();
+			ContentValues val = new ContentValues();
+			val.put("HOUR"+hour_pos[i], course_name.getText().toString());
+			db.addcourse(day_id[i],val);
 		}
-		else
-		{
-		this.dh = new DataManipulator(this);
-		this.dh.insert(Text1,Text2,Text3);
+		class_count=0;
+		db.insert(course_name.getText().toString(), course_code.getText().toString(), course_teacher.getText().toString());
+		db.close();
 		showDialog(DIALOG_ID);
-		Toast.makeText(this, "Course Added", Toast.LENGTH_SHORT).show();}
 	}
 	
 	@Override
@@ -106,13 +111,17 @@ public class courses extends Activity {
 	
 	protected final Dialog onCreateDialog(final int id) {
 		Dialog dialog = null;
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
 		switch(id) {
 		case DIALOG_ID:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage("Course added! Add another course ?")
 			.setCancelable(false)
 			.setPositiveButton("No", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
+					Intent setalarm = new Intent(courses.this,MyAlarm.class);
+					setalarm.setAction("setalarm");
+					startService(setalarm);
 					courses.this.finish();
 
               }
@@ -129,8 +138,13 @@ public class courses extends Activity {
 			dialog = alert;
 			break;
 
-		default:
-
+		case NOT_FREE : builder.setMessage("Selected hour is not free!")
+		.setCancelable(false)
+		.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();}});
+		dialog = builder.create();
+			break;
 		}
 		return dialog;
 	}

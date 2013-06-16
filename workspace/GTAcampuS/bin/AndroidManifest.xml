@@ -33,7 +33,7 @@
         </activity>
         <activity android:name="GTAcalC" android:theme="@style/AppBaseTheme" android:screenOrientation="portrait"></activity>
         <activity android:name="Slot" android:screenOrientation="landscape"></activity>
-        <activity android:name="courses" android:theme="@style/AppTheme"></activity>
+        <activity android:name="courses"></activity>
         <activity android:name="CheckData"></activity>
         <activity android:name="addnote"></activity>
         <activity android:name="notedata"></activity>

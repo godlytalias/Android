@@ -10,7 +10,7 @@
           android:layout_width="fill_parent"
           android:textSize="18sp"
           android:layout_height="wrap_content"
-          android:text="No Custom Alarms"/>
+          android:text="No Custom Alerts"/>
     
     <ListView android:id="@+id/android:list"
           android:layout_height="wrap_content"

@@ -61,7 +61,7 @@ public class bunkom extends ListActivity{
 	}
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id){
-		
+	/*	
 		Integer num=new Integer(Integer.parseInt(bunkval[position]));
 		num=num+1;
 		dm.update(stg3[position], num.toString());
@@ -77,7 +77,7 @@ public class bunkom extends ListActivity{
 			    (NotificationManager) getSystemService(con.NOTIFICATION_SERVICE);
 		notifydet.setLatestEventInfo(con, title, content, resultPendingIntent);
 		mNotificationManager.notify(SIMPLE_NOTIFICATION_ID,notifydet);
-		this.finish();
+		this.finish();*/
 	}
 	
 	

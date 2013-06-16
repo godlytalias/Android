@@ -2,7 +2,9 @@ package com.example.gtacampus;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.annotation.TargetApi;
@@ -17,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -32,6 +35,7 @@ import android.widget.Toast;
 public class MyAlarm extends Service{
 	private Ringtone alarmalert;
 	PowerManager pm;
+	MediaPlayer ringer;
 	AlarmManager am = null;
 	PowerManager.WakeLock wl;
 	PendingIntent setalarm;
@@ -49,7 +53,6 @@ public class MyAlarm extends Service{
 		wl = pm.newWakeLock(
 				PowerManager.PARTIAL_WAKE_LOCK, "keepAlive");
 		wl.acquire();
-		db = new DataManipulator(this);
 		alarmnotifier = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
 	}
 	
@@ -64,6 +67,7 @@ public class MyAlarm extends Service{
 		catch(Exception e){}
 		
 			}
+
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -136,6 +140,8 @@ public class MyAlarm extends Service{
 		try{alarmalert.stop();
 		alarmalert=null;}
 		catch(Exception e){}
+/*		ringer.stop();
+		ringer.release();*/
 		setalarm();
 		stopSelf();
 	}
@@ -190,6 +196,7 @@ public class MyAlarm extends Service{
 		alarmnotifier.cancel(ALARM_NOTIFICATION);
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/4, AudioManager.FLAG_VIBRATE);
+		//alarm.setStreamVolume(AudioManager.STREAM_MUSIC, alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC)/4, AudioManager.FLAG_VIBRATE);
 		playalarmtone();
 		Thread alarmhandler = new Thread(alarmdialog);
 		alarmhandler.start();
@@ -199,9 +206,9 @@ public class MyAlarm extends Service{
 		Ringtone r = null;
 		
 		try{
-			//r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
-			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("content://com.example.gtacampus/res/raw/sundaychurch"));
+			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
 			r.setStreamType(AudioManager.STREAM_ALARM);
+			
 		}
 		catch(Exception e){
 			try{
@@ -237,7 +244,9 @@ public class MyAlarm extends Service{
 					alarmalert=getalarmtone();
 				if(!(alarmalert.isPlaying()))
 					alarmalert.play();
-			
+			/*	ringer = MediaPlayer.create(MyAlarm.this, R.raw.myringtone);
+				ringer.start();		
+				ringer.setLooping(true);*/
 			}
 			catch(Exception e){};
 		}
@@ -251,10 +260,12 @@ public class MyAlarm extends Service{
 			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+		//	max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			cur_vol=max_vol/4;
 			while(cur_vol<max_vol){
 				cur_vol++;
-				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
+			//	alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
+				alarm.setStreamVolume(AudioManager.STREAM_MUSIC, cur_vol, AudioManager.FLAG_VIBRATE);
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -392,7 +403,7 @@ public class MyAlarm extends Service{
 				week.put("sat",en_alarms.getInt(18)!=0);
 				nxttime = alarmgetmillis(hour, minute, week);
 			}
-			if((nxttime<nxtalarmtime && nxttime>cur_time)||nxtalarmtime==0)
+			if((nxttime<nxtalarmtime ||nxtalarmtime==0)&& nxttime>cur_time)
 			{
 				nxtalarmtime = nxttime;
 				alarmprefs.putInt("alarmid", en_alarms.getInt(0));
@@ -406,8 +417,63 @@ public class MyAlarm extends Service{
 			en_alarms.moveToNext();
 		}
 		en_alarms.close();
+		}
+		Cursor slotstat = db.slotstat();
+		cal = Calendar.getInstance();
+		switch(cal.get(Calendar.DAY_OF_WEEK)){
+		case Calendar.MONDAY:
+			slotstat.moveToPosition(0);
+			break;
+		case Calendar.TUESDAY:
+			slotstat.moveToPosition(1);
+			break;
+		case Calendar.WEDNESDAY:
+			slotstat.moveToPosition(2);
+			break;
+		case Calendar.THURSDAY:
+			slotstat.moveToPosition(3);
+			break;
+		case Calendar.FRIDAY:
+			slotstat.moveToPosition(4);
+			break;
+		default: slotstat.moveToFirst();
+			break;
+		}
+		ContentValues times = new ContentValues();
+		int day,count=0;
+		day = cal.get(Calendar.DAY_OF_MONTH);
+		do{
+		for(int i=1;i<slotstat.getColumnCount();i++)
+		{
+			if(!(slotstat.getString(i).equals("-")))
+			{
+				times = db.get_time(i);
+				cal.set(Calendar.HOUR, times.getAsInteger("hour"));
+				cal.set(Calendar.MINUTE, times.getAsInteger("minute"));
+				cal.set(Calendar.SECOND, 0);
+				cal.set(Calendar.AM_PM, times.getAsInteger("am_pm"));
+				cal.set(Calendar.DAY_OF_MONTH, day+count);
+				nxttime = cal.getTimeInMillis();
+				if((nxttime<nxtalarmtime ||nxtalarmtime==0)&& nxttime>cur_time)
+				{
+					nxtalarmtime = nxttime;
+					alarmprefs.putInt("alarmid", 10000);
+					alarmprefs.putString("alarmtype", "course");
+					alarmprefs.putString("alarmtitle", slotstat.getString(i));
+					alarmprefs.putInt("alarmsnooze", 3);
+					alarmprefs.putBoolean("alarmshake", true);
+					alarmprefs.putBoolean("alarmmath", true);
+					alarmprefs.commit();
+				}
+			}
+		}
+		slotstat.moveToNext();
+		count++;
+		if(slotstat.isAfterLast())
+			slotstat.moveToFirst();
+		}while((nxtalarmtime==0)&&(count<5));
+		slotstat.close();
 		db.close();
 		return nxtalarmtime;
 		}
 	}
-}

@@ -25,11 +25,12 @@ public class CheckData extends ListActivity  {
 	TextView tv;
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+	
 		setContentView(R.layout.check);
 		  dm = new DataManipulator(this);
 	      names2 = dm.selectAll();
 	      tv=(TextView)findViewById(R.id.selection2);
-	      tv.setText("COURSE - SLOT");
+	      tv.setText("COURSE - CODE");
 		stg1=new String[names2.size()]; 
 
 		int x=0;

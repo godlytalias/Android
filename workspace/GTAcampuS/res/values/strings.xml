@@ -64,6 +64,16 @@
         <item >5:30 PM</item>
         <item >5:45 PM</item>
         <item >6:00 PM</item>
+        <item >7:00 PM</item>
+        <item >8:00 PM</item>
+    </string-array>
+    
+    <string-array name="week">
+        <item >MONDAY</item>
+        <item >TUESDAY</item>
+        <item >WEDNESDAY</item>
+        <item >THURSDAY</item>
+        <item >FRIDAY</item>
     </string-array>
 
 </resources>

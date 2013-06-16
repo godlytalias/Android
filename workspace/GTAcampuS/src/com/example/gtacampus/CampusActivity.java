@@ -56,7 +56,7 @@ public class CampusActivity extends ListActivity {
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
 		list.setScrollbarFadingEnabled(true);
-		String[] functions = new String[]{"Calculator","Slots","Courses","Add Courses","Notes","Bunk-O-Meter","Alarm"};
+		String[] functions = new String[]{"Alerts","TimeTable","Courses","Add Courses","Notes","Calculator","Bunk-O-Meter"};
 		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
 		this.setListAdapter(listadapter);
 		
@@ -185,7 +185,7 @@ public class CampusActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		switch(position)
 		{
-		case 0:Calculator(v);
+		case 0:alarm(v);
 				break;
 		case 1:slotdisp(v);
 				break;
@@ -195,9 +195,9 @@ public class CampusActivity extends ListActivity {
 				break;
 		case 4:notes(v);
 				break;
-		case 5:bunk(v);
+		case 5:Calculator(v);
 				break;
-		case 6:alarm(v);
+		case 6:bunk(v);
 				break;
 		}
 	}
