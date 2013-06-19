@@ -16,7 +16,6 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <style name="ListTheme" parent="android:Theme.Black"></style>
     <style name="Menu_Button" parent="@android:style/Widget.Button">
 	<item name="android:layout_height">wrap_content</item>
 	<item name="android:paddingTop">10dp</item>
@@ -29,6 +28,7 @@
 	<item name="android:layout_width">fill_parent</item>    
   </style>
     <style name="mytext" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>

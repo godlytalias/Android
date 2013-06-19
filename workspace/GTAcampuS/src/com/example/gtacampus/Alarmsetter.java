@@ -1,6 +1,7 @@
 package com.example.gtacampus;
 
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +15,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,13 +30,17 @@ public class Alarmsetter extends ListActivity {
 	final int ALARM_DIALOG_TIME=0, ALARM_DIALOG_DATE=1,FINALIZE=2,DELETE_ALARM=3;
 	int[] ids;
 	Cursor alarms;
+	String alarmtitle;
 	Button newalarm, newtask;
 	DataManipulator db;
+	ListView list;
 	
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarmslayout);
 		initlist();
+		list = (ListView) findViewById(android.R.id.list);
+		list.setOnItemLongClickListener(clicked);
 		myCal = Calendar.getInstance();
 		Year  = myCal.get(Calendar.YEAR);
 	    month= myCal.get(Calendar.MONTH);
@@ -198,15 +205,15 @@ public class Alarmsetter extends ListActivity {
 				}
 			});
 			if(itemid==1)
-				confirm.setMessage("\nTask Time           " + hour + " : " + Minute + "\n\nAlarm Date          " + day + " / " +month+ " / " + Year + "\n\n");
+				confirm.setMessage("\nTask Time           " + ((hour%12==0)?12:hour%12) + " : " + Minute + " " + ((hour/12 > 0)?"PM":"AM") + "\n\nAlarm Date          " + day + " / " +(month+1)+ " / " + Year + "\n\n");
 			if(itemid==0)
-				confirm.setMessage("\nAlarm Time          " + hour + " : " + Minute + "\n\n");
+				confirm.setMessage("\nAlarm Time          " + ((hour%12==0)?12:hour%12) + " : " + Minute + " " + ((hour/12 > 0)?"PM":"AM") + "\n\n");
 			return confirm.create();
 			
 		case DELETE_ALARM :
 			AlertDialog.Builder delalarm = new AlertDialog.Builder(this);
 			delalarm.setTitle("Deleting alert")
-			.setMessage("Are you sure to delete the alert? ")
+			.setMessage("Are you sure to delete the alert '"+alarmtitle+"' ?!")
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				
 				@Override
@@ -235,6 +242,21 @@ public class Alarmsetter extends ListActivity {
 		return null;
 	}
 	
+	AdapterView.OnItemLongClickListener clicked = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			// TODO Auto-generated method stub
+			db = new DataManipulator(Alarmsetter.this);
+			alarms = db.fetchalarms();
+			alarms.moveToPosition(arg2);
+			alarmid = alarms.getInt(0);
+			alarmtitle = alarms.getString(6);
+			showDialog(DELETE_ALARM);
+			return false;
+		}
+	};
 	
 
 	@Override
@@ -247,13 +269,14 @@ public class Alarmsetter extends ListActivity {
 		alarms.moveToPosition(position);
 		Intent alintent=new Intent(Alarmsetter.this,AlarmOptions.class);
 		alarmid = alarms.getInt(0);
+		alarmtitle = alarms.getString(6);
 		alintent.putExtra("year", alarms.getInt(1));
 		alintent.putExtra("month", alarms.getInt(2));
 		alintent.putExtra("day", alarms.getInt(3));
 		alintent.putExtra("alarmid", alarmid);
 		alintent.putExtra("hour", alarms.getInt(4));
 		alintent.putExtra("minute", alarms.getInt(5));
-		alintent.putExtra("alarmtitle", alarms.getString(6));
+		alintent.putExtra("alarmtitle", alarmtitle);
 		if(alarms.getString(7).equals("alarm"))
 			itemid=0;
 		else itemid=1;

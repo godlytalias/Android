@@ -14,6 +14,7 @@ public final class R {
         public static final int magfade=0x7f040002;
     }
     public static final class array {
+        public static final int conv_category=0x7f090003;
         public static final int hours=0x7f090001;
         public static final int hourvalues=0x7f090000;
         public static final int week=0x7f090002;
@@ -62,10 +63,11 @@ public final class R {
         public static final int slot=0x7f02001c;
     }
     public static final class id {
-        public static final int about=0x7f0b006b;
-        public static final int action_settings=0x7f0b007d;
+        public static final int about=0x7f0b0073;
+        public static final int action_settings=0x7f0b0085;
         public static final int add=0x7f0b0014;
         public static final int add_alarm=0x7f0b0057;
+        public static final int add_course=0x7f0b0059;
         public static final int add_new=0x7f0b0056;
         public static final int alarm_cancel=0x7f0b0055;
         public static final int alarm_delete=0x7f0b0054;
@@ -82,21 +84,26 @@ public final class R {
         public static final int albutton3=0x7f0b002d;
         public static final int alerts=0x7f0b0029;
         public static final int all_check=0x7f0b002f;
-        public static final int analogClock1=0x7f0b0001;
-        public static final int appimage=0x7f0b0079;
+        public static final int appimage=0x7f0b0081;
         public static final int button1=0x7f0b0024;
         public static final int cancelbtn=0x7f0b0041;
-        public static final int classhours=0x7f0b0063;
-        public static final int classtimings1=0x7f0b0068;
-        public static final int classtimings2=0x7f0b0069;
+        public static final int classhours=0x7f0b006b;
+        public static final int classtimings1=0x7f0b0070;
+        public static final int classtimings2=0x7f0b0071;
         public static final int clear=0x7f0b0011;
+        public static final int conv_cat=0x7f0b005a;
+        public static final int conv_selcat1=0x7f0b005c;
+        public static final int conv_selcat2=0x7f0b005e;
+        public static final int conv_value=0x7f0b005b;
+        public static final int convr_value=0x7f0b005d;
         public static final int cos=0x7f0b001e;
-        public static final int course_code=0x7f0b005a;
-        public static final int course_day=0x7f0b005e;
-        public static final int course_name=0x7f0b0059;
-        public static final int course_teacher=0x7f0b005b;
-        public static final int course_time=0x7f0b005f;
+        public static final int course_code=0x7f0b0062;
+        public static final int course_day=0x7f0b0066;
+        public static final int course_name=0x7f0b0061;
+        public static final int course_teacher=0x7f0b0063;
+        public static final int course_time=0x7f0b0067;
         public static final int decimal=0x7f0b0018;
+        public static final int digitalClock1=0x7f0b0001;
         public static final int disablesnooze=0x7f0b004b;
         public static final int div=0x7f0b0017;
         public static final int donebtn=0x7f0b0040;
@@ -104,39 +111,39 @@ public final class R {
         public static final int editText2=0x7f0b0023;
         public static final int enablealarm=0x7f0b0043;
         public static final int equal=0x7f0b0013;
-        public static final int exit=0x7f0b006c;
+        public static final int exit=0x7f0b0074;
         public static final int exp=0x7f0b001b;
         public static final int fri_check=0x7f0b003d;
-        public static final int frip=0x7f0b0078;
+        public static final int frip=0x7f0b0080;
         public static final int gcd=0x7f0b0019;
         public static final int getalarmtitle=0x7f0b0025;
-        public static final int heading=0x7f0b006d;
+        public static final int heading=0x7f0b0075;
         public static final int imageButton1=0x7f0b0005;
         public static final int imageButton2=0x7f0b0006;
         public static final int linearlayout=0x7f0b0027;
         public static final int ll_alarmtime=0x7f0b0045;
-        public static final int ll_alarmtiming1=0x7f0b0062;
-        public static final int ll_alarmtiming2=0x7f0b0064;
+        public static final int ll_alarmtiming1=0x7f0b006a;
+        public static final int ll_alarmtiming2=0x7f0b006c;
         public static final int ll_alarmtitle=0x7f0b0044;
-        public static final int ll_classtimings=0x7f0b0066;
-        public static final int ll_course_timing=0x7f0b005c;
-        public static final int ll_coursetimingmain=0x7f0b0061;
+        public static final int ll_classtimings=0x7f0b006e;
+        public static final int ll_course_timing=0x7f0b0064;
+        public static final int ll_coursetimingmain=0x7f0b0069;
         public static final int ll_disablesnooze=0x7f0b004a;
         public static final int ll_enablealarm=0x7f0b0042;
-        public static final int ll_get_course_timing=0x7f0b005d;
+        public static final int ll_get_course_timing=0x7f0b0065;
         public static final int ll_repeat=0x7f0b0047;
         public static final int ll_shakesnooze=0x7f0b004f;
         public static final int ll_snoozetimeout=0x7f0b004c;
         public static final int ll_stopprblm=0x7f0b0051;
-        public static final int loadingbar=0x7f0b007a;
+        public static final int loadingbar=0x7f0b0082;
         public static final int log=0x7f0b001c;
         public static final int mainlayout=0x7f0b0000;
         public static final int mathstop=0x7f0b0052;
-        public static final int mon=0x7f0b006f;
+        public static final int mon=0x7f0b0077;
         public static final int mon_check=0x7f0b0035;
-        public static final int monp=0x7f0b0074;
+        public static final int monp=0x7f0b007c;
         public static final int mul=0x7f0b0016;
-        public static final int next=0x7f0b0065;
+        public static final int next=0x7f0b006d;
         public static final int num0=0x7f0b0012;
         public static final int num1=0x7f0b0008;
         public static final int num2=0x7f0b0009;
@@ -164,6 +171,8 @@ public final class R {
         public static final int sin=0x7f0b001d;
         public static final int snoozeseltime=0x7f0b004d;
         public static final int snoozetime=0x7f0b004e;
+        public static final int sp_conv=0x7f0b005f;
+        public static final int sp_convr=0x7f0b0060;
         public static final int sqrt=0x7f0b001a;
         public static final int sub=0x7f0b0015;
         public static final int sun_check=0x7f0b0033;
@@ -171,22 +180,22 @@ public final class R {
         public static final int text=0x7f0b0007;
         public static final int textView1=0x7f0b0020;
         public static final int textView2=0x7f0b0022;
-        public static final int textView3=0x7f0b007b;
-        public static final int textView4=0x7f0b007c;
-        public static final int thu=0x7f0b0072;
+        public static final int textView3=0x7f0b0083;
+        public static final int textView4=0x7f0b0084;
+        public static final int thu=0x7f0b007a;
         public static final int thu_check=0x7f0b003b;
-        public static final int thup=0x7f0b0077;
-        public static final int time=0x7f0b006e;
-        public static final int time2=0x7f0b0073;
-        public static final int timebutton=0x7f0b0060;
-        public static final int timeseltext=0x7f0b0067;
-        public static final int timingdone=0x7f0b006a;
-        public static final int tue=0x7f0b0070;
+        public static final int thup=0x7f0b007f;
+        public static final int time=0x7f0b0076;
+        public static final int time2=0x7f0b007b;
+        public static final int timebutton=0x7f0b0068;
+        public static final int timeseltext=0x7f0b006f;
+        public static final int timingdone=0x7f0b0072;
+        public static final int tue=0x7f0b0078;
         public static final int tue_check=0x7f0b0037;
-        public static final int tuep=0x7f0b0075;
-        public static final int wed=0x7f0b0071;
+        public static final int tuep=0x7f0b007d;
+        public static final int wed=0x7f0b0079;
         public static final int wed_check=0x7f0b0039;
-        public static final int wedp=0x7f0b0076;
+        public static final int wedp=0x7f0b007e;
         public static final int week_check=0x7f0b0031;
     }
     public static final class layout {
@@ -200,13 +209,14 @@ public final class R {
         public static final int alarmslayout=0x7f030007;
         public static final int bunklist=0x7f030008;
         public static final int check=0x7f030009;
-        public static final int course=0x7f03000a;
-        public static final int init_app=0x7f03000b;
-        public static final int menu=0x7f03000c;
-        public static final int notes=0x7f03000d;
-        public static final int slots=0x7f03000e;
-        public static final int spinner=0x7f03000f;
-        public static final int splashscr=0x7f030010;
+        public static final int convertor=0x7f03000a;
+        public static final int course=0x7f03000b;
+        public static final int init_app=0x7f03000c;
+        public static final int menu=0x7f03000d;
+        public static final int notes=0x7f03000e;
+        public static final int slots=0x7f03000f;
+        public static final int spinner=0x7f030010;
+        public static final int splashscr=0x7f030011;
     }
     public static final class menu {
         public static final int campus=0x7f0a0000;
@@ -256,8 +266,7 @@ public final class R {
          */
         public static final int AppTheme=0x7f070002;
         public static final int GTATheme=0x7f070000;
-        public static final int ListTheme=0x7f070003;
-        public static final int Menu_Button=0x7f070004;
-        public static final int mytext=0x7f070005;
+        public static final int Menu_Button=0x7f070003;
+        public static final int mytext=0x7f070004;
     }
 }

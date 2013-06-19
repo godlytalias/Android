@@ -56,10 +56,9 @@ public class CampusActivity extends ListActivity {
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
 		list.setScrollbarFadingEnabled(true);
-		String[] functions = new String[]{"Alerts","TimeTable","Courses","Add Courses","Notes","Calculator","Bunk-O-Meter"};
+		String[] functions = new String[]{"Alerts","TimeTable","Courses","Notes","Bunk-O-Meter","Convertor","Calculator"};
 		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
 		this.setListAdapter(listadapter);
-		
 
 	/*	 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
 		 mediaplayer.start();
@@ -121,6 +120,12 @@ public class CampusActivity extends ListActivity {
 	{
 		Intent bunkmeter=new Intent(CampusActivity.this,bunkom.class);
 		startActivity(bunkmeter);
+	}
+	
+	public void gtaconvertor(View v)
+	{
+		Intent conv=new Intent(CampusActivity.this,gtaconvertor.class);
+		startActivity(conv);
 	}
 	
 	public void alarm(View v)
@@ -191,14 +196,15 @@ public class CampusActivity extends ListActivity {
 				break;
 		case 2:coursecheck(v);
 				break;
-		case 3:coursefn(v);
+		case 3:notes(v);
 				break;
-		case 4:notes(v);
+		case 4:bunk(v);
 				break;
-		case 5:Calculator(v);
+		case 5: gtaconvertor(v);
 				break;
-		case 6:bunk(v);
+		case 6:Calculator(v);
 				break;
+
 		}
 	}
 	

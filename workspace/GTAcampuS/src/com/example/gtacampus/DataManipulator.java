@@ -74,14 +74,11 @@ public class DataManipulator {
 		Cursor cursor = db.query(TABLE_NAME1, new String[] { "id", "course","code","bunk"},
 				null, null, null, null, null); 
 
-		int x=0;
 		if (cursor.moveToFirst()) {
 			do {
 				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)};
 
 				list.add(b1);
-
-				x=x+1;
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
@@ -90,6 +87,43 @@ public class DataManipulator {
 		cursor.close();
 
 		return list;
+	}
+	
+	public Cursor coursedetails(String coursename){
+		return db.query(TABLE_NAME1, null, "course=?", new String[]{coursename}, null, null, null);
+	}
+	
+	public String courseslots(String coursename){
+		String slots= "";
+		Cursor c_time = gethourtimings();
+		c_time.moveToFirst();
+		Cursor stats = slotstat();
+		stats.moveToFirst();
+		int day=0;
+		while(!stats.isAfterLast()){
+		for(int i=0;i<stats.getColumnCount();i++){
+			if(stats.getString(i).equals(coursename)){
+				switch(day){
+				case 0: slots+= "\n\tMON		-		" + c_time.getString(i) + "\n";
+				break;
+				case 1: slots+= "\n\tTUE		-		" + c_time.getString(i) + "\n";
+				break;
+				case 2: slots+= "\n\tWED		-		" + c_time.getString(i) + "\n";
+				break;
+				case 3: slots+= "\n\tTHU		-		" + c_time.getString(i) + "\n";
+				break;
+				case 4: slots+= "\n\tFRI		-		" + c_time.getString(i) + "\n";
+				break;
+				default:break;
+				}
+			}
+		}
+		day++;
+		stats.moveToNext();
+		}
+		c_time.close();
+		stats.close();
+		return slots;
 	}
 
 	

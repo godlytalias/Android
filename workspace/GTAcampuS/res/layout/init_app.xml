@@ -60,13 +60,13 @@
        
          <Button
        android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
        android:onClick="skip"
-       android:text="SKIP"/>
+       android:text="    SKIP    "/>
    
    <Button android:id="@+id/next"
        android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
        android:drawableRight="@drawable/nextbutton"
        android:text="GO  "/>
        </LinearLayout>

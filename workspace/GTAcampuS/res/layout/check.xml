@@ -8,17 +8,34 @@ tools:context="com.example.gtacampus.CheckData">
 <TextView
 android:id="@+id/selection2"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content"
+android:layout_height="50dp"
 android:text=""
-android:textSize="20dp"
+android:textSize="20sp"
 android:textStyle="bold"
+android:textColor="#0f0"
 />
+
+<View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
 
 <ListView
 android:id="@android:id/list"
 android:layout_width="fill_parent"
-android:layout_height="fill_parent"
+android:layout_height="wrap_content"
 android:drawSelectorOnTop="false"
-android:textSize="3dip"
+android:textSize="5sp"
+android:layout_weight="1"
 />
+
+<Button 
+        android:id="@+id/add_course"
+        style="@style/Menu_Button"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:onClick="coursefn"
+        android:text="ADD COURSE"></Button>
 </LinearLayout>

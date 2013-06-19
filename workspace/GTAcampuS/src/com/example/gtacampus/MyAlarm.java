@@ -178,11 +178,15 @@ public class MyAlarm extends Service{
 		am.cancel(setalarm);
 		alarmnotifier.cancel(ALARM_NOTIFICATION);
 		am.set(AlarmManager.RTC_WAKEUP,time,setalarm);
-		Intent resultintent = new Intent(getBaseContext(),Alarmsetter.class);
+		Intent resultintent;
+		if(al.getString("alarmtype", "alarm").equals("course"))
+			resultintent = new Intent(getBaseContext(),Slot.class);
+		else
+		resultintent = new Intent(getBaseContext(),Alarmsetter.class);
 		resultintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		PendingIntent result = PendingIntent.getActivity(this, 0, resultintent,0);
-		String alarmtimedetails = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)+ " , " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + calendar.get(Calendar.HOUR) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
-		alarmnotification = new Notification(R.drawable.alarm,"Next alert set for "+alarmtimedetails, System.currentTimeMillis());
+		String alarmtimedetails = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)+ " , " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
+		alarmnotification = new Notification(R.drawable.alarm,"Next alert on "+alarmtimedetails, System.currentTimeMillis());
 		alarmnotification.setLatestEventInfo(this, "GTAcampuS", "Alert Name : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
 		alarmnotification.flags = Notification.FLAG_NO_CLEAR;
 		alarmnotifier.notify(ALARM_NOTIFICATION, alarmnotification);
@@ -206,9 +210,9 @@ public class MyAlarm extends Service{
 		Ringtone r = null;
 		
 		try{
-			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+			//r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
+			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("android.resource://com.example.gtacampus/"+R.raw.thundersound));
 			r.setStreamType(AudioManager.STREAM_ALARM);
-			
 		}
 		catch(Exception e){
 			try{
@@ -243,7 +247,9 @@ public class MyAlarm extends Service{
 				if (alarmalert==null)
 					alarmalert=getalarmtone();
 				if(!(alarmalert.isPlaying()))
-					alarmalert.play();
+				{
+					alarmalert.setStreamType(AudioManager.STREAM_ALARM);
+					alarmalert.play();}
 			/*	ringer = MediaPlayer.create(MyAlarm.this, R.raw.myringtone);
 				ringer.start();		
 				ringer.setLooping(true);*/
@@ -264,8 +270,8 @@ public class MyAlarm extends Service{
 			cur_vol=max_vol/4;
 			while(cur_vol<max_vol){
 				cur_vol++;
-			//	alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
-				alarm.setStreamVolume(AudioManager.STREAM_MUSIC, cur_vol, AudioManager.FLAG_VIBRATE);
+				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
+			//	alarm.setStreamVolume(AudioManager.STREAM_MUSIC, cur_vol, AudioManager.FLAG_VIBRATE);
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -419,6 +425,7 @@ public class MyAlarm extends Service{
 		en_alarms.close();
 		}
 		Cursor slotstat = db.slotstat();
+		int day,count=0;
 		cal = Calendar.getInstance();
 		switch(cal.get(Calendar.DAY_OF_WEEK)){
 		case Calendar.MONDAY:
@@ -436,19 +443,27 @@ public class MyAlarm extends Service{
 		case Calendar.FRIDAY:
 			slotstat.moveToPosition(4);
 			break;
+		case Calendar.SATURDAY:
+			count+=2;
+			slotstat.moveToFirst();
+			break;
+		case Calendar.SUNDAY:
+			count++;
+			slotstat.moveToFirst();
+			break;
 		default: slotstat.moveToFirst();
 			break;
 		}
-		ContentValues times = new ContentValues();
-		int day,count=0;
+		ContentValues times = new ContentValues();		
 		day = cal.get(Calendar.DAY_OF_MONTH);
 		do{
+			
 		for(int i=1;i<slotstat.getColumnCount();i++)
 		{
 			if(!(slotstat.getString(i).equals("-")))
 			{
 				times = db.get_time(i);
-				cal.set(Calendar.HOUR, times.getAsInteger("hour"));
+				cal.set(Calendar.HOUR, (times.getAsInteger("hour"))%12);
 				cal.set(Calendar.MINUTE, times.getAsInteger("minute"));
 				cal.set(Calendar.SECOND, 0);
 				cal.set(Calendar.AM_PM, times.getAsInteger("am_pm"));
@@ -469,9 +484,10 @@ public class MyAlarm extends Service{
 		}
 		slotstat.moveToNext();
 		count++;
-		if(slotstat.isAfterLast())
+		if(slotstat.isAfterLast()){
 			slotstat.moveToFirst();
-		}while((nxtalarmtime==0)&&(count<5));
+			count+=2;}
+		}while((nxtalarmtime==0)&&(count<=7));
 		slotstat.close();
 		db.close();
 		return nxtalarmtime;

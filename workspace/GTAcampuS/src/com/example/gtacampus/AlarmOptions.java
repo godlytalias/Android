@@ -65,7 +65,7 @@ public class AlarmOptions extends Activity {
 			day = i.getIntExtra("day", Calendar.DAY_OF_MONTH);
 			month = i.getIntExtra("month", Calendar.MONTH);
 			year = i.getIntExtra("year", Calendar.YEAR);
-			alarmrptxt.setText(day + " / " + month + " / " + year);
+			alarmrptxt.setText(day + " / " + (month+1) + " / " + year);
 			repeat.setOnClickListener(changedate);
 			}
 		else
@@ -86,7 +86,7 @@ public class AlarmOptions extends Activity {
 			altitle.setText(AlarmTitle);
 		time=(LinearLayout)findViewById(R.id.ll_alarmtime);
 		alarmtime=(TextView)findViewById(R.id.alarmtime);
-		alarmtime.setText(hour + " : " + minute);
+		alarmtime.setText(((hour%12==0)?12:hour%12) + " : " + minute + " " + ((hour/12 > 0)?"PM":"AM"));
 		time.setOnClickListener(timechange);
 		snoozesel=(TextView)findViewById(R.id.snoozeseltime);
 		snoozesel.setText(i.getIntExtra("snoozetime", 5) + "mins");
@@ -336,7 +336,7 @@ public class AlarmOptions extends Activity {
 			// TODO Auto-generated method stub
 			hour=hourOfDay;
 			minute = Minute;
-			alarmtime.setText(hour + " : " + minute);
+			alarmtime.setText(((hour%12==0)?12:hour%12) + " : " + minute + " " + ((hour/12 > 0)?"PM":"AM"));
 		}
 	};
 	
@@ -349,7 +349,7 @@ public class AlarmOptions extends Activity {
 			year=Year;
 			month=monthOfYear;
 			day=dayOfMonth;
-			alarmrptxt.setText(day + " / " + month + " / " + year);
+			alarmrptxt.setText(day + " / " + (month+1) + " / " + year);
 		}
 	};
 	

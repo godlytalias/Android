@@ -69,11 +69,23 @@
     </string-array>
     
     <string-array name="week">
-        <item >MONDAY</item>
-        <item >TUESDAY</item>
-        <item >WEDNESDAY</item>
-        <item >THURSDAY</item>
-        <item >FRIDAY</item>
+        <item >MON</item>
+        <item >TUE</item>
+        <item >WED</item>
+        <item >THU</item>
+        <item >FRI</item>
+    </string-array>
+    
+    <string-array name="conv_category">
+        <item >LENGTH</item>
+        <item >MASS</item>
+        <item >SPEED</item>
+        <item >AREA</item>
+        <item >VOLUME</item>
+        <item >TIME</item>
+        <item >TEMPERATURE</item>
+        <item> DIGITAL STORAGE</item>
+        <item >FUEL CONSUMPTION</item>
     </string-array>
 
 </resources>

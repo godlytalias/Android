@@ -2,6 +2,10 @@ package com.example.gtacampus;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -17,6 +21,9 @@ import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
 public class Slot extends Activity {
+	
+	final int COURSE_DET=0;
+	String coursedet,coursetitle;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		
@@ -120,11 +127,13 @@ public class Slot extends Activity {
 			divider.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
 			
 			TextView c_slot = new TextView(this);
+			c_slot.setOnLongClickListener(clicked);
 			c_slot.setWidth(143);
 			c_slot.setGravity(Gravity.CENTER);
 			c_slot.setTextAppearance(getBaseContext(), R.style.mytext);
 			c_slot.setTextColor(Color.WHITE);
 			c_slot.setText(slotstat.getString(j));
+			c_slot.setTag(slotstat.getString(j));
 			slots.addView(divider);
 			slots.addView(c_slot);
 		}
@@ -138,6 +147,39 @@ public class Slot extends Activity {
 		setContentView(timetablemain);
 		db.close();
 	}
+	
+	View.OnLongClickListener clicked = new View.OnLongClickListener() {
+
+		@Override
+		public boolean onLongClick(View v) {
+			// TODO Auto-generated method stub
+			DataManipulator db = new DataManipulator(Slot.this);
+			Cursor c_det = db.coursedetails(v.getTag().toString());
+			if(c_det.moveToFirst()){
+				coursetitle = c_det.getString(1);
+				coursedet = "\nCOURSE CODE            :     " + c_det.getString(2) + "\n";
+				coursedet+= "\nTEACHER				  :		" + c_det.getString(4) + "\n";
+				coursedet+= "\nBUNKS				  :		" + c_det.getInt(3) + "\n";
+				showDialog(COURSE_DET);
+			}
+			c_det.close();
+			db.close();
+			return false;	}	};
+	
+	protected final Dialog onCreateDialog(final int id){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		switch(id){
+		case COURSE_DET : builder.setMessage(coursedet)
+		.setTitle(coursetitle)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(COURSE_DET);
+			}
+		});
+		}		return builder.create();	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

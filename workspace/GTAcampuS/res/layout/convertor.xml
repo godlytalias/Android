@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="CONVERTOR"
+    android:gravity="center"
+    android:textColor="#0F0"
+    android:textStyle="bold"
+    android:textSize="40sp"/>
+    
+    <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+    
+<Spinner     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/conv_cat"
+    android:textAlignment="center"
+    android:gravity="center|center_vertical"
+    android:padding="20dp"
+    android:spinnerMode="dropdown"
+    android:entries="@array/conv_category"/>
+    
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+	android:paddingTop="25dp"
+	android:paddingBottom="25dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+    
+    <EditText android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/conv_value"
+        android:textColor="#F00"
+        android:inputType="numberDecimal"
+        android:textSize="35sp"
+        android:paddingRight="30dp"
+        android:maxWidth="270dp"
+        android:hint="0"/>
+    
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#f10"
+        android:id="@+id/conv_selcat1"/>
+    
+    <View
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="80dp"
+        android:background="@android:drawable/ic_media_play" >
+
+			</View>
+			
+	<TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#f00"
+        android:hint="0"
+        android:textSize="35sp"        
+        android:maxLines="3"
+        android:maxWidth="400dp"
+         android:paddingRight="30dp"
+        android:id="@+id/convr_value"/>	
+        
+	<TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#f10"
+        android:id="@+id/conv_selcat2"/>
+    
+</LinearLayout>
+
+ <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"    
+    android:layout_weight="1"
+    android:padding="30dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+    
+    <Spinner 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:id="@+id/sp_conv"
+        android:layout_weight="1"/>
+    
+    <View android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+    
+        <View
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="30dp"
+        android:background="@android:drawable/ic_media_play" >
+			</View>
+			
+        <View android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+     <Spinner 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:id="@+id/sp_convr"
+        android:layout_weight="1"/>
+    
+</LinearLayout>
+
+</LinearLayout>

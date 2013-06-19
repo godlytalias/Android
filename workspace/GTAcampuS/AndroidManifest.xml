@@ -56,6 +56,7 @@
         <activity android:name="Alarmsetter"></activity>
         <activity android:name="AlarmOptions"></activity>
         <activity android:name="AlarmRepeater"  android:theme="@android:style/Theme.InputMethod"></activity>
+        <activity android:name="gtaconvertor"></activity>
         
     </application>
 
