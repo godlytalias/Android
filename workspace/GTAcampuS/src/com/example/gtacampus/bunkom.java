@@ -45,10 +45,7 @@ public class bunkom extends ListActivity{
 			String stg;
 
 			for (String[] course : names2) {
-				stg = course[1]+"  -   "+course[3];
-				stg2[x]=course[1];
-				stg3[x]=course[0];
-				bunkval[x]=course[3];
+				stg = course[0]+"  -   "+course[2];
 				stg1[x]=stg;
 				x++;
 			}

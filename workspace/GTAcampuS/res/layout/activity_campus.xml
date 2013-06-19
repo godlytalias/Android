@@ -68,13 +68,20 @@
             android:id = "@+id/alarm_title3"/>
 
 		        <View android:layout_width="fill_parent"
+		            android:id="@+id/alertdivider"
     android:layout_height="1dp"
     android:layout_marginTop="8dp"
+    android:visibility="invisible"
     android:padding="5dp"
     android:background="@android:drawable/divider_horizontal_dark">
 			</View>	
         
         </LinearLayout>
+        
+   <View android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>	
 
     <ListView
         android:layout_marginLeft="30dp"
@@ -86,7 +93,7 @@
         android:divider="#333"
         android:dividerHeight="2dp"
         android:listSelector="@drawable/list_style"
-        android:smoothScrollbar="false" >
+        android:smoothScrollbar="true" >
 
     </ListView>
 

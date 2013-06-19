@@ -157,8 +157,8 @@ public class Slot extends Activity {
 			Cursor c_det = db.coursedetails(v.getTag().toString());
 			if(c_det.moveToFirst()){
 				coursetitle = c_det.getString(1);
-				coursedet = "\nCOURSE CODE            :     " + c_det.getString(2) + "\n";
-				coursedet+= "\nTEACHER				  :		" + c_det.getString(4) + "\n";
+				coursedet = "\nCOURSE CODE            :		" + c_det.getString(2) + "\n";
+				coursedet+= "\nTEACHER			  :		" + c_det.getString(0) + "\n";
 				coursedet+= "\nBUNKS				  :		" + c_det.getInt(3) + "\n";
 				showDialog(COURSE_DET);
 			}

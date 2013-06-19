@@ -32,13 +32,17 @@ public class DataManipulator {
 	}
 	
 	
-	public void insert(String course,String code,String teacher) {
+	public long insert(String course,String code,String teacher) {
 		ContentValues cval = new ContentValues();
 		cval.put("course", course);
 		cval.put("code", code);
 		cval.put("bunk", 0);
 		cval.put("teacher", teacher);
-		db.insert(TABLE_NAME1, null, cval);
+		try{
+		return db.insert(TABLE_NAME1, null, cval);}
+		catch(Exception e){
+			return -1;
+		}
 	}
 	
 	
@@ -71,12 +75,12 @@ public class DataManipulator {
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME1, new String[] { "id", "course","code","bunk"},
+		Cursor cursor = db.query(TABLE_NAME1, new String[] { "course","code","bunk"},
 				null, null, null, null, null); 
 
 		if (cursor.moveToFirst()) {
 			do {
-				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)};
+				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)};
 
 				list.add(b1);
 			} while (cursor.moveToNext());
@@ -91,6 +95,18 @@ public class DataManipulator {
 	
 	public Cursor coursedetails(String coursename){
 		return db.query(TABLE_NAME1, null, "course=?", new String[]{coursename}, null, null, null);
+	}
+	
+	public void deletecourse(String coursename)
+	{	Cursor slots = slotstat();
+		slots.moveToFirst();
+		for(int i=1;i<slots.getColumnCount();i++)
+		{
+			ContentValues values = new ContentValues();
+			values.put("HOUR"+i, "-");
+			db.update(TABLE_NAME4, values, "HOUR"+i+" =?", new String[]{coursename});
+		}
+		db.delete(TABLE_NAME1, "course= ?", new String[]{coursename});
 	}
 	
 	public String courseslots(String coursename){
@@ -294,7 +310,7 @@ public class DataManipulator {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (id INTEGER PRIMARY KEY, course TEXT, code TEXT,bunk INTEGER,teacher TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (teacher TEXT, course TEXT PRIMARY KEY, code TEXT NOT NULL,bunk INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT, type TEXT, status INTEGER, snooze INTEGER, shakemode INTEGER, mathsolver INTEGER, sun INTEGER,mon INTEGER,tue INTEGER, wed INTEGER,thu INTEGER, fri INTEGER,sat INTEGER)");
 		}												//0										1				2				3			4				5			6			7			8				9				10					11

@@ -28,12 +28,12 @@ public class courses extends Activity {
 	
 	List<String> slots=new ArrayList<String>();
 	
-	static final int DIALOG_ID = 0,NOT_FREE=1;
+	static final int DIALOG_ID = 0,NOT_FREE=1,EMPTY_FIELDS=2,DUP_VALUES=3;
 	EditText course_name,course_code,course_teacher;
 	LinearLayout c_timing;
 	Spinner course_day, course_time;
 	DataManipulator db;
-	int class_count;
+	int class_count,timeflag=0;
 	int[] day_id,hour_pos;
 	
 	@Override
@@ -74,6 +74,7 @@ public class courses extends Activity {
 		slotstat.moveToPosition(day);
 		if(slotstat.getString(hour_ps).equals("-"))
 		{
+		timeflag=1;
 		TextView check = new TextView(this);
 		check.setText("   " + course_day.getSelectedItem().toString() + "           " + course_time.getSelectedItem());
 		c_timing.addView(check);
@@ -89,17 +90,30 @@ public class courses extends Activity {
 	
 	public void addata(View v)
 	{
+		long flag=0;
+		String name,code,teacher;
+		name = course_name.getText().toString();
+		code = course_code.getText().toString();
+		teacher = course_teacher.getText().toString();
+		if(name.length()>0&&code.length()>0&&teacher.length()>0&&timeflag==1){
 		db = new DataManipulator(this);
-		for(int i=0;i<class_count;i++)
-		{
-			ContentValues val = new ContentValues();
-			val.put("HOUR"+hour_pos[i], course_name.getText().toString());
-			db.addcourse(day_id[i],val);
-		}
-		class_count=0;
-		db.insert(course_name.getText().toString(), course_code.getText().toString(), course_teacher.getText().toString());
+		flag=db.insert(name, code, teacher);
+		if(flag!=-1){
+			for(int i=0;i<class_count;i++)
+			{
+				ContentValues val = new ContentValues();
+				val.put("HOUR"+hour_pos[i], course_name.getText().toString());
+				db.addcourse(day_id[i],val);
+			}
+			class_count=0;
+		showDialog(DIALOG_ID);}
+		else
+			showDialog(DUP_VALUES);
+
 		db.close();
-		showDialog(DIALOG_ID);
+		}
+		else
+			showDialog(EMPTY_FIELDS);
 	}
 	
 	@Override
@@ -116,14 +130,15 @@ public class courses extends Activity {
 		switch(id) {
 		case DIALOG_ID:
 			builder.setMessage("Course added! Add another course ?")
+			.setTitle("GTAcampuS")
 			.setCancelable(false)
 			.setPositiveButton("No", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
 					Intent setalarm = new Intent(courses.this,MyAlarm.class);
 					setalarm.setAction("setalarm");
 					startService(setalarm);
-					courses.this.finish();
-
+					Intent newint=new Intent(courses.this,CampusActivity.class);
+					startActivity(newint);
               }
 			})
 			.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
@@ -145,6 +160,33 @@ public class courses extends Activity {
 					dialog.cancel();}});
 		dialog = builder.create();
 			break;
+			
+		case EMPTY_FIELDS : builder.setMessage("Some required fields are empty! ")
+		.setTitle("Alert!")
+		.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(EMPTY_FIELDS);
+			}
+		});
+		dialog=builder.create();
+		break;
+		
+		case DUP_VALUES : builder.setMessage("Course with same Name / Code already exists! ")
+		.setTitle("Alert!")
+		.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(DUP_VALUES);
+			}
+		});
+		dialog=builder.create();
+		break;
+		default : break;
 		}
 		return dialog;
 	}

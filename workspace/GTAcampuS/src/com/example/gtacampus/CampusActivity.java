@@ -4,6 +4,7 @@ import java.util.Calendar;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.IntentService;
 import android.app.ListActivity;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -24,115 +25,89 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-public class CampusActivity extends ListActivity {
-	
+public class CampusActivity extends ListActivity {	
 	private static final int DIALOG_ID = 0;
 	private static final int ALARM_DIALOG_TIME=1;
 	private static final int ALARM_DIALOG_DATE = 2;
 	Calendar myCal;
 	public int Year,month,day,hour,Minute;
-	
-	//MediaPlayer mediaplayer;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    this.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
 		setContentView(R.layout.activity_campus);
+		if(isUpgraded())
+		{	Intent i = new Intent(CampusActivity.this,Initialize.class);
+			startActivity(i);		}
 		
-		SharedPreferences alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE);
-		String details = alarmdet.getString("alarmdetails", "none");
-		if(!details.equals("none"))
-		{
-			TextView alarmdet1 = (TextView) findViewById(R.id.alarm_title1);
-			alarmdet1.setVisibility(View.VISIBLE);
-			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-			TextView alarmdet2 = (TextView) findViewById(R.id.alarm_title2);
-			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
-			TextView alarmdet3 = (TextView) findViewById(R.id.alarm_title3);
-			alarmdet3.setText(details);
-		}
+		initalertnotif();
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
 		list.setScrollbarFadingEnabled(true);
 		String[] functions = new String[]{"Alerts","TimeTable","Courses","Notes","Bunk-O-Meter","Convertor","Calculator"};
 		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
 		this.setListAdapter(listadapter);
+		this.setTitle("Welcome to GTAcampuS!");
+		}
 
-	/*	 mediaplayer= MediaPlayer.create(this, R.raw.sundaychurch);
-		 mediaplayer.start();
-		while(mediaplayer.getCurrentPosition()<1600)
-		{
-			
-		}
-			mediaplayer.stop();
-			mediaplayer.release();*/
-
-		if(isUpgraded())
-		{
-			Intent i = new Intent(CampusActivity.this,Initialize.class);
-			startActivity(i);
-		}
-		}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initalertnotif();}
+	
+	public void initalertnotif(){
+		SharedPreferences alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE);
+		String details = alarmdet.getString("alarmdetails", "none");
+		if(!details.equals("none"))
+		{	TextView alarmdet1 = (TextView) findViewById(R.id.alarm_title1);
+			alarmdet1.setVisibility(View.VISIBLE);
+			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
+			TextView alarmdet2 = (TextView) findViewById(R.id.alarm_title2);
+			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
+			TextView alarmdet3 = (TextView) findViewById(R.id.alarm_title3);
+			alarmdet3.setText(details);
+			View div = (View) findViewById(R.id.alertdivider);
+			div.setVisibility(View.VISIBLE);	} }
 		
 	public void exit(View v)
-	{
-		this.finish();
-	}
+	{		this.finish();	}
 	
 	public void about(View v)
-	{
-		showDialog(DIALOG_ID);
-	}
+	{		showDialog(DIALOG_ID);	}
 	
 	public void Calculator(View v)
-	{
-		Intent i= new Intent(CampusActivity.this,GTAcalC.class);
-		startActivity(i);
-	}
+	{	Intent i= new Intent(CampusActivity.this,GTAcalC.class);
+		startActivity(i);	}
 	
 	public void slotdisp(View v)
-	{
-		Intent slots = new Intent (CampusActivity.this,Slot.class);
-		startActivity(slots);
-	}
+	{	Intent slots = new Intent (CampusActivity.this,Slot.class);
+		startActivity(slots);	}
 	
 	public void coursefn(View v)
-	{
-		Intent courseintent=new Intent (CampusActivity.this,courses.class);
-		startActivity(courseintent);
-	}
+	{	Intent courseintent=new Intent (CampusActivity.this,courses.class);
+		startActivity(courseintent);	}
 	
 	public void coursecheck(View v)
-	{
-		Intent check=new Intent(CampusActivity.this,CheckData.class);
-		startActivity(check);
-	}
+	{	Intent check=new Intent(CampusActivity.this,CheckData.class);
+		startActivity(check);	}
 	
 	public void notes(View v)
-	{
-		Intent noteint=new Intent(CampusActivity.this,notedata.class);
-		startActivity(noteint);
-	}
+	{	Intent noteint=new Intent(CampusActivity.this,notedata.class);
+		startActivity(noteint);	}
 	
 	public void bunk(View v)
-	{
-		Intent bunkmeter=new Intent(CampusActivity.this,bunkom.class);
-		startActivity(bunkmeter);
-	}
+	{	Intent bunkmeter=new Intent(CampusActivity.this,bunkom.class);
+		startActivity(bunkmeter);	}
 	
 	public void gtaconvertor(View v)
-	{
-		Intent conv=new Intent(CampusActivity.this,gtaconvertor.class);
-		startActivity(conv);
-	}
+	{	Intent conv=new Intent(CampusActivity.this,gtaconvertor.class);
+		startActivity(conv);	}
 	
 	public void alarm(View v)
-	{
-		Intent alarmintent = new Intent(CampusActivity.this,Alarmsetter.class);
-		startActivity(alarmintent);
-							}
+	{	Intent alarmintent = new Intent(CampusActivity.this,Alarmsetter.class);
+		startActivity(alarmintent);			}
 
 	
 	public boolean isUpgraded(){
@@ -145,31 +120,26 @@ public class CampusActivity extends ListActivity {
 				verEdit.putInt("last_version", curVer);
 				verEdit.commit();
 				return true;
-			}
-		}
+			}	}
 		catch(Exception e){e.printStackTrace();	}
 		return false;
 	}
 	
-	public int getVer(){
-		int version = 0;
+	public int getVer(){	int version = 0;
 		try{
 			version=getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
 			}
 		catch(NameNotFoundException e){}
-		return version;
-	}
+		return version;	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.layout.menu, menu);
-		return true;
-	}
+		return true;	}
 	
 	public boolean onOptionsItemSelected(MenuItem menu)
-	{
-		switch(menu.getItemId())
+	{switch(menu.getItemId())
 		{
 		case R.id.exit:
 			this.finish();
@@ -179,10 +149,8 @@ public class CampusActivity extends ListActivity {
 			showDialog(DIALOG_ID);
 			break;
 		default:			break;
-			}
-		
-		return true;
-	}
+			}		
+		return true;	}
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -204,7 +172,6 @@ public class CampusActivity extends ListActivity {
 				break;
 		case 6:Calculator(v);
 				break;
-
 		}
 	}
 	
@@ -226,11 +193,7 @@ public class CampusActivity extends ListActivity {
 		AlertDialog alert=builder.create();
 	 dialog=alert;
 		return dialog;
-		
-		
 				}
-			
-		return null;
+			return null;
 }
 }
-

@@ -10,13 +10,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class CheckData extends ListActivity  {     
-	static final int DIALOG_ID = 0;
+	static final int DIALOG_ID = 0,DELETE_COURSE=1;
 	String message,title;
 	TextView selection;
 	public int idToModify; 
@@ -25,22 +27,23 @@ public class CheckData extends ListActivity  {
 	List<String[]> names2 =null ;
 	String[] stg1;
 	TextView tv;
+	ListView listview;
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 	
 		setContentView(R.layout.check);
+		listview = (ListView) findViewById(android.R.id.list);
+		listview.setOnItemLongClickListener(deletecourse);
 		  dm = new DataManipulator(this);
 	      names2 = dm.selectAll();
 	      tv=(TextView)findViewById(R.id.selection2);
-	      tv.setText("COURSE - CODE");
+	      tv.setText("COURSES");
 		stg1=new String[names2.size()]; 
 
 		int x=0;
-		String stg;
 
 		for (String[] course : names2) {
-			stg = course[1]+"    -    "+course[2];
-			stg1[x]=stg;
+			stg1[x] = course[0];
 			x++;
 		}
 
@@ -54,16 +57,15 @@ public class CheckData extends ListActivity  {
 
 	public void onListItemClick(ListView parent, View v, int position, long id){
 		
-		String[] course = stg1[position].split("    -    ");
 		DataManipulator db = new DataManipulator(CheckData.this);
-		Cursor c_det = db.coursedetails(course[0]);
+		Cursor c_det = db.coursedetails(stg1[position]);
 		if(c_det.moveToFirst()){
 			title    =c_det.getString(1);
-			message  = "\nCOURSE CODE           :     " + c_det.getString(2) + "\n";
-			message  += "\nTEACHER     		        :		" + c_det.getString(4) + "\n";
+			message  = "\nCOURSE CODE           :		" + c_det.getString(2) + "\n";
+			message  += "\nTEACHER     		        :		" + c_det.getString(0) + "\n";
 			message  += "\nBUNKS     		        :		" + c_det.getInt(3) + "\n";
 		}
-		message += "\n\n\t   CLASS TIMINGS\t\n";
+		message += "\n\n\t\tCLASS TIMINGS\t\n";
 		message += db.courseslots(c_det.getString(1));
 		c_det.close();
 		db.close();
@@ -78,11 +80,23 @@ public class CheckData extends ListActivity  {
 		startActivity(courseintent);
 	}
 	
+	AdapterView.OnItemLongClickListener deletecourse = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			// TODO Auto-generated method stub
+			message = stg1[arg2];
+			showDialog(DELETE_COURSE);
+			return false;
+		}
+	};
+	
 	protected final Dialog onCreateDialog(final int id) {
 		Dialog dialog = null;
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		switch(id) {
 		case DIALOG_ID:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(message)
 			.setTitle(title)
 			.setCancelable(false)
@@ -96,8 +110,36 @@ public class CheckData extends ListActivity  {
 						AlertDialog alert = builder.create(); 
 			dialog = alert;
 			break;
-
-		default:
+		case DELETE_COURSE:
+			builder.setMessage("Do you really want to delete course "+message)
+			.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dismissDialog(DELETE_COURSE);
+				}
+			})
+			.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					DataManipulator db = new DataManipulator(CheckData.this);
+					db.deletecourse(message);
+					db.close();
+					Intent setalarm = new Intent(CheckData.this,MyAlarm.class);
+					setalarm.setAction("setalarm");
+					startService(setalarm);
+					dismissDialog(DELETE_COURSE);
+					Intent refresh = new Intent(CheckData.this,CheckData.class);
+					startActivity(refresh);
+				}
+			});
+			dialog=builder.create();			
+			break;
+			
+		default:break;
 
 		}
 		return dialog;

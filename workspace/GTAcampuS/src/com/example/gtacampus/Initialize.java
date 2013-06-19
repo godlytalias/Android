@@ -14,14 +14,14 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Spinner;
 
 public class Initialize extends Activity{
-	
+
 	Spinner coursehour,classtimings1,classtimings2;
 	LinearLayout coursetimingmain;
 	TextView timeseltext;
 	Button nexthour;
 	int no,i,temp;
 	String start[],end[];
-	
+
 	@Override
 	public void onCreate(Bundle SavedInstanceState)
 	{
@@ -37,9 +37,7 @@ public class Initialize extends Activity{
 	}
 	
 	public void skip(View v)
-	{
-		this.finish();
-	}
+	{		this.finish();	}
 	
 	View.OnClickListener gotonexthour = new View.OnClickListener() {
 		
@@ -96,7 +94,4 @@ public class Initialize extends Activity{
 		classtimings1 = (Spinner)findViewById(R.id.classtimings1);
 		classtimings2 = (Spinner)findViewById(R.id.classtimings2);
 		   nexthour.setOnClickListener(gotonexthour);
-	}
-};
-    	
-	};
+	}};};
