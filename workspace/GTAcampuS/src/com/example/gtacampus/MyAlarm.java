@@ -1,14 +1,8 @@
 package com.example.gtacampus;
 
 
-
-import java.math.MathContext;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.regex.Matcher;
-
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -26,13 +20,9 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.preference.RingtonePreference;
-import android.provider.AlarmClock;
 import android.widget.Toast;
-
 
 public class MyAlarm extends Service{
 	private Ringtone alarmalert;
@@ -59,6 +49,7 @@ public class MyAlarm extends Service{
 				PowerManager.PARTIAL_WAKE_LOCK, "keepAlive");
 		wl.acquire();
 		alarmnotifier = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+
 	}
 	
 	@Override
@@ -108,12 +99,11 @@ public class MyAlarm extends Service{
 	
 	
 	public void bootsetalarm()
-	{			
-		endtime=0;
+	{		
 		long nxt_time = getnextalarmtime();
 		Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
 		PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
-			if(nxt_time!=0)
+			if(nxt_time>0)
 			pushalarm(nxt_time, pendingalarms);
 		stopSelf();
 						}
@@ -156,13 +146,7 @@ public class MyAlarm extends Service{
 	public void setalarm()
 		{
 		SharedPreferences alarmdets = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-		if(alarmdets.contains("endtime"))
-			endtime = alarmdets.getLong("endtime", 0);
-		else
-			endtime =0;
-		SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
-		alarmdetedit.clear();
-		alarmdetedit.commit();
+		SharedPreferences.Editor alarmdetedit;
 			long nxt_time = getnextalarmtime();
 			Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
 			setalarm= PendingIntent.getBroadcast(this, 0, intent1,
@@ -399,6 +383,7 @@ public class MyAlarm extends Service{
 	public long getnextalarmtime()
 	{
 		long nxttime=0,nxtalarmtime=0,extratime=0,temp=0;
+		endtime=0;
 		Calendar cal = Calendar.getInstance();
 		final long cur_time = cal.getTimeInMillis();
 		SharedPreferences.Editor alarmprefs = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
@@ -437,9 +422,10 @@ public class MyAlarm extends Service{
 				alarmprefs.putInt("alarmsnooze", en_alarms.getInt(9));
 				alarmprefs.putBoolean("alarmshake", en_alarms.getInt(10)!=0);
 				alarmprefs.putBoolean("alarmmath", en_alarms.getInt(11)!=0);
+		//		alarmprefs.putLong("endtime", 0);
 				alarmprefs.commit();
-				temp=nxtalarmtime;
 				alertflag=true;
+				temp=nxtalarmtime;
 			}
 			en_alarms.moveToNext();
 		}
@@ -476,11 +462,9 @@ public class MyAlarm extends Service{
 		default: slotstat.moveToFirst();
 			break;
 		}
-		ContentValues times = new ContentValues();	
-		
+		ContentValues times = new ContentValues();			
 		do{
-			
-		for(int i=1;i<slotstat.getColumnCount();i++)
+	for(int i=1;i<slotstat.getColumnCount();i++)
 		{
 			if(!(slotstat.getString(i).equals("-")))
 			{
@@ -490,11 +474,11 @@ public class MyAlarm extends Service{
 				cal.set(Calendar.MINUTE, times.getAsInteger("minute"));
 				cal.set(Calendar.SECOND, 0);
 				cal.set(Calendar.AM_PM, times.getAsInteger("am_pm"));
-			//	cal.set(Calendar.DAY_OF_MONTH, day);
+				cal.set(Calendar.DAY_OF_MONTH, day);
 			//	cal.add(Calendar.DAY_OF_MONTH, count);
 				extratime = count*24*60*60000;
 				nxttime = cal.getTimeInMillis() + extratime;
-				if(nxttime>(cur_time+tenmins) &&(nxttime<nxtalarmtime ||nxtalarmtime==0)&& ((nxttime>endtime)||endtime==0))
+			if(nxttime>(cur_time+tenmins) &&(nxttime<nxtalarmtime ||(nxtalarmtime==0 && temp==0)) && (nxttime/1000>endtime/1000))
 				{
 					alarmprefs.putLong("coursetime", nxttime);
 					nxtalarmtime = nxttime-tenmins;
@@ -504,8 +488,9 @@ public class MyAlarm extends Service{
 					alarmprefs.putInt("alarmsnooze", 3);
 					alarmprefs.putBoolean("alarmshake", true);
 					alarmprefs.putBoolean("alarmmath", true);
-					alarmprefs.putLong("endtime", (times.getAsLong("endtime")+extratime));
+				//	alarmprefs.putLong("endtime", (times.getAsLong("endtime")+extratime));
 					alarmprefs.commit();
+					endtime = times.getAsLong("endtime")+extratime;
 				}
 				if(nxttime/1000==endtime/1000)
 				{
@@ -519,7 +504,7 @@ public class MyAlarm extends Service{
 		if(slotstat.isAfterLast()){
 			slotstat.moveToFirst();
 			count+=2;}
-		}while((nxtalarmtime==0)&&(count<=7));
+		}while((nxtalarmtime<System.currentTimeMillis())&&(count<=7));
 		slotstat.close();
 		db.close();
 		if(temp>(cur_time+tenmins) && alertflag && (temp<endtime))
