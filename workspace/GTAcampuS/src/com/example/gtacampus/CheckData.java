@@ -66,7 +66,7 @@ public class CheckData extends ListActivity  {
 		Cursor c_det = db.coursedetails(stg1[position]);
 		if(c_det.moveToFirst()){
 			title    =c_det.getString(1);
-			message  = "\nCOURSE CODE\t:\t" + c_det.getString(2) + "\n";
+			message  = "\nCOURSE CODE\t\t:\t" + c_det.getString(2) + "\n";
 			message  += "\nTEACHER\t\t\t\t:\t" + c_det.getString(0) + "\n";
 			message  += "\nBUNKS\t\t\t\t\t:\t" + c_det.getInt(3) + "\n";
 		}

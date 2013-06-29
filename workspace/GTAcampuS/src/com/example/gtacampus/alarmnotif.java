@@ -61,7 +61,6 @@ public class alarmnotif extends Activity{
 		Intent i = getIntent();
 		shakesensor = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 		shake = shakesensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		shakesensor.registerListener(shakelistener, shake, SensorManager.SENSOR_DELAY_UI);
 		TextView altitle = (TextView)findViewById(R.id.alarmtitle);
 		altitle.setText(alarmpref.getString("alarmtitle", "Custom Alert"));
 		alarmnotification = PendingIntent.getActivity(getBaseContext(), 0, i, 0);
@@ -86,7 +85,8 @@ public class alarmnotif extends Activity{
 		}
 
 		if(((alarmpref.getInt("alarmsnooze", 5)>0)&&!courseflag)||(courseflag&&alarmpref.getLong("coursetime", 0)>System.currentTimeMillis()))
-			bt1.setOnClickListener(snoozealarm);
+			{bt1.setOnClickListener(snoozealarm);
+		shakesensor.registerListener(shakelistener, shake, SensorManager.SENSOR_DELAY_UI);}
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
 		alarmnotifier = (NotificationManager)getSystemService(getBaseContext().NOTIFICATION_SERVICE);
 		Notification alarmnotify = new Notification(R.drawable.ic_launcher, alarmpref.getString("alarmtitle", "Custom Alert"), System.currentTimeMillis());
@@ -104,16 +104,9 @@ public class alarmnotif extends Activity{
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			// TODO Auto-generated method stub
-			if((event.values[0]>11.0||event.values[1]>11.0) && alarmpref.getBoolean("alarmshake", true))
+			if((event.values[0]>11.0||((event.values[1]>11.0)&&(event.values[2]>11.0))) && alarmpref.getBoolean("alarmshake", true))
 			{
-				Intent i = new Intent(getBaseContext(),MyAlarm.class);
-				i.setAction("snooze");
-				startService(i);
-				alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
-				if(!getIntent().getBooleanExtra("snoozingstat", false))
-				snoozeit();
-				shakesensor.unregisterListener(shakelistener, shake);
-				finish();
+			snoozealarm();
 			}
 		}
 		
@@ -139,6 +132,13 @@ public class alarmnotif extends Activity{
 	}
 	
 	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		lock.reenableKeyguard();
+		super.onDestroy();
+	}
+	
+	@Override
 	protected void onResume(){
 		lock.disableKeyguard();
 		super.onResume();
@@ -149,16 +149,22 @@ public class alarmnotif extends Activity{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent i = new Intent(getBaseContext(),MyAlarm.class);
-			i.setAction("snooze");
-			startService(i);
-			alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
-			if(!getIntent().getBooleanExtra("snoozingstat", false))
-			snoozeit();
-			shakesensor.unregisterListener(shakelistener, shake);
-			finish();
+			snoozealarm();
 		}
 	};
+	
+	private void snoozealarm(){
+		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
+		Intent i = new Intent(getBaseContext(),MyAlarm.class);
+		i.setAction("snooze");
+		startService(i);
+		if(!getIntent().getBooleanExtra("snoozingstat", false))
+			snoozeit();
+		else
+		{
+			shakesensor.unregisterListener(shakelistener, shake);
+			finish();}
+	}
 	
 	private void snoozeit()
 	{
@@ -169,6 +175,8 @@ public class alarmnotif extends Activity{
 		SharedPreferences.Editor alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 		alarmdet.putString("alarmdetails", "snoozing...");
 		alarmdet.commit();
+		shakesensor.unregisterListener(shakelistener, shake);
+		finish();
 	}
 	
 	private void stoppingalarm(){
@@ -217,8 +225,9 @@ public class alarmnotif extends Activity{
 			shakesensor.unregisterListener(shakelistener, shake);
 			if(courseflag)
 			{
-				alarm.setStreamMute(AudioManager.STREAM_MUSIC, true);
-				alarm.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
+				alarm.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_SHOW_UI);
+				alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/2, AudioManager.FLAG_VIBRATE);
+				alarm.setStreamVolume(AudioManager.STREAM_NOTIFICATION,0,AudioManager.FLAG_SHOW_UI);
 				alarm.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
 			}
 			if(alarmpref.getBoolean("alarmmath", false)&&(!courseflag))

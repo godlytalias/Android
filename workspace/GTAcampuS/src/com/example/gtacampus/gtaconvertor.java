@@ -194,8 +194,7 @@ public class gtaconvertor extends Activity {
 		values.put("Inch", 39.370079); 
 		values.put("Nautical Mile", 0.0005399568); 
 		values.put("Millimetre", 1000);
-		values.put("Light Year",9460800000000.0);
-		
+		values.put("Light Year",(1/9460800000000000.0));
 		temp=values.getAsDouble(ret)/values.getAsDouble(giv);
 		res=temp*val;
 		return res;
@@ -205,8 +204,8 @@ public class gtaconvertor extends Activity {
 		//normalised with gram
 		double res,temp;
 		values.put("Gram", 1.0);
-		values.put("Kilogram", 0.001);
-		values.put("Milligram", 1000.0);
+		values.put("Milligram", 0.001);
+		values.put("Kilogram", 1000.0);
 		values.put("Stone", 6350.29);
 		values.put("Pound", 453.592);
 		values.put("Ounce", 28.3495);
@@ -214,7 +213,7 @@ public class gtaconvertor extends Activity {
 		values.put("Metric Ton",1000000.0);
 		values.put("Long ton",1016050.0);
 		values.put("Short ton", 97185.0);
-		temp=values.getAsDouble(ret)/values.getAsDouble(giv);
+		temp=values.getAsDouble(giv)/values.getAsDouble(ret);
 		res=temp*val;
 		return res;
 	}

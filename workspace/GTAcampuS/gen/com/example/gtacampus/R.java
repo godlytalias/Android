@@ -41,27 +41,26 @@ public final class R {
         public static final int button_cancel=0x7f020006;
         public static final int buttonstyle=0x7f020007;
         public static final int calculator_icon=0x7f020008;
-        public static final int campus=0x7f020009;
-        public static final int course=0x7f02000a;
-        public static final int gtacampus=0x7f02000b;
-        public static final int hand=0x7f02000c;
-        public static final int ic_action_name=0x7f02000d;
-        public static final int ic_bunk=0x7f02000e;
-        public static final int ic_close=0x7f02000f;
-        public static final int ic_launcher=0x7f020010;
-        public static final int ic_note=0x7f020011;
-        public static final int ic_notes=0x7f020012;
-        public static final int ic_slot=0x7f020013;
-        public static final int iconcourse=0x7f020014;
-        public static final int lines=0x7f020015;
-        public static final int list_style=0x7f020016;
-        public static final int myshape=0x7f020017;
-        public static final int nextbutton=0x7f020018;
-        public static final int nitc=0x7f020019;
-        public static final int notes=0x7f02001a;
-        public static final int rect=0x7f02001b;
-        public static final int sgtacampus=0x7f02001c;
-        public static final int slot=0x7f02001d;
+        public static final int course=0x7f020009;
+        public static final int gtacampus=0x7f02000a;
+        public static final int hand=0x7f02000b;
+        public static final int ic_action_name=0x7f02000c;
+        public static final int ic_bunk=0x7f02000d;
+        public static final int ic_close=0x7f02000e;
+        public static final int ic_launcher=0x7f02000f;
+        public static final int ic_note=0x7f020010;
+        public static final int ic_notes=0x7f020011;
+        public static final int ic_slot=0x7f020012;
+        public static final int iconcourse=0x7f020013;
+        public static final int lines=0x7f020014;
+        public static final int list_style=0x7f020015;
+        public static final int myshape=0x7f020016;
+        public static final int nextbutton=0x7f020017;
+        public static final int nitc=0x7f020018;
+        public static final int notes=0x7f020019;
+        public static final int rect=0x7f02001a;
+        public static final int sgtacampus=0x7f02001b;
+        public static final int slot=0x7f02001c;
     }
     public static final class id {
         public static final int about=0x7f0b0074;
@@ -228,8 +227,6 @@ public final class R {
     }
     public static final class raw {
         public static final int myringtone=0x7f050000;
-        public static final int sundaychurch=0x7f050001;
-        public static final int thundersound=0x7f050002;
     }
     public static final class string {
         public static final int action_settings=0x7f080001;

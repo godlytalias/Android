@@ -769,6 +769,12 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 	{
 		textchange.setText("");
 		textchange.setHint("SYNTAX ERROR");
+		numptr=0;
+		decflag=0;
+		gcdflag=0;
+		resflag=0;
+		opflag=0;
+		numbers[numptr]=0.0;
 	}
 	}
 });
