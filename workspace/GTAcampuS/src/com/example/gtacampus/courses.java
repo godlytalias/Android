@@ -137,8 +137,8 @@ public class courses extends Activity {
 					Intent setalarm = new Intent(courses.this,MyAlarm.class);
 					setalarm.setAction("setalarm");
 					startService(setalarm);
-					Intent newint=new Intent(courses.this,CampusActivity.class);
-					startActivity(newint);
+					dismissDialog(DIALOG_ID);
+					finish();
               }
 			})
 			.setNegativeButton("Yes", new DialogInterface.OnClickListener() {

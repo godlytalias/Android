@@ -1,6 +1,25 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+        <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textStyle="bold"
+        android:background="#ddd"
+        android:textIsSelectable="true"
+        android:gravity="right"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <View android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:drawable/divider_horizontal_dark"/>
+
+<ScrollView android:layout_width="fill_parent"
     android:layout_height="match_parent"
         tools:context=".GTAcalC" >
 
@@ -10,13 +29,6 @@
     android:padding="5dp"
     android:orientation="vertical">
  	
-        <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:textStyle="bold"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -130,42 +142,41 @@
     
     </LinearLayout>
     
-<LinearLayout android:layout_width="fill_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
+    android:layout_weight="4.37"
     android:orientation="horizontal">
 
 <Button
-        android:id="@+id/clear"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-		android:padding = "5dp"
-        android:layout_margin="15dp"
-        android:layout_weight="1"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rect"
-        android:textColor="#FFFFFF"
-        android:text="AC"
-        android:textStyle="bold" />
+    android:id="@+id/clear"
+    android:layout_width="100dp"
+    android:layout_height="60dp"
+    android:layout_margin="15dp"
+    android:layout_marginTop="12dp"
+    android:layout_weight="2.10"
+    android:background="@drawable/rect"
+    android:padding="5dp"
+    android:text="AC"
+    android:textColor="#FFFFFF"
+    android:textStyle="bold" />
     
-
     <Button
         android:id="@+id/num0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding = "5dp"
         android:layout_margin="15dp"
-        android:layout_weight="1"
+        android:layout_weight="0.01"
         android:background="@drawable/button"
+        android:padding="5dp"
         android:text="0" />
 
     <Button
         android:id="@+id/equal"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:padding = "5dp"
         android:layout_margin="15dp"
-        android:layout_weight="1"
+        android:layout_weight="2.26"
         android:background="@drawable/rect"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -362,4 +373,4 @@
     
 </LinearLayout>
 
- </LinearLayout></ScrollView>
+ </LinearLayout></ScrollView></LinearLayout>

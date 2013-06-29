@@ -53,18 +53,19 @@ public final class R {
         public static final int ic_notes=0x7f020012;
         public static final int ic_slot=0x7f020013;
         public static final int iconcourse=0x7f020014;
-        public static final int list_style=0x7f020015;
-        public static final int myshape=0x7f020016;
-        public static final int nextbutton=0x7f020017;
-        public static final int nitc=0x7f020018;
-        public static final int notes=0x7f020019;
-        public static final int rect=0x7f02001a;
-        public static final int sgtacampus=0x7f02001b;
-        public static final int slot=0x7f02001c;
+        public static final int lines=0x7f020015;
+        public static final int list_style=0x7f020016;
+        public static final int myshape=0x7f020017;
+        public static final int nextbutton=0x7f020018;
+        public static final int nitc=0x7f020019;
+        public static final int notes=0x7f02001a;
+        public static final int rect=0x7f02001b;
+        public static final int sgtacampus=0x7f02001c;
+        public static final int slot=0x7f02001d;
     }
     public static final class id {
         public static final int about=0x7f0b0074;
-        public static final int action_settings=0x7f0b0086;
+        public static final int action_settings=0x7f0b0088;
         public static final int add=0x7f0b0015;
         public static final int add_alarm=0x7f0b0058;
         public static final int add_course=0x7f0b005a;
@@ -118,6 +119,7 @@ public final class R {
         public static final int frip=0x7f0b0081;
         public static final int gcd=0x7f0b001a;
         public static final int getalarmtitle=0x7f0b0026;
+        public static final int goback=0x7f0b0087;
         public static final int heading=0x7f0b0076;
         public static final int imageButton1=0x7f0b0006;
         public static final int imageButton2=0x7f0b0007;
@@ -183,6 +185,7 @@ public final class R {
         public static final int textView2=0x7f0b0023;
         public static final int textView3=0x7f0b0084;
         public static final int textView4=0x7f0b0085;
+        public static final int textviewer=0x7f0b0086;
         public static final int thu=0x7f0b007b;
         public static final int thu_check=0x7f0b003c;
         public static final int thup=0x7f0b0080;
@@ -218,6 +221,7 @@ public final class R {
         public static final int slots=0x7f03000f;
         public static final int spinner=0x7f030010;
         public static final int splashscr=0x7f030011;
+        public static final int textviewer=0x7f030012;
     }
     public static final class menu {
         public static final int campus=0x7f0a0000;

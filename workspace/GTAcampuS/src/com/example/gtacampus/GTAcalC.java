@@ -767,7 +767,8 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 	}
 	catch(Exception e)
 	{
-		textchange.setText("SYNTAX ERROR");
+		textchange.setText("");
+		textchange.setHint("SYNTAX ERROR");
 	}
 	}
 });

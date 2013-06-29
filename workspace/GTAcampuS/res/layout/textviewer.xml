@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical" >
+    
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_weight="1">
+        
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textIsSelectable="true"
+            android:textColor="#111"
+            android:id="@+id/textviewer"/>
+               
+    </ScrollView>
+    
+    <Button
+        android:id="@+id/goback"
+        style="@style/Menu_Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.07"
+        android:text="Go Back" />
+
+</LinearLayout>

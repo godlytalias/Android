@@ -20,6 +20,7 @@ public class DataManipulator {
 	static final String TABLE_NAME2 = "notes";
 	static final String TABLE_NAME3 = "alarms";
 	static final String TABLE_NAME4 = "courses";
+	static final String TABLE_NAME5 = "bunks";
 	private static Context context;
 	OpenHelper openHelper;
 	ContentValues alarm;
@@ -58,6 +59,10 @@ public class DataManipulator {
 	public void update(String course)
 	{
 		db.execSQL("UPDATE "+TABLE_NAME1 + " SET bunk=bunk+1 WHERE course = '" + course +"'");
+		ContentValues values = new ContentValues();
+		values.put("course", course);
+		values.put("bunkdate", System.currentTimeMillis());
+		db.insert(TABLE_NAME5, null, values);
 	}
 	
 	public int getbunk(String course)
@@ -65,6 +70,10 @@ public class DataManipulator {
 		Cursor bunkval= db.query(TABLE_NAME1, new String[]{"bunk"}, "course = ?", new String[]{course}, null, null, null);
 		bunkval.moveToFirst();
 		return bunkval.getInt(0);
+	}
+	
+	public Cursor getdates(String course){
+		return db.query(TABLE_NAME5, new String[]{"bunkdate"}, "course = ?", new String[]{course}, null, null, null);
 	}
 
 	public void deleteAll() {
@@ -254,15 +263,30 @@ public class DataManipulator {
 	
 	public Cursor gethourtimings()
 	{
-		return db.query(TABLE_NAME4, null, "DAY_ID=1", null, null, null, null);
+		return db.query(TABLE_NAME4, null, "DAY_ID<=2", null, null, null, null);
 	}
 	
 	public ContentValues get_time(int hourno)
 	{
 		ContentValues time = new ContentValues();
+		ContentValues end_time = new ContentValues();
 		Cursor timings = gethourtimings();
 		timings.moveToFirst();
 		String t = timings.getString(hourno);
+		time = parsetime(t);
+		timings.moveToNext();
+		end_time = parsetime(timings.getString(hourno));
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR, end_time.getAsInteger("hour"));
+		cal.set(Calendar.MINUTE, end_time.getAsInteger("minute"));
+		cal.set(Calendar.AM_PM,end_time.getAsInteger("am_pm"));
+		time.put("endtime", cal.getTimeInMillis());
+		return time;
+	}
+	
+	public ContentValues parsetime(String t)
+	{
+		ContentValues time = new ContentValues();
 		String[] t_split = t.split(":");
 		time.put("hour", Integer.parseInt(t_split[0]));
 		String[] tmin_split = t_split[1].split(" ");
@@ -312,8 +336,9 @@ public class DataManipulator {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (teacher TEXT, course TEXT PRIMARY KEY, code TEXT NOT NULL,bunk INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, title TEXT, notes TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME5 + " (course TEXT,bunkdate LONG,FOREIGN KEY(course) REFERENCES " + TABLE_NAME1 + "(course) ON DELETE CASCADE)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER, title TEXT, type TEXT, status INTEGER, snooze INTEGER, shakemode INTEGER, mathsolver INTEGER, sun INTEGER,mon INTEGER,tue INTEGER, wed INTEGER,thu INTEGER, fri INTEGER,sat INTEGER)");
-		}												//0										1				2				3			4				5			6			7			8				9				10					11
+		   }												//0										1				2				3			4				5			6			7			8				9				10					11
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -321,6 +346,7 @@ public class DataManipulator {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
 			onCreate(db);
 		}
 	}

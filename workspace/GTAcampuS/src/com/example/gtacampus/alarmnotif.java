@@ -18,8 +18,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
+import android.media.AudioTrack;
+import android.media.audiofx.AudioEffect;
+import android.net.rtp.AudioStream;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
+import android.provider.MediaStore.Audio;
 import android.renderscript.Type;
 import android.text.Editable;
 import android.view.GestureDetector;
@@ -36,6 +40,7 @@ public class alarmnotif extends Activity{
 	NotificationManager alarmnotifier;
 	PendingIntent alarmnotification;
 	SharedPreferences alarmpref;
+	AudioManager alarm;
 	private Boolean courseflag;
 	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1;
 	private int SNOOZE_NOTIFICATION = 1;
@@ -49,6 +54,8 @@ public class alarmnotif extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm);
+
+		alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		Intent i = getIntent();
@@ -61,6 +68,7 @@ public class alarmnotif extends Activity{
 		bt1=(Button)findViewById(R.id.albutton1);
 		bt2=(Button)findViewById(R.id.albutton2);
 		bt2.setSoundEffectsEnabled(true);
+		bt2.setOnClickListener(stopalarm);
 		courseflag=false;
 		if(alarmpref.getString("alarmtype", "alarm").equals("course")){
 			DataManipulator db = new DataManipulator(this);
@@ -68,15 +76,17 @@ public class alarmnotif extends Activity{
 			alerts.setText("Bunked " + db.getbunk(alarmpref.getString("alarmtitle", "Custom Alert")) + " Class/es");
 			alerts.setVisibility(View.VISIBLE);
 			db.close();
-			bt2.setText("GOING");
+			bt2.setText("BUNK");
 			courseflag=true;
 			Button bt3 = (Button)findViewById(R.id.albutton3);
 			bt3.setVisibility(View.VISIBLE);
-			bt3.setOnClickListener(bunkit);
+			bt3.setText("ON THE WAY");
+			bt3.setOnClickListener(stopalarm);
+			bt2.setOnClickListener(bunkit);
 		}
-		if(alarmpref.getInt("alarmsnooze", 5)>0)
-		bt1.setOnClickListener(snoozealarm);
-		bt2.setOnClickListener(stopalarm);
+
+		if(((alarmpref.getInt("alarmsnooze", 5)>0)&&!courseflag)||(courseflag&&alarmpref.getLong("coursetime", 0)>System.currentTimeMillis()))
+			bt1.setOnClickListener(snoozealarm);
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
 		alarmnotifier = (NotificationManager)getSystemService(getBaseContext().NOTIFICATION_SERVICE);
 		Notification alarmnotify = new Notification(R.drawable.ic_launcher, alarmpref.getString("alarmtitle", "Custom Alert"), System.currentTimeMillis());
@@ -87,7 +97,6 @@ public class alarmnotif extends Activity{
 		alarmnotify.flags=Notification.FLAG_SHOW_LIGHTS | Notification.DEFAULT_VIBRATE ;
 		alarmnotifier.notify("GTAcampuS", ALARM_NOTIFICATION, alarmnotify);}
 		lock = keyguard.newKeyguardLock("GTAcampuS");
-		
 }
 	
 	SensorEventListener shakelistener = new SensorEventListener() {
@@ -95,7 +104,7 @@ public class alarmnotif extends Activity{
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			// TODO Auto-generated method stub
-			if(event.values[0]>12.0 && alarmpref.getBoolean("alarmshake", true))
+			if((event.values[0]>11.0||event.values[1]>11.0) && alarmpref.getBoolean("alarmshake", true))
 			{
 				Intent i = new Intent(getBaseContext(),MyAlarm.class);
 				i.setAction("snooze");
@@ -183,7 +192,6 @@ public class alarmnotif extends Activity{
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 			//max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -207,6 +215,12 @@ public class alarmnotif extends Activity{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
+			if(courseflag)
+			{
+				alarm.setStreamMute(AudioManager.STREAM_MUSIC, true);
+				alarm.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
+				alarm.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+			}
 			if(alarmpref.getBoolean("alarmmath", false)&&(!courseflag))
 			{
 				Thread volume = new Thread(volup);
@@ -223,6 +237,9 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
+			SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
+			alarmdetedit.clear();
+			alarmdetedit.commit();
 				Thread volume = new Thread(volup);
 				 volume.start();
 				showDialog(MATH_ALARM);		}

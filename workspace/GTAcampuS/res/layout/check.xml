@@ -38,5 +38,6 @@ android:layout_weight="1"
         android:padding="10dp"
         android:textStyle="bold"
         android:onClick="coursefn"
+        android:drawableLeft="@android:drawable/ic_input_add"
         android:text="ADD COURSE"></Button>
 </LinearLayout>

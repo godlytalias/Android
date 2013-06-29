@@ -37,7 +37,21 @@ public class Initialize extends Activity{
 	}
 	
 	public void skip(View v)
-	{		this.finish();	}
+	{		
+		start=new String[10];
+		end = new String[10];
+		no=9;
+		start[1]="8:00 AM"; end[1] = "9:00 AM";
+		start[2]="9:00 AM"; end[2] = "10:00 AM";
+		start[3]="10:15 AM"; end[3] = "11:15 AM";
+		start[4]="11:15 AM"; end[4] = "12:15 PM";
+		start[5]="1:00 PM"; end[5] = "2:00 PM";
+		start[6]="2:00 PM"; end[6] = "3:00 PM";
+		start[7]="3:00 PM"; end[7] = "4:00 PM";
+		start[8]="4:00 PM"; end[8] = "5:00 PM";
+		start[9]="5:00 PM"; end[9] = "6:00 PM";
+		initialize_db();
+	}
 	
 	View.OnClickListener gotonexthour = new View.OnClickListener() {
 		
@@ -64,14 +78,34 @@ public class Initialize extends Activity{
 		}
 		else
 		{
-			DataManipulator db = new DataManipulator(Initialize.this);
-			db.coursetableinit(no);
-			db.coursetimings(start, no);
-			db.coursetimings(end, no);
-			db.initdays(no);
-			db.close();
-			finish();
+			initialize_db();
 		}
+		}
+	};
+	
+	protected void initialize_db(){
+		DataManipulator db = new DataManipulator(Initialize.this);
+		db.coursetableinit(no);
+		db.coursetimings(start, no);
+		db.coursetimings(end, no);
+		db.initdays(no);
+		db.close();
+		finish();
+	}
+	
+	AdapterView.OnItemSelectedListener timeselected = new AdapterView.OnItemSelectedListener() {
+
+		@Override
+		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			// TODO Auto-generated method stub
+			classtimings2.setSelection(arg2+4);
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+			// TODO Auto-generated method stub
+			
 		}
 	};
 	
@@ -93,5 +127,6 @@ public class Initialize extends Activity{
 	   timeseltext.setText("1ST");	   
 		classtimings1 = (Spinner)findViewById(R.id.classtimings1);
 		classtimings2 = (Spinner)findViewById(R.id.classtimings2);
+		classtimings1.setOnItemSelectedListener(timeselected);
 		   nexthour.setOnClickListener(gotonexthour);
 	}};};

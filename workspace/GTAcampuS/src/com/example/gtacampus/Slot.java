@@ -69,7 +69,7 @@ public class Slot extends Activity {
 	for(int i=0;i<6;i++)
 	{
 		TextView c_days = new TextView(this);
-		c_days.setWidth(143);
+		c_days.setWidth(100);
 		c_days.setTextAppearance(getBaseContext(), R.style.mytext);
 		c_days.setTextColor(Color.GREEN);
 		c_days.setLayoutParams(dim);
@@ -157,9 +157,9 @@ public class Slot extends Activity {
 			Cursor c_det = db.coursedetails(v.getTag().toString());
 			if(c_det.moveToFirst()){
 				coursetitle = c_det.getString(1);
-				coursedet = "\nCOURSE CODE            :		" + c_det.getString(2) + "\n";
-				coursedet+= "\nTEACHER			  :		" + c_det.getString(0) + "\n";
-				coursedet+= "\nBUNKS				  :		" + c_det.getInt(3) + "\n";
+				coursedet = "\nCOURSE CODE\t:\t" + c_det.getString(2) + "\n";
+				coursedet+= "\nTEACHER\t\t\t\t:\t" + c_det.getString(0) + "\n";
+				coursedet+= "\nBUNKS\t\t\t\t\t:\t" + c_det.getInt(3) + "\n";
 				showDialog(COURSE_DET);
 			}
 			c_det.close();

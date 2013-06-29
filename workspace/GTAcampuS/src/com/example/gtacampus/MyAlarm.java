@@ -42,7 +42,10 @@ public class MyAlarm extends Service{
 	DataManipulator db;
 	Notification alarmnotification;
 	NotificationManager alarmnotifier;
+	long endtime;
 	private int ALARM_NOTIFICATION =10;
+	private static int flag =0,alarmflag=1;
+	private static long tenmins=10*60*1000;
 	
 	
 	@Override
@@ -103,16 +106,14 @@ public class MyAlarm extends Service{
 	
 	
 	public void bootsetalarm()
-	{
+	{			
+		endtime=0;
 		long nxt_time = getnextalarmtime();
 		Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
-		
-			PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
-			
+		PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
 			if(nxt_time!=0)
 			pushalarm(nxt_time, pendingalarms);
-					
-	}
+						}
 	
 	public void snoozealarm()
 	{
@@ -128,7 +129,8 @@ public class MyAlarm extends Service{
 	am.cancel(setalarm);
 	am.set(AlarmManager.RTC_WAKEUP, snoozetime, setalarm);
 	//	am.setRepeating(AlarmManager.RTC_WAKEUP, snoozetime, 300000, setalarm);
-	try{alarmalert.stop();
+	try{alarmflag=1;
+	alarmalert.stop();
 	alarmalert=null;}
 	catch(Exception e){	}
 	}
@@ -137,7 +139,8 @@ public class MyAlarm extends Service{
 	public void stopalarm()
 	{
 		if(alarmalert!=null)
-		try{alarmalert.stop();
+		try{alarmflag=1;
+		alarmalert.stop();
 		alarmalert=null;}
 		catch(Exception e){}
 /*		ringer.stop();
@@ -148,12 +151,20 @@ public class MyAlarm extends Service{
 	
 	public void setalarm()
 		{
+		SharedPreferences alarmdets = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
+		if(alarmdets.contains("endtime"))
+			endtime = alarmdets.getLong("endtime", 0);
+		else
+			endtime =0;
+		SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
+		alarmdetedit.clear();
+		alarmdetedit.commit();
 			long nxt_time = getnextalarmtime();
 			Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
 			setalarm= PendingIntent.getBroadcast(this, 0, intent1,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 		
-			if(nxt_time!=0)
+			if(nxt_time>System.currentTimeMillis())
 				pushalarm(nxt_time,setalarm);
 			else
 			{
@@ -161,7 +172,7 @@ public class MyAlarm extends Service{
 						.getApplicationContext().ALARM_SERVICE);
 				am.cancel(setalarm);
 				alarmnotifier.cancel(ALARM_NOTIFICATION);
-				SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
+				alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 				alarmdetedit.putString("alarmdetails", "none");
 				alarmdetedit.commit();
 			}
@@ -202,6 +213,7 @@ public class MyAlarm extends Service{
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/4, AudioManager.FLAG_VIBRATE);
 		//alarm.setStreamVolume(AudioManager.STREAM_MUSIC, alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC)/4, AudioManager.FLAG_VIBRATE);
 		playalarmtone();
+		alarmflag=0;
 		Thread alarmhandler = new Thread(alarmdialog);
 		alarmhandler.start();
 	}
@@ -211,7 +223,7 @@ public class MyAlarm extends Service{
 		
 		try{
 			//r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString()));
-			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("android.resource://com.example.gtacampus/"+R.raw.thundersound));
+			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("android.resource://com.example.gtacampus/"+R.raw.myringtone));
 			r.setStreamType(AudioManager.STREAM_ALARM);
 		}
 		catch(Exception e){
@@ -246,6 +258,7 @@ public class MyAlarm extends Service{
 			try{
 				if (alarmalert==null)
 					alarmalert=getalarmtone();
+				while(alarmflag==0)
 				if(!(alarmalert.isPlaying()))
 				{
 					alarmalert.setStreamType(AudioManager.STREAM_ALARM);
@@ -267,7 +280,7 @@ public class MyAlarm extends Service{
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 		//	max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-			cur_vol=max_vol/4;
+			cur_vol=max_vol/3;
 			while(cur_vol<max_vol){
 				cur_vol++;
 				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
@@ -284,7 +297,6 @@ public class MyAlarm extends Service{
 	public void playalarmtone()
 	{
 		Thread alert = new Thread(alarmthread);
-		alert.setDaemon(true);
 		alert.start();
 		 Thread volume = new Thread(volup);
 		 volume.setDaemon(true);
@@ -379,11 +391,11 @@ public class MyAlarm extends Service{
 	
 	public long getnextalarmtime()
 	{
+		long nxttime,nxtalarmtime=0;
 		Calendar cal = Calendar.getInstance();
 		long cur_time = cal.getTimeInMillis();
 		SharedPreferences.Editor alarmprefs = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
 		int hour,minute;
-		long nxttime,nxtalarmtime=0;
 		db=new DataManipulator(this);
 		Cursor en_alarms = db.fetchenabledalarms();
 		if(en_alarms==null)
@@ -456,6 +468,7 @@ public class MyAlarm extends Service{
 		}
 		ContentValues times = new ContentValues();		
 		day = cal.get(Calendar.DAY_OF_MONTH);
+		
 		do{
 			
 		for(int i=1;i<slotstat.getColumnCount();i++)
@@ -469,15 +482,17 @@ public class MyAlarm extends Service{
 				cal.set(Calendar.AM_PM, times.getAsInteger("am_pm"));
 				cal.set(Calendar.DAY_OF_MONTH, day+count);
 				nxttime = cal.getTimeInMillis();
-				if((nxttime<nxtalarmtime ||nxtalarmtime==0)&& nxttime>cur_time)
+				if((nxttime<nxtalarmtime ||nxtalarmtime==0)&& nxttime>(cur_time+tenmins) &&nxttime>endtime)
 				{
-					nxtalarmtime = nxttime;
+					nxtalarmtime = nxttime-tenmins;
 					alarmprefs.putInt("alarmid", 10000);
 					alarmprefs.putString("alarmtype", "course");
 					alarmprefs.putString("alarmtitle", slotstat.getString(i));
 					alarmprefs.putInt("alarmsnooze", 3);
 					alarmprefs.putBoolean("alarmshake", true);
 					alarmprefs.putBoolean("alarmmath", true);
+					alarmprefs.putLong("coursetime", nxtalarmtime);
+					alarmprefs.putLong("endtime", (times.getAsLong("endtime")+(count*24*60*60000)));
 					alarmprefs.commit();
 				}
 			}

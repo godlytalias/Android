@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
+        android:overScrollMode="ifContentScrolls"
+        android:keepScreenOn="true"
+        android:inputType="textMultiLine"
         android:ems="10" >
 
         <requestFocus />
@@ -54,6 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="save"
+        android:drawableLeft="@android:drawable/ic_menu_save"
         android:text="Save" />
 
     

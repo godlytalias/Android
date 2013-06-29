@@ -11,20 +11,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 public class notedata extends ListActivity{
-	static final int DIALOG_ID = 0;
-	
+	static final int DELETE_NOTE=1;
 	List<String> slots=new ArrayList<String>();
 	private DataManipulator dh;   
-	String message;
+	String message,title;
 	TextView selection;
 	public int idToModify; 
 	DataManipulator dm;
+	Bundle state;
 
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;
@@ -34,10 +36,13 @@ public class notedata extends ListActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		state = savedInstanceState;
 		setContentView(R.layout.notes);
-		
+		ListView notelist = (ListView) findViewById(android.R.id.list);
+		notelist.setOnItemLongClickListener(deleter);
 				  dm = new DataManipulator(this);
 		      names2 = dm.selectAllnotes();
+		      dm.close();
 		      stg1=new String[names2.size()]; 
 		      stg2=new String[names2.size()];
 
@@ -65,41 +70,56 @@ public class notedata extends ListActivity{
 		this.finish();
 	}
 	
+	AdapterView.OnItemLongClickListener deleter = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			// TODO Auto-generated method stub
+				message = stg2[arg2];
+				title = stg1[arg2];
+				showDialog(DELETE_NOTE);
+				return false;
+		}
+	};
+	
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id){
 		message=stg2[position];
-		showDialog(DIALOG_ID);
+		title = stg1[position];
+		Intent read = new Intent(notedata.this,Textviewer.class);
+		read.putExtra("text", message);
+		read.putExtra("title", title);
+		startActivity(read);
 	}
 	
 	protected final Dialog onCreateDialog(final int id) {
 		Dialog dialog = null;
 		switch(id) {
-		case DIALOG_ID:
+		case DELETE_NOTE:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(message)
+			builder.setMessage("Do you want to delete this note?! ")
 			.setCancelable(false)
-			.setPositiveButton("BACK", new DialogInterface.OnClickListener() {
+			.setPositiveButton("NO", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					notedata.this.finish();
+					dismissDialog(DELETE_NOTE);
 				}})
-			.setNegativeButton("DELETE",new DialogInterface.OnClickListener() {
+			.setNegativeButton("YES",new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
+					dm=new DataManipulator(notedata.this);
 					dm.deletenote(message);
-					notedata.this.finish();
-					
+					dm.close();
+					onCreate(state);
 				}
 			});
-
-              
-			
-						AlertDialog alert = builder.create(); 
+				AlertDialog alert = builder.create(); 
 			dialog = alert;
 			break;
 
-		default:
+		default: break;
 
 		}
 		return dialog;

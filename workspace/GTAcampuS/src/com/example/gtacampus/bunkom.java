@@ -1,28 +1,38 @@
 package com.example.gtacampus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
 public class bunkom extends ListActivity{
-	static final int DIALOG_ID = 0;
+	static final int BUNK = 0;
 	Notification notifydet;
 	DataManipulator dm;
 	String msg;
-	String[] stg2,stg3,bunkval;
+	String[] stg1,c_name;
 	private int SIMPLE_NOTIFICATION_ID=0;
 	private NotificationManager mNotify;
 
@@ -31,50 +41,102 @@ public class bunkom extends ListActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	/*	mNotify=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-	 notifydet = new Notification(R.drawable.campus,msg , System.currentTimeMillis());*/
 		setContentView(R.layout.bunklist);
-		 dm = new DataManipulator(this);
+		ListView bunkmeter = (ListView) findViewById(android.R.id.list);
+		bunkmeter.setOnItemLongClickListener(bunkit);
+		 initlist();
+	}
+	
+	protected void initlist(){
+		dm = new DataManipulator(this);
 	      names2 = dm.selectAll();
-	      String[] stg1=new String[names2.size()]; 
-	      stg3=new String[names2.size()]; 
-	      bunkval=new String[names2.size()]; 
-	      stg2=new String[names2.size()]; 
-
+	      stg1=new String[names2.size()];
 			int x=0;
 			String stg;
 
 			for (String[] course : names2) {
-				stg = course[0]+"  -   "+course[2];
+				stg = course[0]+"		-   "+course[2];
 				stg1[x]=stg;
-				x++;
-			}
+				x++;			}
 
 
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(   
 					this,android.R.layout.simple_list_item_1,   
 					stg1);
 	        this.setListAdapter(adapter);
+	        dm.close();
 	}
+	
+	AdapterView.OnItemLongClickListener bunkit = new AdapterView.OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			// TODO Auto-generated method stub
+			c_name = stg1[arg2].split("		-   ");
+			showDialog(BUNK);			
+			return false;
+		}
+	};
+	
+	
+	
+	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id){
-	/*	
-		Integer num=new Integer(Integer.parseInt(bunkval[position]));
-		num=num+1;
-		dm.update(stg3[position], num.toString());
-		msg= stg2[position].toUpperCase()+" BUNKED";
-		Toast.makeText(this, msg , Toast.LENGTH_LONG).show();
-		Context con = bunkom.this;
-		CharSequence title="Alert!!";
-		CharSequence content=msg;
-		Intent resultIntent = new Intent(con, bunkom.class);
-		PendingIntent resultPendingIntent =PendingIntent.getActivity(con, 0, resultIntent, 0);
-	notifydet = new Notification (R.drawable.nitc,"ALERT!!",System.currentTimeMillis());	
-		NotificationManager mNotificationManager =
-			    (NotificationManager) getSystemService(con.NOTIFICATION_SERVICE);
-		notifydet.setLatestEventInfo(con, title, content, resultPendingIntent);
-		mNotificationManager.notify(SIMPLE_NOTIFICATION_ID,notifydet);
-		this.finish();*/
+		
+		c_name = stg1[position].split("		-   ");
+		dm = new DataManipulator(bunkom.this);
+		Cursor dates = dm.getdates(c_name[0]);
+		dates.moveToFirst();
+		msg = "\n\tTotal Bunks\t: " + c_name[1]+"\n\n\t    DATES\n";
+		Calendar cal = Calendar.getInstance();
+		int count =1;
+		while(!dates.isAfterLast()){
+			cal.setTimeInMillis(dates.getLong(0));
+			msg+="\n"+ count + ")  "+cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)+"  "+ cal.get(Calendar.DAY_OF_MONTH)+" ,   "+((cal.get(Calendar.HOUR)==0)?12:cal.get(Calendar.HOUR))+" : " + cal.get(Calendar.MINUTE) + " " + ((cal.get(Calendar.AM_PM)==0)?"AM":"PM");
+		count++;
+		dates.moveToNext();
+		}
+		dates.close();
+		dm.close();
+		Intent read = new Intent(bunkom.this,Textviewer.class);
+		read.putExtra("text", msg);
+		read.putExtra("title", c_name[0]);
+		startActivity(read);
+	}
+	
+	
+	protected final Dialog onCreateDialog(final int id){
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		switch(id){
+		case BUNK : dialog.setMessage("Do you want to add a bunk to the course '" + c_name[0] + "' ?")
+		.setTitle("Bunking..")
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dm = new DataManipulator(bunkom.this);
+				dm.update(c_name[0]);
+				dm.close();
+				initlist();
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(BUNK);
+			}
+		});
+		break;
+		
+		default: break;
+		}
+		
+		return dialog.create();
 	}
 	
 	
