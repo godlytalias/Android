@@ -61,16 +61,16 @@ public class gtaconvertor extends Activity {
 					items = new String[]{"Meter","KiloMeter","Mile","Yard","Foot","Centimeter","Inch","Nautical Mile","Millimetre","Light Year"};
 					break;
 				case 1: //mass
-					items = new String[]{"Gram","Kilogram","Milligram","Stone", "Pound", "Ounce", "Mcg", "Short ton", "Long ton", "Metric Ton"};
+					items = new String[]{"Gram","Kilogram","Milligram","Stone", "Pound", "Ounce","Tray Ounce","Carat", "Mcg", "Short ton", "Long ton", "Metric Ton"};
 					break;
 				case 2: //speed
 					items = new String[]{"Miles/hr", "Feet/sec", "meter/sec", "Km/hr", "Knot"};
 					break;
 				case 3: //area
-					items = new String[]{"Sq.m","Sq.Km", "Sq.mile","Sq.yard","Sq.ft","Sq.inch","Acre","Hectare"};
+					items = new String[]{"Sq.m","Sq.Km", "Sq.mile","Sq.yard","Sq.ft","Sq.inch","Cent","Acre","Are","Hectare"};
 					break;
 				case 4: //volume
-					items = new String[]{"Litre","Millilitre","Cubic.m","Cubic.ft","Cubic.inch","us gal","us pint","us cup","us quart","us oz","us tbsp","us tsp","imp. gal","imp. pint","imp. quart","imp. oz","imp. tbsp","imp. tsp"};
+					items = new String[]{"Litre","Millilitre","Cubic.m","Cubic.ft","Cubic.inch","Cubic.cm","Cubic.yard","us gal","us pint","us cup","us quart","us oz","us tbsp","us tsp","imp. gal","imp. pint","imp. quart","imp. oz","imp. tbsp","imp. tsp"};
 					break;
 				case 5: //time
 					items = new String[]{"Second","Nanosecond","Microsecond","Millisecond","Minute","Hour","Day","Week","Month","Year","Decade","Century"};
@@ -206,6 +206,8 @@ public class gtaconvertor extends Activity {
 		values.put("Gram", 1.0);
 		values.put("Milligram", 0.001);
 		values.put("Kilogram", 1000.0);
+		values.put("Carat", 0.2);
+		values.put("Tray Ounce", 31.1035);
 		values.put("Stone", 6350.29);
 		values.put("Pound", 453.592);
 		values.put("Ounce", 28.3495);
@@ -239,10 +241,12 @@ public class gtaconvertor extends Activity {
 		values.put("Sq.Km",1000000.0);
 		values.put("Sq.mile",2589990.0);
 		values.put("Acre", 4046.86);
+		values.put("Cent", 4046.86*0.404686);
+		values.put("Are",100.0);
 		values.put("Sq.yard",0.836127);
 		values.put("Sq.ft",0.092903);
 		values.put("Sq.inch",0.00064516);
-		values.put("Hectare",1000.0);
+		values.put("Hectare",10000.0);
 		
 		temp=values.getAsDouble(giv)/values.getAsDouble(ret);
 		res=temp*val;
@@ -255,7 +259,9 @@ public class gtaconvertor extends Activity {
 		values.put("Litre",1.0);
 		values.put("Millilitre",0.001);
 		values.put("Cubic.m", 1000.0);
+		values.put("Cubic.cm", 1000000000.0);
 		values.put("Cubic.ft",28.3168);
+		values.put("Cubic.yard", 764.55);
 		values.put("Cubic.inch",0.0163871);
 		values.put("us gal",3.785412);
 		values.put("us pint",0.4731765);

@@ -2,10 +2,12 @@ package com.example.gtacampus;
 
 
 
+import java.math.MathContext;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
@@ -396,16 +398,15 @@ public class MyAlarm extends Service{
 	
 	public long getnextalarmtime()
 	{
-		long nxttime=0,nxtalarmtime=0;
+		long nxttime=0,nxtalarmtime=0,extratime=0;
 		Calendar cal = Calendar.getInstance();
-		long cur_time = cal.getTimeInMillis();
+		final long cur_time = cal.getTimeInMillis();
 		SharedPreferences.Editor alarmprefs = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
-		int hour,minute,flag=0;
+		int hour,minute;
 		db=new DataManipulator(this);
 		Cursor en_alarms = db.fetchenabledalarms();
-		if(en_alarms==null)
-			return 0;
-		else{
+		if(en_alarms!=null)
+			{
 		en_alarms.moveToFirst();
 		while(!en_alarms.isAfterLast()){
 			hour = en_alarms.getInt(4);
@@ -436,12 +437,11 @@ public class MyAlarm extends Service{
 				alarmprefs.putBoolean("alarmshake", en_alarms.getInt(10)!=0);
 				alarmprefs.putBoolean("alarmmath", en_alarms.getInt(11)!=0);
 				alarmprefs.commit();
-				flag=0;
 			}
 			en_alarms.moveToNext();
 		}
-		en_alarms.close();
 		}
+		en_alarms.close();
 		Cursor slotstat = db.slotstat();
 		int count=0,day;
 		cal = Calendar.getInstance();
@@ -482,16 +482,18 @@ public class MyAlarm extends Service{
 			if(!(slotstat.getString(i).equals("-")))
 			{
 				times = db.get_time(i);
+				cal = Calendar.getInstance();
 				cal.set(Calendar.HOUR, (times.getAsInteger("hour"))%12);
 				cal.set(Calendar.MINUTE, times.getAsInteger("minute"));
 				cal.set(Calendar.SECOND, 0);
 				cal.set(Calendar.AM_PM, times.getAsInteger("am_pm"));
-				cal.set(Calendar.DAY_OF_MONTH, day);
-				cal.add(Calendar.DAY_OF_MONTH, count);
-				nxttime = cal.getTimeInMillis();
-				if((nxttime<nxtalarmtime ||nxtalarmtime==0)&& nxttime>(cur_time+tenmins) &&nxttime>endtime)
+			//	cal.set(Calendar.DAY_OF_MONTH, day);
+			//	cal.add(Calendar.DAY_OF_MONTH, count);
+				extratime = count*24*60*60000;
+				nxttime = cal.getTimeInMillis() + extratime;
+				if(nxttime>(cur_time+tenmins) &&(nxttime<nxtalarmtime ||nxtalarmtime==0)&& ((nxttime>endtime)||endtime==0))
 				{
-					alarmprefs.putLong("coursetime", nxtalarmtime);
+					alarmprefs.putLong("coursetime", nxttime);
 					nxtalarmtime = nxttime-tenmins;
 					alarmprefs.putInt("alarmid", 10000);
 					alarmprefs.putString("alarmtype", "course");
@@ -499,13 +501,12 @@ public class MyAlarm extends Service{
 					alarmprefs.putInt("alarmsnooze", 3);
 					alarmprefs.putBoolean("alarmshake", true);
 					alarmprefs.putBoolean("alarmmath", true);
-					alarmprefs.putLong("endtime", (times.getAsLong("endtime")+(count*24*60*60000)));
+					alarmprefs.putLong("endtime", (times.getAsLong("endtime")+extratime));
 					alarmprefs.commit();
-					flag=1;
 				}
-				if((nxttime<endtime)&&(nxttime>cur_time)&&flag==1)
+				if(nxttime/1000==endtime/1000)
 				{
-					endtime=times.getAsLong("endtime")+(count*24*60*60000);
+					endtime=times.getAsLong("endtime")+extratime;
 					nxtalarmtime=0;
 				}
 			}

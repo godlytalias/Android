@@ -263,7 +263,7 @@ public class DataManipulator {
 	
 	public Cursor gethourtimings()
 	{
-		return db.query(TABLE_NAME4, null, "DAY_ID<=2", null, null, null, null);
+		return db.query(TABLE_NAME4, null, "DAY_ID<3", null, null, null, null);
 	}
 	
 	public ContentValues get_time(int hourno)
@@ -277,8 +277,9 @@ public class DataManipulator {
 		timings.moveToNext();
 		end_time = parsetime(timings.getString(hourno));
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, end_time.getAsInteger("hour"));
+		cal.set(Calendar.HOUR, end_time.getAsInteger("hour")%12);
 		cal.set(Calendar.MINUTE, end_time.getAsInteger("minute"));
+		cal.set(Calendar.SECOND,0);
 		cal.set(Calendar.AM_PM,end_time.getAsInteger("am_pm"));
 		time.put("endtime", cal.getTimeInMillis());
 		return time;

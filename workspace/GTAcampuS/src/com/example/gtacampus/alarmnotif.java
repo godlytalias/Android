@@ -84,7 +84,7 @@ public class alarmnotif extends Activity{
 			bt2.setOnClickListener(bunkit);
 		}
 
-		if(((alarmpref.getInt("alarmsnooze", 5)>0)&&!courseflag)||(courseflag&&alarmpref.getLong("coursetime", 0)>System.currentTimeMillis()))
+		if(alarmpref.getInt("alarmsnooze", 5)>0)
 			{bt1.setOnClickListener(snoozealarm);
 		shakesensor.registerListener(shakelistener, shake, SensorManager.SENSOR_DELAY_UI);}
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
@@ -154,6 +154,8 @@ public class alarmnotif extends Activity{
 	};
 	
 	private void snoozealarm(){
+		if((!courseflag)||(courseflag&&alarmpref.getLong("coursetime", 0)>System.currentTimeMillis()))
+		{
 		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		Intent i = new Intent(getBaseContext(),MyAlarm.class);
 		i.setAction("snooze");
@@ -163,7 +165,7 @@ public class alarmnotif extends Activity{
 		else
 		{
 			shakesensor.unregisterListener(shakelistener, shake);
-			finish();}
+			finish();}}
 	}
 	
 	private void snoozeit()
@@ -246,9 +248,6 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
-			SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
-			alarmdetedit.clear();
-			alarmdetedit.commit();
 				Thread volume = new Thread(volup);
 				 volume.start();
 				showDialog(MATH_ALARM);		}
@@ -304,6 +303,9 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 						    (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
 					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "Bunked " + alarmpref.getString("alarmtitle", "Custom Alert") , null);
 					mNotificationManager.notify(10000,notifydet);
+					SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
+					alarmdetedit.clear();
+					alarmdetedit.commit();
 				}
 				stoppingalarm();}
 				}

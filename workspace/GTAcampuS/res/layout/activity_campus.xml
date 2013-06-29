@@ -91,7 +91,7 @@
         android:background="@drawable/book"
         android:drawSelectorOnTop="false"
         android:divider="#333"
-        android:dividerHeight="2dp"
+        android:dividerHeight="0.5dp"
         android:listSelector="@drawable/list_style"
         android:smoothScrollbar="true" >
 
