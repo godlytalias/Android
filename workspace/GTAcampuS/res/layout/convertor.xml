@@ -6,7 +6,7 @@
     
     <TextView     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="CONVERTOR"
+    android:text="@string/convertor"
     android:gravity="center"
     android:textColor="#0F0"
     android:textStyle="bold"
@@ -44,7 +44,7 @@
         android:textSize="35sp"
         android:paddingRight="30dp"
         android:maxWidth="270dp"
-        android:hint="0"/>
+        android:hint="@string/zero"/>
     
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,8 @@
 	<TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#f00"
-        android:hint="0"
+        android:hint="@string/zero"
+        android:textIsSelectable="true"
         android:layout_weight="1"
         android:textSize="35sp"        
         android:maxLines="3"

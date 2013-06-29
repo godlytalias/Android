@@ -232,13 +232,26 @@ public final class R {
         public static final int action_settings=0x7f080001;
         public static final int alarm_title=0x7f080009;
         public static final int app_name=0x7f080000;
+        public static final int convertor=0x7f080014;
         public static final int copyright=0x7f080005;
         public static final int developer=0x7f080006;
+        public static final int eight=0x7f080012;
+        public static final int emptystring=0x7f080016;
+        public static final int five=0x7f08000f;
+        public static final int four=0x7f08000e;
         public static final int hello_world=0x7f080002;
         public static final int init_text=0x7f080003;
+        public static final int nextalert=0x7f080015;
+        public static final int nine=0x7f080013;
+        public static final int one=0x7f08000b;
         public static final int rights=0x7f080004;
+        public static final int seven=0x7f080011;
+        public static final int six=0x7f080010;
         public static final int snooze=0x7f080007;
         public static final int stop=0x7f080008;
+        public static final int three=0x7f08000d;
+        public static final int two=0x7f08000c;
+        public static final int zero=0x7f08000a;
     }
     public static final class style {
         /** 

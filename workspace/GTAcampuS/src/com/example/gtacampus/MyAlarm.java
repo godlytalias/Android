@@ -398,11 +398,12 @@ public class MyAlarm extends Service{
 	
 	public long getnextalarmtime()
 	{
-		long nxttime=0,nxtalarmtime=0,extratime=0;
+		long nxttime=0,nxtalarmtime=0,extratime=0,temp=0;
 		Calendar cal = Calendar.getInstance();
 		final long cur_time = cal.getTimeInMillis();
 		SharedPreferences.Editor alarmprefs = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
 		int hour,minute;
+		boolean alertflag=false;
 		db=new DataManipulator(this);
 		Cursor en_alarms = db.fetchenabledalarms();
 		if(en_alarms!=null)
@@ -437,6 +438,8 @@ public class MyAlarm extends Service{
 				alarmprefs.putBoolean("alarmshake", en_alarms.getInt(10)!=0);
 				alarmprefs.putBoolean("alarmmath", en_alarms.getInt(11)!=0);
 				alarmprefs.commit();
+				temp=nxtalarmtime;
+				alertflag=true;
 			}
 			en_alarms.moveToNext();
 		}
@@ -519,6 +522,12 @@ public class MyAlarm extends Service{
 		}while((nxtalarmtime==0)&&(count<=7));
 		slotstat.close();
 		db.close();
+		if(temp>(cur_time+tenmins) && alertflag && (temp<endtime))
+		{
+			alarmnotification = new Notification(R.drawable.gtacampus, "Skipping Alerts", temp);
+			alarmnotification.setLatestEventInfo(this, "GTAcampuS","You will miss some alerts set during the class hours" ,null);
+			alarmnotifier.notify(ALARM_NOTIFICATION, alarmnotification);
+		}
 		return nxtalarmtime;
 		}
 	}
