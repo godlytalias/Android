@@ -99,7 +99,6 @@ public class Alarmsetter extends ListActivity {
 			showDialog(ALARM_DIALOG_TIME);
 		}
 	};
-	
 	private DatePickerDialog.OnDateSetListener dateselector = new DatePickerDialog.OnDateSetListener() {
 		
 		@Override
@@ -254,6 +253,8 @@ public class Alarmsetter extends ListActivity {
 			alarmid = alarms.getInt(0);
 			alarmtitle = alarms.getString(6);
 			showDialog(DELETE_ALARM);
+			alarms.close();
+			db.close();
 			return false;
 		}
 	};

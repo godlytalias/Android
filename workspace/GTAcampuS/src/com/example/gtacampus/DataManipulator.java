@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -273,7 +275,7 @@ public class DataManipulator {
 		Cursor timings = gethourtimings();
 		timings.moveToFirst();
 		String t = timings.getString(hourno);
-		time = parsetime(t);
+		time.putAll(parsetime(t));
 		timings.moveToNext();
 		end_time = parsetime(timings.getString(hourno));
 		Calendar cal = Calendar.getInstance();
@@ -282,6 +284,7 @@ public class DataManipulator {
 		cal.set(Calendar.SECOND,0);
 		cal.set(Calendar.AM_PM,end_time.getAsInteger("am_pm"));
 		time.put("endtime", cal.getTimeInMillis());
+		timings.close();
 		return time;
 	}
 	

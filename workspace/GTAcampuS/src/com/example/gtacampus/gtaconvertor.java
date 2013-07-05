@@ -159,24 +159,30 @@ public class gtaconvertor extends Activity {
 	
 	private void updateval(){
 		String text = new String();
+		String val = conv_value.getText().toString();
+		Double value;
+		if(val.equals(""))
+			value=0.0;
+		else
+			value=Double.parseDouble(val);
 		switch(category.getSelectedItemPosition()){
-		case 0: text =""+ length(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 0: text =""+ length(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 1: text =""+ mass(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 1: text =""+ mass(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 2: text =""+ speed(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 2: text =""+ speed(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 3: text =""+ area(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 3: text =""+ area(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 4: text =""+ volume(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 4: text =""+ volume(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 5: text =""+ time(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 5: text =""+ time(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 6: text =""+ temper(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 6: text =""+ temper(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 7: text =""+ storage(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 7: text =""+ storage(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
-		case 8: text =""+ fuel(Double.parseDouble(conv_value.getText().toString()), conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+		case 8: text =""+ fuel(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
 		default:break;}
 		convr_value.setText(text);

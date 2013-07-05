@@ -1,6 +1,8 @@
 package com.example.gtacampus;
 
+import android.R.anim;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.KeyguardManager;
@@ -20,8 +22,10 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.media.audiofx.AudioEffect;
+import android.net.Uri;
 import android.net.rtp.AudioStream;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.EditTextPreference;
 import android.provider.MediaStore.Audio;
 import android.renderscript.Type;
@@ -41,8 +45,9 @@ public class alarmnotif extends Activity{
 	PendingIntent alarmnotification;
 	SharedPreferences alarmpref;
 	AudioManager alarm;
+	private Handler volhandler;
 	private Boolean courseflag;
-	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1;
+	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1,SOUND_NOTIFICATION = 3;
 	private int SNOOZE_NOTIFICATION = 1;
 	private LinearLayout rootlayout;
 	private KeyguardLock lock;
@@ -54,7 +59,7 @@ public class alarmnotif extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm);
-
+		volhandler = new Handler();
 		alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
@@ -172,7 +177,7 @@ public class alarmnotif extends Activity{
 	{
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		Notification snoozenotify = new Notification(R.drawable.ic_launcher,"Snoozing!.. " + alarmpref.getString("alarmtitle", "Custom Alert"),System.currentTimeMillis());
-		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), " snoozing...", alarmnotification);
+		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), " Snoozing for " + alarmpref.getInt("alarmsnooze", 5) + " min...", alarmnotification);
 		alarmnotifier.notify("GTACampuS",SNOOZE_NOTIFICATION, snoozenotify);
 		SharedPreferences.Editor alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 		alarmdet.putString("alarmdetails", "snoozing...");
@@ -204,19 +209,19 @@ public class alarmnotif extends Activity{
 			// TODO Auto-generated method stub
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-			//max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-			cur_vol=max_vol/6;
-			while(cur_vol<max_vol){
-				//
+			if(alarm.getStreamVolume(AudioManager.STREAM_ALARM)!=max_vol/5)
+			{
+			cur_vol=max_vol/5;
+			while(cur_vol<=max_vol){
 				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
-				cur_vol++;
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}}
+				cur_vol = alarm.getStreamVolume(AudioManager.STREAM_ALARM)+1;
+		}}}
 	};
 	
 	private View.OnClickListener stopalarm = new View.OnClickListener() {
@@ -228,9 +233,21 @@ public class alarmnotif extends Activity{
 			if(courseflag)
 			{
 				alarm.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_SHOW_UI);
-				alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/2, AudioManager.FLAG_VIBRATE);
+				alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/5, AudioManager.FLAG_VIBRATE);
 				alarm.setStreamVolume(AudioManager.STREAM_NOTIFICATION,0,AudioManager.FLAG_SHOW_UI);
+				alarm.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_PLAY_SOUND);
+				alarm.setStreamVolume(AudioManager.STREAM_DTMF, 0, 0);
 				alarm.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+				Intent soundsettingintent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
+				PendingIntent soundsettings = PendingIntent.getActivity(getBaseContext(), 0, soundsettingintent, 0);
+				Notification sounds = new Notification(R.drawable.ic_launcher, "Turning off the alert volumes", System.currentTimeMillis());
+				sounds.setLatestEventInfo(getBaseContext(), "Alert Volumes", "GTAcampuS turned your alert volumes off for avoiding your device making disturbances in class. Click here to set it back", soundsettings);
+			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);
+			    Intent sintent = new Intent(getBaseContext(),MyAlarmBrdcst.class);
+			    sintent.setAction("setbacksounds");
+			    PendingIntent setbacksound = PendingIntent.getBroadcast(getBaseContext(), 1, sintent, 0);
+			    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+			    am.set(AlarmManager.RTC_WAKEUP, alarmpref.getLong("endtime", System.currentTimeMillis()+4800), setbacksound);
 			}
 			if(alarmpref.getBoolean("alarmmath", false)&&(!courseflag))
 			{
@@ -241,6 +258,7 @@ public class alarmnotif extends Activity{
 				stoppingalarm();
 		}
 	};
+	
 	
 private View.OnClickListener bunkit = new View.OnClickListener() {
 		

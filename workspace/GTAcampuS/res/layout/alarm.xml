@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
     
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
     android:gravity="center"    
+    android:background="#ff000000"
+    android:drawingCacheQuality="high"
     android:orientation="vertical" 
     android:id="@+id/linearlayout">
-  
+    
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#010000"
+        android:orientation="horizontal" >
+        
+        <ImageView android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/alarm"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+        <DigitalClock android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#00ff00"
+            android:textStyle="bold"
+            android:gravity="right"/>
+    </LinearLayout>  
+    <View android:layout_width="295dp"
+        android:layout_height="1dp"
+        android:background="@drawable/lines"/>
     <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
