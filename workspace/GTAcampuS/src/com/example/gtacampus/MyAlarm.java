@@ -268,7 +268,6 @@ public class MyAlarm extends Service{
 	
 	private final Runnable alarmdialog = new Runnable() {
 		
-		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			Intent notif = new Intent(getBaseContext(),alarmnotif.class);
@@ -284,7 +283,6 @@ public class MyAlarm extends Service{
 	};
 	private Runnable alarmthread = new Runnable(){
 		
-		@Override
 		public void run(){
 			try{
 				if (alarmalert==null)
@@ -302,7 +300,6 @@ public class MyAlarm extends Service{
 	
 	private Runnable volup = new Runnable() {
 		
-		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);

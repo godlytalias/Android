@@ -107,7 +107,6 @@ public class AlarmOptions extends Activity {
 	
 	protected View.OnClickListener saved = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent results = new Intent();
@@ -146,7 +145,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener deleted = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent results = new Intent();
@@ -158,7 +156,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener cancelled = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			setResult(Activity.RESULT_CANCELED);
@@ -168,7 +165,6 @@ public class AlarmOptions extends Activity {
 
 	final View.OnClickListener alarmstatchng = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			en_alarm.setChecked(!en_alarm.isChecked());
@@ -178,7 +174,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener en_solver = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			mathchck.setChecked(!mathchck.isChecked());
@@ -188,7 +183,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener snoozeshake = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shake_mode.setChecked(!shake_mode.isChecked());
@@ -198,7 +192,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener disabledsnooze = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			dis_snooze.setChecked(!dis_snooze.isChecked());
@@ -209,7 +202,6 @@ public class AlarmOptions extends Activity {
 	};
 	final View.OnClickListener timechange = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			showDialog(CHANGE_TIME);
@@ -218,7 +210,6 @@ public class AlarmOptions extends Activity {
 	
 	final View.OnClickListener rpt_handler = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			i = new Intent(AlarmOptions.this,AlarmRepeater.class);
@@ -290,16 +281,13 @@ public class AlarmOptions extends Activity {
 	
 	private SeekBar.OnSeekBarChangeListener snoozetimechanged = new SeekBar.OnSeekBarChangeListener() {
 
-		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {}
 		
-		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			snooze=true;
 			dis_snooze.setChecked(!snooze);
 		}
 		
-		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
@@ -310,7 +298,6 @@ public class AlarmOptions extends Activity {
 	
 	private View.OnClickListener changedate = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			showDialog(CHANGE_DATE);
@@ -319,7 +306,6 @@ public class AlarmOptions extends Activity {
 	
 	TimePickerDialog.OnTimeSetListener changedtime = new TimePickerDialog.OnTimeSetListener() {
 		
-		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int Minute) {
 			// TODO Auto-generated method stub
 			hour=hourOfDay;
@@ -330,7 +316,6 @@ public class AlarmOptions extends Activity {
 	
 	DatePickerDialog.OnDateSetListener changeddate = new DatePickerDialog.OnDateSetListener() {
 		
-		@Override
 		public void onDateSet(DatePicker view, int Year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
@@ -343,7 +328,6 @@ public class AlarmOptions extends Activity {
 	
 	private View.OnClickListener chngtitle = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 		/*	titlechanger = new LinearLayout(AlarmOptions.this);
@@ -371,7 +355,6 @@ public class AlarmOptions extends Activity {
 		case CHANGE_TITLE : builder.setView(titlechanger)
 		.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				AlarmTitle=tit.getText().toString();

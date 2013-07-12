@@ -89,7 +89,6 @@ public class AlarmRepeater extends Activity {
 	
 	final View.OnClickListener changingtitle = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent data = new Intent();
@@ -101,7 +100,6 @@ public class AlarmRepeater extends Activity {
 
 	final View.OnClickListener done_handler = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent repeat = new Intent();
@@ -124,7 +122,6 @@ public class AlarmRepeater extends Activity {
 	
 	final View.OnClickListener cancel_handler = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			setResult(Activity.RESULT_CANCELED);
@@ -134,7 +131,6 @@ public class AlarmRepeater extends Activity {
 	
 	final View.OnClickListener sel_all = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_all.setChecked(!c_all.isChecked());
@@ -150,7 +146,6 @@ public class AlarmRepeater extends Activity {
 	
 	final View.OnClickListener sel_week = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_week.setChecked(!c_week.isChecked());
@@ -167,7 +162,6 @@ public class AlarmRepeater extends Activity {
 	
 	final View.OnClickListener sel_sun = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_sun.setChecked(!c_sun.isChecked());
@@ -178,7 +172,6 @@ public class AlarmRepeater extends Activity {
 	
 final View.OnClickListener sel_mon = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_mon.setChecked(!c_mon.isChecked());
@@ -190,7 +183,6 @@ final View.OnClickListener sel_mon = new View.OnClickListener() {
 	
 final View.OnClickListener sel_tue = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_tue.setChecked(!c_tue.isChecked());
@@ -201,7 +193,6 @@ final View.OnClickListener sel_tue = new View.OnClickListener() {
 	
 final View.OnClickListener sel_wed = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_wed.setChecked(!c_wed.isChecked());
@@ -212,7 +203,6 @@ final View.OnClickListener sel_wed = new View.OnClickListener() {
 	
 final View.OnClickListener sel_thu = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_thu.setChecked(!c_thu.isChecked());
@@ -224,7 +214,6 @@ final View.OnClickListener sel_thu = new View.OnClickListener() {
 	
 final View.OnClickListener sel_fri = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_fri.setChecked(!c_fri.isChecked());
@@ -235,7 +224,6 @@ final View.OnClickListener sel_fri = new View.OnClickListener() {
 	
 final View.OnClickListener sel_sat = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			c_sat.setChecked(!c_sat.isChecked());
@@ -252,7 +240,6 @@ final View.OnClickListener sel_sat = new View.OnClickListener() {
 			alert.setMessage("Atleast one day should be\nselected for an alarm")
 			.setNegativeButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 				   dialog.dismiss();

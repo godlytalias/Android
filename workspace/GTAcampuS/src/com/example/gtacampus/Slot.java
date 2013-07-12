@@ -147,7 +147,6 @@ public class Slot extends Activity {
 	
 	View.OnLongClickListener clicked = new View.OnLongClickListener() {
 
-		@Override
 		public boolean onLongClick(View v) {
 			// TODO Auto-generated method stub
 			DataManipulator db = new DataManipulator(Slot.this);
@@ -170,7 +169,6 @@ public class Slot extends Activity {
 		.setTitle(coursetitle)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				removeDialog(COURSE_DET);

@@ -110,7 +110,6 @@ public class GTAcalC extends Activity {
 		
 this.sin.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -138,7 +137,6 @@ this.sin.setOnClickListener(new View.OnClickListener() {
 
 this.cos.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -193,7 +191,6 @@ this.tan.setOnClickListener(new View.OnClickListener() {
 
 this.log.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -221,7 +218,6 @@ this.log.setOnClickListener(new View.OnClickListener() {
 		
 		this.numzero.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 			
@@ -239,7 +235,6 @@ this.log.setOnClickListener(new View.OnClickListener() {
 		
 this.gcd.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(gcdflag==0)
@@ -264,7 +259,6 @@ this.gcd.setOnClickListener(new View.OnClickListener() {
 		
 this.dec.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 			if(gcdflag==0)
@@ -283,7 +277,6 @@ this.dec.setOnClickListener(new View.OnClickListener() {
 		
 this.sqroot.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if(opflag==0)
@@ -313,7 +306,6 @@ this.sqroot.setOnClickListener(new View.OnClickListener() {
 
 this.power.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -343,7 +335,6 @@ this.power.setOnClickListener(new View.OnClickListener() {
 
 this.minus.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -375,7 +366,6 @@ this.minus.setOnClickListener(new View.OnClickListener() {
 
 this.product.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -406,7 +396,6 @@ this.product.setOnClickListener(new View.OnClickListener() {
 
 this.divide.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -437,7 +426,6 @@ this.divide.setOnClickListener(new View.OnClickListener() {
 		
 this.clr.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if((numptr==0)&&(decflag==0)&&(gcdflag==0)&&(numbers[numptr]==0.0)&&(resflag==0))
@@ -458,7 +446,6 @@ this.clr.setOnClickListener(new View.OnClickListener() {
 		
 this.numone.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 			
@@ -476,7 +463,6 @@ this.numone.setOnClickListener(new View.OnClickListener() {
 
 this.numtwo.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		textchange.append("2");
@@ -493,7 +479,6 @@ this.numtwo.setOnClickListener(new View.OnClickListener() {
 
 this.numthree.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -510,7 +495,6 @@ this.numthree.setOnClickListener(new View.OnClickListener() {
 
 this.numfour.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -527,7 +511,6 @@ this.numfour.setOnClickListener(new View.OnClickListener() {
 
 this.numfive.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -544,7 +527,6 @@ this.numfive.setOnClickListener(new View.OnClickListener() {
 
 this.numsix.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -561,7 +543,6 @@ this.numsix.setOnClickListener(new View.OnClickListener() {
 
 this.numseven.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -578,7 +559,6 @@ this.numseven.setOnClickListener(new View.OnClickListener() {
 
 this.numeight.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -595,7 +575,6 @@ this.numeight.setOnClickListener(new View.OnClickListener() {
 
 this.numnine.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 	
@@ -612,7 +591,6 @@ this.numnine.setOnClickListener(new View.OnClickListener() {
 
 this.gives.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		int temp;
 		Double store=0.0;
@@ -780,7 +758,6 @@ this.gives.setOnClickListener(new View.OnClickListener() {
 });
 this.plus.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		if(opflag==0)

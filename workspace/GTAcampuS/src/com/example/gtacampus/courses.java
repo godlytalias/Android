@@ -159,7 +159,6 @@ public class courses extends Activity {
 		.setTitle("Alert!")
 		.setNegativeButton("OK", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				dismissDialog(EMPTY_FIELDS);
@@ -172,7 +171,6 @@ public class courses extends Activity {
 		.setTitle("Alert!")
 		.setNegativeButton("OK", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				dismissDialog(DUP_VALUES);

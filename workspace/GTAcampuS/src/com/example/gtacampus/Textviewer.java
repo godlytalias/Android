@@ -29,7 +29,6 @@ public class Textviewer extends Activity {
 
 	View.OnClickListener goback = new OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Textviewer.this.finish();

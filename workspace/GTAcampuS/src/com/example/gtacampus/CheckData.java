@@ -89,7 +89,6 @@ public class CheckData extends ListActivity  {
 	
 	AdapterView.OnItemLongClickListener deletecourse = new OnItemLongClickListener() {
 
-		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			// TODO Auto-generated method stub
@@ -140,7 +139,6 @@ public class CheckData extends ListActivity  {
 			builder.setMessage("Do you really want to delete course '"+message+"' ?")
 			.setPositiveButton("NO", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					removeDialog(DELETE_COURSE);
@@ -148,7 +146,6 @@ public class CheckData extends ListActivity  {
 			})
 			.setNegativeButton("YES", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					removeDialog(DELETE_COURSE);

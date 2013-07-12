@@ -67,20 +67,17 @@ public class Settings extends Activity {
 	
 	SeekBar.OnSeekBarChangeListener setintrvtime = new SeekBar.OnSeekBarChangeListener() {
 		int prg=0;
-		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			changesettings.putInt("interval", prg);
 			changesettings.commit();	
 			resetalarm();}
 		
-		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
@@ -90,7 +87,6 @@ public class Settings extends Activity {
 	};
 	
 	SeekBar.OnSeekBarChangeListener chngsnoozetime = new SeekBar.OnSeekBarChangeListener() {
-		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			if(finalsnoozetime>finaladvtime){
@@ -99,13 +95,11 @@ public class Settings extends Activity {
 			}
 		}
 		
-		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
@@ -119,7 +113,6 @@ public class Settings extends Activity {
 	};
 	
 	SeekBar.OnSeekBarChangeListener setadvtime = new SeekBar.OnSeekBarChangeListener() {
-		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			if(finaladvtime<finalsnoozetime){
@@ -128,12 +121,10 @@ public class Settings extends Activity {
 			resetalarm();
 		}
 		
-		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			}
 		
-		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
 			// TODO Auto-generated method stub
@@ -147,7 +138,6 @@ public class Settings extends Activity {
 	
 	View.OnClickListener chngpwd = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			showDialog(PASSWORD);
@@ -156,7 +146,6 @@ public class Settings extends Activity {
 	
 	CompoundButton.OnCheckedChangeListener c_notifs = new CompoundButton.OnCheckedChangeListener() {
 		
-		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			// TODO Auto-generated method stub
 			if(!isChecked)
@@ -171,7 +160,6 @@ public class Settings extends Activity {
 	
 	CompoundButton.OnCheckedChangeListener c_alert = new CompoundButton.OnCheckedChangeListener() {
 		
-		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			// TODO Auto-generated method stub
 			if(!isChecked)
@@ -204,7 +192,6 @@ public class Settings extends Activity {
 		.setCancelable(false)
 		.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				SharedPreferences settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);

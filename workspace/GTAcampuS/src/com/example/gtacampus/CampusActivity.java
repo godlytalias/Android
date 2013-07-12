@@ -220,7 +220,6 @@ public class CampusActivity extends ListActivity {
 	
 	private final Runnable restore_runnable = new Runnable() {
 		
-		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			File restorefile;
@@ -345,7 +344,6 @@ public class CampusActivity extends ListActivity {
 			db.close();
 			gtahandler.post(new Runnable() {
 				
-				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					if(suc_flag){
@@ -364,7 +362,6 @@ public class CampusActivity extends ListActivity {
 	
 	private final Runnable backup_runnable = new Runnable() {
 		
-		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			File backupfile;
@@ -418,7 +415,6 @@ public class CampusActivity extends ListActivity {
 
 				gtahandler.post(new Runnable() {
 					
-					@Override
 					public void run() {
 						// TODO Auto-generated method stub
 						if(suc_flag)
@@ -450,7 +446,6 @@ public class CampusActivity extends ListActivity {
 		}
 		catch(IOException e){e.printStackTrace();gtahandler.post(new Runnable() {
 			
-			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				suc_flag=false;
@@ -459,7 +454,6 @@ public class CampusActivity extends ListActivity {
 		});}
 		catch(Exception e){e.printStackTrace();gtahandler.post(new Runnable() {
 			
-			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				suc_flag=false;
@@ -552,7 +546,6 @@ public class CampusActivity extends ListActivity {
 		builder.setMessage("        GTAcampuS v1.0\n        Copyright © 2013\n\nThis application comes with absolutely NO WARRANTY\nThis is free Android Application: you are welcome to redistribute and modify this.\n\nhttp://github.com/godlytalias/Android/workspace/GTAcampuS \n\nDeveloped by:\nGodly T.Alias\nDepartment of Computer Science & Engineering\nNIT Calicut\n")
 		.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				dismissDialog(DIALOG_ID);
@@ -560,7 +553,6 @@ public class CampusActivity extends ListActivity {
 		})
 		.setNeutralButton("Help", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				Intent read = new Intent(CampusActivity.this,Textviewer.class);
@@ -576,7 +568,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("Backup done succesfully!")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(BACKUP);
@@ -588,7 +579,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("An error happened during backup process. Check your SD card")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(BACKUP_ERROR);
@@ -600,7 +590,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("Restoring database will clear all your current data! ")
 			.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					Thread restore = new Thread(restore_runnable);
@@ -610,7 +599,6 @@ public class CampusActivity extends ListActivity {
 			})
 			.setNegativeButton("Abort", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(RESTORE_ALERT);
@@ -622,7 +610,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("A backup already exists!")
 			.setPositiveButton("Overwrite", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(CampusActivity.this,Password.class), 1);
@@ -631,7 +618,6 @@ public class CampusActivity extends ListActivity {
 			})
 			.setNegativeButton("Abort Operation", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(BACKUP_EXISTS);
@@ -644,7 +630,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("Database restored successfully")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(RESTORE);
@@ -656,7 +641,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("Your backup folder is corrupted / missing!")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(RESTORE_ERROR);
@@ -682,7 +666,6 @@ public class CampusActivity extends ListActivity {
 			.setCancelable(false)
 			.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					SharedPreferences settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
@@ -703,7 +686,6 @@ public class CampusActivity extends ListActivity {
 			builder.setMessage("Your database is not set properly. Initialize the application")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					dismissDialog(DATABASE_ERROR);

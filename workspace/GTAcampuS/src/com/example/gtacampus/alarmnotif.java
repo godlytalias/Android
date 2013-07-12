@@ -93,7 +93,6 @@ public class alarmnotif extends Activity{
 	
 	SensorEventListener shakelistener = new SensorEventListener() {
 		
-		@Override
 		public void onSensorChanged(SensorEvent event) {
 			// TODO Auto-generated method stub
 			if((event.values[0]>11.0||((event.values[1]>11.0)&&(event.values[2]>11.0))) && alarmpref.getBoolean("alarmshake", true))
@@ -102,7 +101,6 @@ public class alarmnotif extends Activity{
 			}
 		}
 		
-		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 			// TODO Auto-generated method stub
 			
@@ -137,7 +135,6 @@ public class alarmnotif extends Activity{
 	
 	private View.OnClickListener snoozealarm = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			snoozealarm();
@@ -190,7 +187,6 @@ public class alarmnotif extends Activity{
 	
 	private Runnable volup = new Runnable() {
 		
-		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			int cur_vol,max_vol;
@@ -213,7 +209,6 @@ public class alarmnotif extends Activity{
 	
 	private View.OnClickListener stopalarm = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
@@ -253,7 +248,6 @@ public class alarmnotif extends Activity{
 	
 private View.OnClickListener bunkit = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			shakesensor.unregisterListener(shakelistener, shake);
@@ -298,7 +292,6 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 		final Integer ans = no1*no2;
 		View.OnClickListener calculate = new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(result.getText().toString().equals(ans.toString()))

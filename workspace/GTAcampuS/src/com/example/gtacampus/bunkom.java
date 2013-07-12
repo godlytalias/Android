@@ -64,7 +64,6 @@ public class bunkom extends ListActivity{
 	
 	AdapterView.OnItemLongClickListener bunkit = new AdapterView.OnItemLongClickListener() {
 
-		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			// TODO Auto-generated method stub
@@ -128,7 +127,6 @@ public class bunkom extends ListActivity{
 		.setTitle("Bunking..")
 		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				startActivityForResult(new Intent(bunkom.this,Password.class), 10);
@@ -137,7 +135,6 @@ public class bunkom extends ListActivity{
 		})
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			
-			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				removeDialog(BUNK);

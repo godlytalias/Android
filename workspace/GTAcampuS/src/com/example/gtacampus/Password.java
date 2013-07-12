@@ -36,7 +36,6 @@ public class Password extends Activity {
 	
 	View.OnClickListener check = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			SharedPreferences pwd = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);

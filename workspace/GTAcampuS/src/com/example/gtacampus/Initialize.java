@@ -54,7 +54,6 @@ public class Initialize extends Activity{
 	
 	View.OnClickListener gotonexthour = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 		start[i]=classtimings1.getSelectedItem().toString();
@@ -100,14 +99,12 @@ public class Initialize extends Activity{
 	
 	AdapterView.OnItemSelectedListener timeselected = new AdapterView.OnItemSelectedListener() {
 
-		@Override
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
 			classtimings2.setSelection(arg2+4);
 		}
 
-		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
 			
@@ -116,7 +113,6 @@ public class Initialize extends Activity{
 	
   View.OnClickListener gonext = new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		no = coursehour.getSelectedItemPosition()+1;

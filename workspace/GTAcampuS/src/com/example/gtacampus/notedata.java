@@ -79,7 +79,6 @@ public class notedata extends ListActivity{
 	
 	AdapterView.OnItemLongClickListener deleter = new OnItemLongClickListener() {
 
-		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			// TODO Auto-generated method stub
@@ -131,7 +130,6 @@ public class notedata extends ListActivity{
 			builder.setTitle(title)
 			.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(notedata.this, Password.class), 1);
@@ -140,7 +138,6 @@ public class notedata extends ListActivity{
 			})
 			.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(notedata.this, Password.class), 0);
@@ -157,9 +154,9 @@ public class notedata extends ListActivity{
 				}})
 			.setNegativeButton("YES",new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stubdm=new DataManipulator(notedata.this);
+					dm=new DataManipulator(notedata.this);
 					dm.deletenote(selid);
 					dm.close();
 					onCreate(state);

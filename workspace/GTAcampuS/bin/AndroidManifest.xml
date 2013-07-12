@@ -41,7 +41,7 @@
         <activity android:name="com.example.gtacampus.bunkom"></activity>
         <receiver android:name="com.example.gtacampus.MyAlarmBrdcst"></receiver>
         <service android:name="com.example.gtacampus.MyAlarm" android:enabled="true" android:stopWithTask="false" android:isolatedProcess="false"></service>
-        <activity android:name="com.example.gtacampus.alarmnotif" android:noHistory="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS" android:excludeFromRecents="true" android:showOnLockScreen="false"></activity>
+        <activity android:name="com.example.gtacampus.alarmnotif" android:noHistory="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS" android:excludeFromRecents="true" ></activity>
         <activity android:name="com.example.gtacampus.Initialize" android:noHistory="true" android:screenOrientation="landscape" android:excludeFromRecents="true"></activity>
         <receiver android:name="com.example.gtacampus.BootsetAlarm" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>

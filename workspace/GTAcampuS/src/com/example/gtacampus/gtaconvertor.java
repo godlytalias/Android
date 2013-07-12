@@ -42,7 +42,6 @@ public class gtaconvertor extends Activity {
 		
 		category.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
@@ -83,7 +82,6 @@ public class gtaconvertor extends Activity {
 				conv_selcat2.setText(items[0]);
 				}
 
-			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
 				category.setSelection(0);
@@ -93,7 +91,6 @@ public class gtaconvertor extends Activity {
 	
 	sp_conv.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-		@Override
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
@@ -101,7 +98,6 @@ public class gtaconvertor extends Activity {
 			updateval();
 					}
 
-		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
 			conv_selcat1.setText(items[0]);
@@ -110,7 +106,6 @@ public class gtaconvertor extends Activity {
 	
 	sp_convr.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-		@Override
 		public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
@@ -118,7 +113,6 @@ public class gtaconvertor extends Activity {
 			updateval();
 					}
 
-		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
 
@@ -128,8 +122,7 @@ public class gtaconvertor extends Activity {
 	});
 	
 	conv_value.setOnEditorActionListener(new OnEditorActionListener() {
-		@Override
-	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 		// TODO Auto-generated method stub
 			updateval();
 		return false;
@@ -140,7 +133,6 @@ public class gtaconvertor extends Activity {
 	
 	View.OnClickListener clearbox = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			conv_value.setText("");

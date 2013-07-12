@@ -80,7 +80,6 @@ public class Alarmsetter extends ListActivity {
 	
 	private View.OnClickListener setalarm = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			itemid=0;
@@ -89,7 +88,6 @@ public class Alarmsetter extends ListActivity {
 	};
 	private View.OnClickListener settask = new View.OnClickListener() {
 		
-		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			itemid=1;
@@ -98,7 +96,6 @@ public class Alarmsetter extends ListActivity {
 	};
 	private DatePickerDialog.OnDateSetListener dateselector = new DatePickerDialog.OnDateSetListener() {
 		
-		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			// TODO Auto-generated method stub
@@ -111,7 +108,6 @@ public class Alarmsetter extends ListActivity {
 	
 	private TimePickerDialog.OnTimeSetListener timeselector = new TimePickerDialog.OnTimeSetListener() {
 		
-		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
 			hour=hourOfDay;
@@ -188,7 +184,6 @@ public class Alarmsetter extends ListActivity {
 			.setCancelable(false)
 			
 			.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					Intent alintent=new Intent(Alarmsetter.this,AlarmOptions.class);
@@ -206,7 +201,6 @@ public class Alarmsetter extends ListActivity {
 			
 			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					removeDialog(FINALIZE);
@@ -224,7 +218,6 @@ public class Alarmsetter extends ListActivity {
 			.setMessage("Are you sure to delete the alert '"+alarmtitle+"' ?!")
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(Alarmsetter.this,Password.class), 10);
@@ -233,7 +226,6 @@ public class Alarmsetter extends ListActivity {
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					removeDialog(DELETE_ALARM);
@@ -247,7 +239,6 @@ public class Alarmsetter extends ListActivity {
 	
 	AdapterView.OnItemLongClickListener clicked = new OnItemLongClickListener() {
 
-		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			// TODO Auto-generated method stub

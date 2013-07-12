@@ -40,7 +40,6 @@
        
       <Spinner android:id="@+id/classhours"
           android:layout_weight="1"
-          android:textAlignment="viewStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/hourvalues" /> 
