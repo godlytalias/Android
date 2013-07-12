@@ -43,7 +43,7 @@
 		android:padding = "5dp"
 		android:layout_margin="15dp"
 		android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/one"/>
 
    		<Button
@@ -53,7 +53,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/two"/>
 
     
@@ -64,7 +64,7 @@
 		android:padding = "5dp"
 		android:layout_margin="15dp"
 		android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/three"/>
 	</LinearLayout>
 
@@ -81,7 +81,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/four"/>
         
     <Button
@@ -91,7 +91,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/five"/>
     
          <Button
@@ -101,7 +101,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/six" />
     </LinearLayout>	
     
@@ -117,7 +117,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/seven" />
         
             <Button
@@ -127,7 +127,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/eight" />
             
     <Button
@@ -137,7 +137,7 @@
         android:padding = "5dp"
         android:layout_margin="15dp"
         android:layout_weight="1"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:text="@string/nine" />
     
     </LinearLayout>
@@ -166,7 +166,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_weight="0.01"
-        android:background="@drawable/button"
+        android:background="@drawable/calcbuttonstyle"
         android:padding="5dp"
         android:text="@string/zero" />
 

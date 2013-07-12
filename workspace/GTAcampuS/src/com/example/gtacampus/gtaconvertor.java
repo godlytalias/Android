@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import com.project.gtacampus.R;
 
 public class gtaconvertor extends Activity {
 	

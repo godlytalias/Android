@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:id="@+id/add_main"
+    android:background="#77000000"
     android:orientation="vertical" >
     
     <LinearLayout android:layout_width="wrap_content"
@@ -12,6 +14,7 @@
         android:layout_height="55dp"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:id="@+id/add_text"
         android:text="Enter the title\n for alarm     "/>
     
     <EditText android:layout_width="150dp"
@@ -21,10 +24,11 @@
         android:textSize="18sp"
         android:id="@+id/getalarmtitle"/></LinearLayout>
     
-    <Button android:layout_width="wrap_content"
+    <Button android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:padding="5dp"
         android:id="@+id/settitle"
         android:text="SET"/>
 

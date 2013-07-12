@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TimePicker;
+import com.project.gtacampus.R;
 
 public class Alarmsetter extends ListActivity {
 	
@@ -124,7 +125,18 @@ public class Alarmsetter extends ListActivity {
 	};
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode==Activity.RESULT_OK)
+		if(requestCode==10){
+			if(resultCode==Activity.RESULT_OK){
+				db = new DataManipulator(Alarmsetter.this);
+				db.deletealarm(alarmid);
+				db.close();
+				initlist();
+				Intent i = new Intent(getBaseContext(),MyAlarm.class);
+				i.setAction("setalarm");
+				startService(i);
+			}
+		}
+		else if(resultCode==Activity.RESULT_OK)
 		{
 			if(data.getStringExtra("operation").equals("delete"))
 				 showDialog(DELETE_ALARM);
@@ -214,13 +226,8 @@ public class Alarmsetter extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					db = new DataManipulator(Alarmsetter.this);
-					db.deletealarm(alarmid);
-					db.close();
-					initlist();
-					Intent i = new Intent(getBaseContext(),MyAlarm.class);
-					i.setAction("setalarm");
-					startService(i);
+					startActivityForResult(new Intent(Alarmsetter.this,Password.class), 10);
+					dismissDialog(DELETE_ALARM);
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -228,7 +235,7 @@ public class Alarmsetter extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					dialog.dismiss();
+					removeDialog(DELETE_ALARM);
 				}
 			})
 			.setCancelable(false);

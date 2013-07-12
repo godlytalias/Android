@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.project.gtacampus.R;
 
 public class alarmnotif extends Activity{
 	NotificationManager alarmnotifier;

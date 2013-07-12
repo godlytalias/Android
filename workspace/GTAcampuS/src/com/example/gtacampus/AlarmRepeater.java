@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import com.project.gtacampus.R;
 
 public class AlarmRepeater extends Activity {
 	

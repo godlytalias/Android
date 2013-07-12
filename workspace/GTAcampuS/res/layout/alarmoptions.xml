@@ -338,7 +338,7 @@
         android:id="@+id/alarm_delete"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent" 
-        android:layout_marginLeft="10dp" 
+        android:layout_marginLeft="5dp" 
         android:layout_marginRight="5dp" 
         style="@style/Menu_Button"
         android:textStyle="bold"

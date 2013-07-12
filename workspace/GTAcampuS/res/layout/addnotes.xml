@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".addnote" 
+    android:gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+<RelativeLayout 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".addnote" >
+    android:layout_height="wrap_content"
+    android:layout_weight="1">
 
     <TextView
         android:id="@+id/textView1"
@@ -20,9 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
-        android:overScrollMode="ifContentScrolls"
-        android:keepScreenOn="true"
-        android:inputType="textMultiLine"
+        android:inputType="textEmailSubject"
         android:ems="10" >
 
         <requestFocus />
@@ -46,20 +52,22 @@
         android:layout_below="@+id/textView2"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="20dp"
+        android:overScrollMode="ifContentScrolls"
+        android:keepScreenOn="true"
         android:ems="40"
         android:inputType="textMultiLine" />
+
+</RelativeLayout>
 
     <Button
         android:id="@+id/button1"
         style="?android:attr/buttonStyleSmall"
+        android:layout_weight="0.05"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:onClick="save"
         android:drawableLeft="@android:drawable/ic_menu_save"
+        android:layout_marginTop="30dp"
         android:text="Save" />
-
     
-
-</RelativeLayout>
+    </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Spinner;
+import com.project.gtacampus.R;
 
 public class Initialize extends Activity{
 
@@ -87,6 +88,7 @@ public class Initialize extends Activity{
 		db.coursetimings(end, no);
 		db.initdays(no);
 		db.close();
+		setResult(Activity.RESULT_OK);
 		finish();
 	}
 	

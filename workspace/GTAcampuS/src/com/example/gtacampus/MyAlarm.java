@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -22,6 +23,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+import com.project.gtacampus.R;
 
 public class MyAlarm extends Service{
 	private Ringtone alarmalert;
@@ -99,7 +101,7 @@ public class MyAlarm extends Service{
 	
 	
 	public void bootsetalarm()
-	{			
+	{	
 		Intent intent1 = new Intent(MyAlarm.this, MyAlarmBrdcst.class);
 	intent1.setAction("set_alarm");
 	PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
@@ -200,8 +202,8 @@ public class MyAlarm extends Service{
 		try{
 		alarmtimedetails = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)+ " , " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
 		}
-		catch(Exception e){
-			alarmtimedetails = calendar.get(Calendar.MONTH) + " / " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
+		catch(NoSuchMethodError e){
+			alarmtimedetails = calendar.get(Calendar.DAY_OF_MONTH) + " / " +calendar.get(Calendar.MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
 		}
 		alarmnotification = new Notification(R.drawable.alarm,"Next alert on "+alarmtimedetails, System.currentTimeMillis());
 		alarmnotification.setLatestEventInfo(this, "GTAcampuS", "Alert Name : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
@@ -219,10 +221,10 @@ public class MyAlarm extends Service{
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_VIBRATE);
 		alarmflag=0;
-		playalarmtone();
 		Thread alarmhandler = new Thread(alarmdialog);
 		alarmhandler.setDaemon(true);
-		alarmhandler.start();}
+		alarmhandler.start();
+		playalarmtone();}
 		
 
 	
@@ -230,7 +232,7 @@ public class MyAlarm extends Service{
 		Ringtone r = null;
 		
 		try{
-			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("android.resource://com.example.gtacampus/"+R.raw.myringtone));
+			r=RingtoneManager.getRingtone(getBaseContext(), Uri.parse("android.resource://com.project.gtacampus/"+R.raw.myringtone));
 			r.setStreamType(AudioManager.STREAM_ALARM);
 		}
 		catch(Exception e){
@@ -417,6 +419,8 @@ public class MyAlarm extends Service{
 		SharedPreferences.Editor alarmprefs = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
 		int hour,minute;
 		boolean cnullflag=true;
+		
+		try{
 		db=new DataManipulator(this);
 		
 		Cursor slotstat = db.slotstat();
@@ -533,7 +537,13 @@ public class MyAlarm extends Service{
 		}}
 		en_alarms.close();
 		
+
+		}
+		catch(RuntimeException e){
+			e.printStackTrace();
+			nxtalarmtime=0;
+		}
 		db.close();
-				return nxtalarmtime;
+		return nxtalarmtime;
 		}
 	}

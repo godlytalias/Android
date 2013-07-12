@@ -14,11 +14,11 @@ import java.util.List;
 public class DataManipulator {
 	private static final  String DATABASE_NAME = "mydb.db";
 	private static final int DATABASE_VERSION = 1;
-	static final String TABLE_NAME1 = "campus";
-	static final String TABLE_NAME2 = "notes";
-	static final String TABLE_NAME3 = "alarms";
-	static final String TABLE_NAME4 = "courses";
-	static final String TABLE_NAME5 = "bunks";
+	public static final String TABLE_NAME1 = "campus";
+	public static final String TABLE_NAME2 = "notes";
+	public static final String TABLE_NAME3 = "alarms";
+	public static final String TABLE_NAME4 = "courses";
+	public static final String TABLE_NAME5 = "bunks";
 	private static Context context;
 	OpenHelper openHelper;
 	ContentValues alarm;
@@ -73,21 +73,29 @@ public class DataManipulator {
 	public Cursor getdates(String course){
 		return db.query(TABLE_NAME5, new String[]{"bunkdate"}, "course = ?", new String[]{course}, null, null, null);
 	}
+	
+	public void insertdata(String tablename,ContentValues values){
+		db.insert(tablename, null, values);
+	}
+	
+	public Cursor gettable(String tablename){
+		return db.query(tablename, null, null, null, null, null, null);
+	}
 
-	public void deleteAll() {
-		db.delete(TABLE_NAME1, null, null);
+	public void deleteAll(String tablename) {
+		db.delete(tablename, null, null);
 	}
 
 	public List<String[]> selectAll()
 	{
 
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = db.query(TABLE_NAME1, new String[] { "course","code","bunk"},
+		Cursor cursor = db.query(TABLE_NAME1, new String[] { "course","code","bunk","teacher"},
 				null, null, null, null, null); 
 
 		if (cursor.moveToFirst()) {
 			do {
-				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)};
+				String[] b1=new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)};
 
 				list.add(b1);
 			} while (cursor.moveToNext());

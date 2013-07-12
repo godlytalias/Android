@@ -14,6 +14,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import com.project.gtacampus.R;
 
 public class Slot extends Activity {
 	
@@ -171,7 +172,7 @@ public class Slot extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				dismissDialog(COURSE_DET);
+				removeDialog(COURSE_DET);
 			}
 		});
 		}		return builder.create();	}
@@ -179,7 +180,6 @@ public class Slot extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 }

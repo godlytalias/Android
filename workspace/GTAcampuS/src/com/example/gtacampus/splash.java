@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import com.project.gtacampus.R;
 
 public class splash extends Activity{
 	private Thread splashscreen;
@@ -37,7 +38,6 @@ public class splash extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.layout.menu, menu);
 		return true;
 	}	
 }

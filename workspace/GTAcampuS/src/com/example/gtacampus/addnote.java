@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import com.project.gtacampus.R;
 
 
 public class addnote extends Activity{
@@ -46,7 +47,6 @@ public class addnote extends Activity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 	

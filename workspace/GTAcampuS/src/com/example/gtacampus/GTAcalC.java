@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.project.gtacampus.R;
 
 public class GTAcalC extends Activity {
 	
@@ -165,7 +166,6 @@ this.cos.setOnClickListener(new View.OnClickListener() {
 
 this.tan.setOnClickListener(new View.OnClickListener() {
 	
-	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if(opflag==0)
@@ -812,7 +812,6 @@ this.plus.setOnClickListener(new View.OnClickListener() {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 	

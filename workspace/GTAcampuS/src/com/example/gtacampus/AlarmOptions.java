@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.project.gtacampus.R;
 
 public class AlarmOptions extends Activity {
 	Boolean alarmstatus=true,snooze=false,sh_snooze=true,mathsolver=false,sun=false,mon=false,tue=false,wed=false,thu=false,fri=false,sat=false;

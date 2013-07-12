@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.project.gtacampus.R;
 
 
 public class bunkom extends ListActivity{
@@ -73,6 +75,20 @@ public class bunkom extends ListActivity{
 		}
 	};
 	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode){
+		case 10:
+			if(resultCode==Activity.RESULT_OK){
+				dm = new DataManipulator(bunkom.this);
+				dm.update(c_name[0]);
+				dm.close();
+				initlist();
+			}
+			break;
+		default: break;
+		}
+	};
 	
 	
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -88,8 +104,13 @@ public class bunkom extends ListActivity{
 		int count =1;
 		while(!dates.isAfterLast()){
 			cal.setTimeInMillis(dates.getLong(0));
+			try{
 			msg+="\n"+ count + ")  "+cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)+"  "+ cal.get(Calendar.DAY_OF_MONTH)+" ,   "+((cal.get(Calendar.HOUR)==0)?12:cal.get(Calendar.HOUR))+" : " + cal.get(Calendar.MINUTE) + " " + ((cal.get(Calendar.AM_PM)==0)?"AM":"PM");
-		count++;
+			}
+			catch(NoSuchMethodError e){
+				msg+="\n"+ count + ")  "+cal.get(Calendar.DAY_OF_MONTH)+" / "+ cal.get(Calendar.MONTH)+" ,   "+((cal.get(Calendar.HOUR)==0)?12:cal.get(Calendar.HOUR))+" : " + cal.get(Calendar.MINUTE) + " " + ((cal.get(Calendar.AM_PM)==0)?"AM":"PM");
+							}
+			count++;
 		dates.moveToNext();
 		}
 		dates.close();
@@ -111,10 +132,8 @@ public class bunkom extends ListActivity{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				dm = new DataManipulator(bunkom.this);
-				dm.update(c_name[0]);
-				dm.close();
-				initlist();
+				startActivityForResult(new Intent(bunkom.this,Password.class), 10);
+				removeDialog(BUNK);
 			}
 		})
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -122,7 +141,7 @@ public class bunkom extends ListActivity{
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				dismissDialog(BUNK);
+				removeDialog(BUNK);
 			}
 		});
 		break;
@@ -137,7 +156,6 @@ public class bunkom extends ListActivity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 	

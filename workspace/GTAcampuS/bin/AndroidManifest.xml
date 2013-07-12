@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gtacampus"
+    package="com.project.gtacampus"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,35 +14,36 @@
 <supports-screens android:anyDensity="true" android:smallScreens="true" android:resizeable="true" android:normalScreens="true" android:largeScreens="true"></supports-screens>
 <uses-permission android:name="android.permission.VIBRATE"/>
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:logo="@drawable/ic_launcher">
-        <activity android:name="splash" android:theme="@android:style/Theme.InputMethod">
+        <activity android:name="com.example.gtacampus.splash" android:theme="@android:style/Theme.InputMethod">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity><activity
             android:name="com.example.gtacampus.CampusActivity"
-            android:label="@string/app_name" android:theme="@style/GTATheme" android:logo="@drawable/ic_launcher" android:screenOrientation="fullSensor">
+            android:label="@string/app_name" android:theme="@style/GTATheme" android:logo="@drawable/ic_launcher" android:screenOrientation="landscape">
         <intent-filter><category android:name="android.intent.category.HOME"/>
 </intent-filter>
         </activity>
-        <activity android:name="GTAcalC" android:theme="@style/AppBaseTheme" android:screenOrientation="portrait"></activity>
-        <activity android:name="Slot" android:screenOrientation="landscape"></activity>
-        <activity android:name="courses"></activity>
-        <activity android:name="CheckData"></activity>
-        <activity android:name="addnote"></activity>
-        <activity android:name="notedata"></activity>
-        <activity android:name="bunkom"></activity>
-        <receiver android:name="MyAlarmBrdcst"></receiver>
-        <service android:name="MyAlarm" android:singleUser="false" android:enabled="true" android:stopWithTask="false" android:isolatedProcess="false"></service>
-        <activity android:name="alarmnotif" android:noHistory="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS"></activity>
-        <activity android:name="Initialize" android:noHistory="true" android:screenOrientation="landscape"></activity>
-        <receiver android:name="BootsetAlarm" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+        <activity android:name="com.example.gtacampus.GTAcalC" android:theme="@style/AppBaseTheme" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.example.gtacampus.Slot" android:screenOrientation="landscape"></activity>
+        <activity android:name="com.example.gtacampus.courses"></activity>
+        <activity android:name="com.example.gtacampus.CheckData"></activity>
+        <activity android:name="com.example.gtacampus.addnote"></activity>
+        <activity android:name="com.example.gtacampus.notedata"></activity>
+        <activity android:name="com.example.gtacampus.bunkom"></activity>
+        <receiver android:name="com.example.gtacampus.MyAlarmBrdcst"></receiver>
+        <service android:name="com.example.gtacampus.MyAlarm" android:enabled="true" android:stopWithTask="false" android:isolatedProcess="false"></service>
+        <activity android:name="com.example.gtacampus.alarmnotif" android:noHistory="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS" android:excludeFromRecents="true" android:showOnLockScreen="false"></activity>
+        <activity android:name="com.example.gtacampus.Initialize" android:noHistory="true" android:screenOrientation="landscape" android:excludeFromRecents="true"></activity>
+        <receiver android:name="com.example.gtacampus.BootsetAlarm" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
@@ -53,11 +54,12 @@
                 <action android:name="android.intent.action.TIME_SET"/>
             </intent-filter>
         </receiver>
-        <activity android:name="Alarmsetter"></activity>
-        <activity android:name="AlarmOptions"></activity>
-        <activity android:name="AlarmRepeater"  android:theme="@android:style/Theme.InputMethod"></activity>
-        <activity android:name="gtaconvertor"></activity>
-        <activity android:theme="@android:style/Theme.Dialog" android:name="Textviewer"></activity>
+        <activity android:name="com.example.gtacampus.Alarmsetter"></activity>
+        <activity android:name="com.example.gtacampus.AlarmOptions"></activity>
+        <activity android:name="com.example.gtacampus.AlarmRepeater"  android:theme="@android:style/Theme.InputMethod"></activity>
+        <activity android:name="com.example.gtacampus.gtaconvertor"></activity>
+        <activity android:theme="@android:style/Theme.Dialog" android:name="com.example.gtacampus.Textviewer"></activity>
+        <activity android:name="com.example.gtacampus.Password" android:logo="@drawable/ic_launcher" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.InputMethod"></activity>
         
     </application>
 

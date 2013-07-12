@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.project.gtacampus.R;
 
 public class courses extends Activity {
 	
@@ -114,7 +115,6 @@ public class courses extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 	

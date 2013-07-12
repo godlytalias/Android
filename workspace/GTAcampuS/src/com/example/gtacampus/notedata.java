@@ -3,6 +3,7 @@ package com.example.gtacampus;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.project.gtacampus.R;
 
 
 public class notedata extends ListActivity{
@@ -46,13 +48,11 @@ public class notedata extends ListActivity{
 		      stg2=new String[names2.size()];
 
 				int x=0;
-				String stg,stga;
 
 				for (String[] note : names2) {
-					stg = note[1];
-					stga=note[2];
-					stg2[x]=stga;
-					stg1[x]=stg;
+					
+					stg2[x]=note[2];
+					stg1[x]=note[1];
 					x++;
 				}
 				
@@ -92,6 +92,23 @@ public class notedata extends ListActivity{
 		startActivity(read);
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode){
+		case 0:
+			if(resultCode==Activity.RESULT_OK){
+				dm=new DataManipulator(notedata.this);
+				dm.deletenote(message);
+				dm.close();
+				onCreate(state);
+			}
+		break;
+		default: break;
+		}
+	}
+	
 	protected final Dialog onCreateDialog(final int id) {
 		Dialog dialog = null;
 		switch(id) {
@@ -108,10 +125,8 @@ public class notedata extends ListActivity{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					dm=new DataManipulator(notedata.this);
-					dm.deletenote(message);
-					dm.close();
-					onCreate(state);
+					startActivityForResult(new Intent(notedata.this, Password.class), 0);
+					dismissDialog(DELETE_NOTE);
 				}
 			});
 				AlertDialog alert = builder.create(); 
@@ -127,7 +142,6 @@ public class notedata extends ListActivity{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.campus, menu);
 		return true;
 	}
 }

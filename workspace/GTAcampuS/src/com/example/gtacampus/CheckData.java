@@ -2,6 +2,7 @@ package com.example.gtacampus;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -15,6 +16,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.project.gtacampus.R;
 
 public class CheckData extends ListActivity  {     
 	static final int DELETE_COURSE=1;
@@ -82,8 +84,7 @@ public class CheckData extends ListActivity  {
 
 	public void coursefn(View v)
 	{
-		Intent courseintent=new Intent (CheckData.this,courses.class);
-		startActivity(courseintent);
+		startActivityForResult(new Intent(CheckData.this,Password.class), 0);
 	}
 	
 	AdapterView.OnItemLongClickListener deletecourse = new OnItemLongClickListener() {
@@ -95,6 +96,33 @@ public class CheckData extends ListActivity  {
 			message = stg1[arg2];
 			showDialog(DELETE_COURSE);
 			return false;
+		}
+	};
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode){
+		case 0:
+			if(resultCode==Activity.RESULT_OK)
+			{
+				Intent courseintent=new Intent (CheckData.this,courses.class);
+				startActivity(courseintent);
+			}
+			break;
+			
+		case 1:
+			if(resultCode==Activity.RESULT_OK)
+			{
+				DataManipulator db = new DataManipulator(CheckData.this);
+				db.deletecourse(message);
+				db.close();
+				Intent setalarm = new Intent(CheckData.this,MyAlarm.class);
+				setalarm.setAction("setalarm");
+				startService(setalarm);
+				onCreate(state);
+			}
+			break;
+		default: break;
 		}
 	};
 	
@@ -115,7 +143,7 @@ public class CheckData extends ListActivity  {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					dismissDialog(DELETE_COURSE);
+					removeDialog(DELETE_COURSE);
 				}
 			})
 			.setNegativeButton("YES", new DialogInterface.OnClickListener() {
@@ -123,14 +151,8 @@ public class CheckData extends ListActivity  {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					DataManipulator db = new DataManipulator(CheckData.this);
-					db.deletecourse(message);
-					db.close();
-					Intent setalarm = new Intent(CheckData.this,MyAlarm.class);
-					setalarm.setAction("setalarm");
-					startService(setalarm);
-					dismissDialog(DELETE_COURSE);
-					onCreate(state);
+					removeDialog(DELETE_COURSE);
+					startActivityForResult(new Intent(CheckData.this,Password.class), 1);
 				}
 			});
 			dialog=builder.create();			
