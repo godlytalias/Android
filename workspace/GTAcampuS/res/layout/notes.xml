@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="347dp"
         android:drawSelectorOnTop="false"
-        android:textSize="3dip" >
+        android:textSize="14sp" >
     </ListView>
 
     <Button
@@ -22,6 +22,6 @@
         android:layout_marginBottom="22dp"
         android:onClick="add"
         android:drawableLeft="@android:drawable/ic_input_add"
-        android:text="ADD NOTE" />
+        android:text="@string/addnote" />
 
 </RelativeLayout>

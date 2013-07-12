@@ -1,21 +1,16 @@
 <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+   		 xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@android:drawable/screen_background_dark"
-        android:orientation="vertical"
-        android:id="@+id/mainlayout">
-
-<LinearLayout
-    	android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:id="@+id/mainlayout"
         android:orientation="horizontal">
         
     <LinearLayout
     	android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="90dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <DigitalClock
@@ -39,7 +34,7 @@
         
         <TextView 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="@string/nextalert"
@@ -52,7 +47,7 @@
         
         <TextView 
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:textSize="15sp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -61,7 +56,7 @@
         
         <TextView 
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            
+            android:layout_height="25dp"            
             android:textSize="14sp"
             android:gravity="center"
             android:layout_gravity="center"
@@ -75,6 +70,18 @@
     android:padding="5dp"
     android:background="@android:drawable/divider_horizontal_dark">
 			</View>	
+			
+		        
+		        <Button android:layout_width="wrap_content"
+		            android:layout_height="80dp"
+		            android:layout_marginTop="40dp"
+		            android:drawableLeft="@android:drawable/ic_secure"
+		            android:drawingCacheQuality="high"
+		            android:drawablePadding="5dp"
+		            android:textColor="#FFFFFF"
+		            style="@android:style/MediaButton.Play"
+		            android:text="@string/action_settings"
+		            android:onClick="getsettings"/>
         
         </LinearLayout>
         
@@ -98,6 +105,3 @@
     </ListView>
 
 </LinearLayout >
-
-
-</LinearLayout>

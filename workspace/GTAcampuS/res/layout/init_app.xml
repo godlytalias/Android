@@ -6,8 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="10dp"
-    android:background="#000000" >
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/textView1"
@@ -34,7 +33,7 @@
        <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text = "Enter the no: of class hours in a day "
+        android:text = "@string/init_info2"
         android:textStyle="bold"
         android:textColor="#0f0"
         android:textSize="20sp"/>
@@ -60,37 +59,39 @@
        android:orientation="horizontal"> 
        
          <Button
-       android:layout_width="wrap_content"
+       android:layout_width="100dp"
        android:layout_height="50dp"
        android:onClick="skip"
-       android:text="    SKIP    "/>
+       android:text="@string/skip"/>
    
    <Button android:id="@+id/next"
-       android:layout_width="wrap_content"
+       android:layout_width="100dp"
        android:layout_height="50dp"
        android:drawableRight="@drawable/nextbutton"
-       android:text="GO  "/>
+       android:text="@string/go"/>
        </LinearLayout>
        
   <LinearLayout
       android:id="@+id/ll_classtimings"
       android:layout_width="fill_parent"
-       android:layout_height="match_parent"
+       android:layout_height="wrap_content"
        android:padding="10dp"
-       android:visibility="invisible"
+       android:visibility="gone"
        android:orientation="vertical">
    
       <LinearLayout
       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="0dip"
        android:padding="10dp"
+       android:layout_weight="1"
        android:orientation="horizontal">
        
           <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="#0f0"
-        android:text = "ENTER THE TIMING OF "
+        android:text = "@string/init_info1"
+        android:padding="5dp"
         android:textSize="20sp"/>
           
           <TextView android:layout_width="wrap_content"
@@ -105,7 +106,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="#0f0"
-        android:text = " HOUR"
+        android:text = "@string/hour"
         android:textSize="20sp"/>
           
           </LinearLayout>
@@ -117,13 +118,14 @@
    
       <LinearLayout
       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_height="0dip"
        android:padding="10dp"
+       android:layout_weight="1"
        android:orientation="horizontal">
        
        <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "Start Time      "
+        android:text = "@string/startime"
         android:textSize="18sp"/>
    
       <Spinner android:id="@+id/classtimings1"
@@ -141,18 +143,19 @@
       
       <LinearLayout
       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_height="0dip"
+       android:layout_weight="1"
        android:padding="10dp"
        android:orientation="horizontal">
        
        <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = "End Time       "
+        android:text = "@string/endtime"
         android:textSize="18sp"/>
    
       <Spinner android:id="@+id/classtimings2"
           android:layout_weight="1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_vertical"
@@ -164,9 +167,15 @@
        android:layout_height="wrap_content"
        android:layout_gravity="left"
        android:drawableRight="@drawable/nextbutton"
-       android:text="NEXT  "/>
+       android:text="@string/next"/>
    
       </LinearLayout>
-       
+  
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="0dip"
+      android:layout_weight="1"
+      android:contentDescription="@string/app_name"
+      android:src="@drawable/hand" />
   
    </LinearLayout>

@@ -26,6 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="0.07"
-        android:text="Go Back" />
+        android:text="@string/close" />
 
 </LinearLayout>

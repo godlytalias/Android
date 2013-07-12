@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+	android:background="#77113311"
     android:id="@+id/add_main"
-    android:background="#77000000"
+    android:padding="5dp"
     android:orientation="vertical" >
     
     <LinearLayout android:layout_width="wrap_content"
@@ -15,12 +16,12 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:id="@+id/add_text"
-        android:text="Enter the title\n for alarm     "/>
+        android:text="@string/entertitle"/>
     
     <EditText android:layout_width="150dp"
         android:layout_height="fill_parent"
         android:gravity="center"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="18sp"
         android:id="@+id/getalarmtitle"/></LinearLayout>
     
@@ -28,8 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:padding="5dp"
         android:id="@+id/settitle"
-        android:text="SET"/>
+        android:text="@string/set"/>
 
 </LinearLayout>

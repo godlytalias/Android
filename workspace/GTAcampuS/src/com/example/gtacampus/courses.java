@@ -72,7 +72,7 @@ public class courses extends Activity {
 		{
 		timeflag=1;
 		TextView check = new TextView(this);
-		check.setText("   " + course_day.getSelectedItem().toString() + "           " + course_time.getSelectedItem());
+		check.setText("\t\t" + course_day.getSelectedItem().toString() + "\t\t" + course_time.getSelectedItem());
 		c_timing.addView(check);
 		day_id[class_count]=day+3;
 		hour_pos[class_count] = hour_ps;

@@ -253,38 +253,38 @@ public class AlarmOptions extends Activity {
 
 	
 	private void setxtinrpt(Intent data)
-	{CharSequence rptsq= " ";
+	{CharSequence rptsq= "<";
 	
 		if(data.getBooleanExtra("sun", true))
 		{
-			rptsq = "Sun - ";
+			rptsq = "- Sun -";
 			sun=true;}
 		else sun=false;
 		if(data.getBooleanExtra("mon", true)){
-			rptsq = rptsq + "Mon - ";
+			rptsq = rptsq + "- Mon -";
 			mon=true;}
 		else mon=false;
 		if(data.getBooleanExtra("tue", true)){
-			rptsq = rptsq + "Tue - ";
+			rptsq = rptsq + "- Tue -";
 			tue=true;}
 		else tue=false;
 		if(data.getBooleanExtra("wed", true)){
-			rptsq = rptsq + "Wed - ";
+			rptsq = rptsq + "- Wed -";
 			wed=true;}
 		else wed=false;
 		if(data.getBooleanExtra("thu", true)){
-			rptsq = rptsq + "Thu - ";
+			rptsq = rptsq + "- Thu -";
 			thu=true;}
 		else thu=false;
 		if(data.getBooleanExtra("fri", true)){
-			rptsq = rptsq + "Fri - ";
+			rptsq = rptsq + "- Fri -";
 			fri=true;}
 		else fri=false;
 		if(data.getBooleanExtra("sat", true)){
-			rptsq = rptsq + "Sat";
+			rptsq = rptsq + "- Sat -";
 			sat=true;}
 		else sat=false;
-		
+		rptsq=rptsq+">";
 		alarmrptxt.setText(rptsq);
 	}
 	

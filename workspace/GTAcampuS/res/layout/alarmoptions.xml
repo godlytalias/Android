@@ -10,7 +10,7 @@
     android:layout_weight="1">
 		
 <LinearLayout android:orientation="vertical"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_width="fill_parent">
 		
 <LinearLayout android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:textColor="#FFF" 
         android:padding="2dp" 
         android:textStyle="bold" 
-        android:text="Alarm Settings"></TextView>
+        android:text="@string/alarmsettings"></TextView>
     
     
 </LinearLayout>
@@ -44,12 +44,12 @@
     android:minHeight="80dp">
     
     
-				<TextView android:layout_width="wrap_content" 
+				<TextView android:layout_width="0dip" 
 				    android:layout_height="wrap_content" 
 				    android:textSize="18sp" 
 				    android:textColor="#FFF"
 				    android:layout_weight="1" 
-				    android:text="Enable Alarm">
+				    android:text="@string/alarmoptions_info11">
 				</TextView>
 				<CheckBox android:layout_width="wrap_content" 
 				    android:layout_height="wrap_content" 
@@ -75,11 +75,11 @@
 			<TextView android:layout_width="wrap_content" 
 			    android:layout_height="wrap_content" 
 			    android:textColor="#FFF" 
-			    android:textSize="18sp" android:text="Alarm Title"></TextView>
+			    android:textSize="18sp" android:text="@string/alarmtitle"></TextView>
 			
 			<TextView android:layout_width="wrap_content" 
 			    android:layout_height="wrap_content" 
-			    android:text="Enter a title to be displayed" android:id="@+id/alarmtitle"></TextView>
+			    android:text="@string/alarmoptions_info10" android:id="@+id/alarmtitle"></TextView>
 			
 </LinearLayout>
 
@@ -100,7 +100,7 @@
     android:layout_height="wrap_content" 
     android:textSize="18sp" 
     android:textColor="#FFF" 
-    android:text="Alarm Time"></TextView>
+    android:text="@string/alarmtime"></TextView>
 
 <TextView android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
@@ -126,7 +126,7 @@
     android:textColor="#FFF" 
     android:textSize="18sp" 
     android:id="@+id/alarmsettings"
-    android:text="Repeat Settings"></TextView>
+    android:text="@string/alarmoptions_info9"></TextView>
 
 <TextView android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
@@ -146,7 +146,7 @@
     android:textColor="#FFF" 
     android:padding="2dip" 
     android:textStyle="bold" 
-    android:text="Snooze Options"></TextView>
+    android:text="@string/alarmoptions_info8"></TextView>
 </LinearLayout>
 
 <LinearLayout android:focusable="true" 
@@ -162,20 +162,19 @@
 
 <LinearLayout android:layout_height="wrap_content" 
     android:orientation="vertical" 
-    android:layout_width="wrap_content" 
+    android:layout_width="0dip" 
     android:layout_weight="1">
 
 <TextView android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:textSize="18sp" 
      android:textColor="#FFF" 
-     android:layout_weight="1" 
-     android:text="Disable Snooze">
+     android:text="@string/alarmoptions_info7">
 				</TextView>
 
 <TextView android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Check this option to disable snooze option of alarm"></TextView>
+    android:text="@string/alarmoptions_info6"></TextView>
 
 </LinearLayout>
 				
@@ -210,7 +209,7 @@
     android:layout_height="wrap_content" 
     android:textColor="#FFF" 
     android:textSize="18sp" 
-    android:text="Snooze Time-Out              ">
+    android:text="@string/alarmoptions_info5">
     </TextView>
 
 <TextView android:layout_width="wrap_content" 
@@ -244,20 +243,19 @@
 
 <LinearLayout android:layout_height="wrap_content" 
     android:orientation="vertical" 
-    android:layout_width="wrap_content" 
+    android:layout_width="0dip" 
     android:layout_weight="1">
 
 <TextView android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:textSize="18sp" 
      android:textColor="#FFF" 
-     android:layout_weight="1" 
-     android:text="Snooze mode on shake">
+     android:text="@string/alarmoptions_info4">
 				</TextView>
 
 <TextView android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Check this option to snooze the alarm by shaking the device"></TextView>
+    android:text="@string/alarmoptions_info3"></TextView>
 
 </LinearLayout>
 				
@@ -284,20 +282,19 @@
 
 <LinearLayout android:layout_height="wrap_content" 
     android:orientation="vertical" 
-    android:layout_width="wrap_content" 
+    android:layout_width="0dip" 
     android:layout_weight="1">
 
 <TextView android:layout_width="wrap_content"
      android:layout_height="wrap_content" 
      android:textSize="18sp" 
      android:textColor="#FFF" 
-     android:layout_weight="1" 
-     android:text="Math problem on stop">
+     android:text="@string/alarmoptions_info2">
 				</TextView>
 
 <TextView android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Check this option to stop the alarm by solving a math problem"></TextView>
+    android:text="@string/alarmoptions_info1"></TextView>
 
 </LinearLayout>
 				
@@ -320,30 +317,9 @@
      android:layout_weight="0.5"
      android:gravity="center"
      android:background="#77888888"
-     android:layout_alignParentBottom="true"
      android:orientation="horizontal">
-     
-    <Button 
-        android:id="@+id/alarm_save"
-        style="@style/Menu_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent" 
-        android:layout_marginLeft="10dp" 
-        android:layout_marginRight="5dp" 
-        android:textStyle="bold"
-        android:layout_weight="1"
-        android:text="Save"></Button>
     
-    <Button 
-        android:id="@+id/alarm_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent" 
-        android:layout_marginLeft="5dp" 
-        android:layout_marginRight="5dp" 
-        style="@style/Menu_Button"
-        android:textStyle="bold"
-        android:layout_weight="1"
-        android:text="Delete"></Button>
+
     
     <Button 
         android:id="@+id/alarm_cancel"
@@ -355,7 +331,29 @@
         android:layout_weight="1" 
         style="@style/Menu_Button"
         android:textStyle="bold"
-        android:text="Cancel"></Button>
+        android:text="@string/cancel"></Button>
+    
+        <Button 
+        android:id="@+id/alarm_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="5dp" 
+        android:layout_marginRight="5dp" 
+        style="@style/Menu_Button"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:text="@string/delete"></Button>
+     
+    <Button 
+        android:id="@+id/alarm_save"
+        style="@style/Menu_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent" 
+        android:layout_marginLeft="10dp" 
+        android:layout_marginRight="5dp" 
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:text="@string/save"></Button>
     
     
     </LinearLayout> 

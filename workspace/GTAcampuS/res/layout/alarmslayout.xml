@@ -10,7 +10,7 @@
           android:layout_width="fill_parent"
           android:textSize="18sp"
           android:layout_height="wrap_content"
-          android:text="No Custom Alerts"/>
+          android:text="@string/noalerts"/>
     
     <ListView android:id="@+id/android:list"
           android:layout_height="wrap_content"
@@ -34,8 +34,9 @@
         android:background="@drawable/rect" 
         android:textStyle="bold"
         android:layout_weight="1"
+        android:textColor="#FFFFFF"
         android:padding="2dp" 
-        android:text="New Task / Submission"></Button>
+        android:text="@string/addtask"></Button>
     
     <Button 
         android:id="@+id/add_alarm"
@@ -46,9 +47,10 @@
         android:layout_marginRight="10dp"
         android:layout_weight="1" 
         android:background="@drawable/rect" 
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:padding="2dp" 
-        android:text="New Alarm / Extra-Class"></Button>
+        android:text="@string/addalarm"></Button>
     
     
     </LinearLayout> 

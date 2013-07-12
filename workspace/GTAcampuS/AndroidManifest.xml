@@ -60,6 +60,7 @@
         <activity android:name="com.example.gtacampus.gtaconvertor"></activity>
         <activity android:theme="@android:style/Theme.Dialog" android:name="com.example.gtacampus.Textviewer"></activity>
         <activity android:name="com.example.gtacampus.Password" android:logo="@drawable/ic_launcher" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.InputMethod"></activity>
+        <activity android:name="com.example.gtacampus.Settings" android:excludeFromRecents="true" android:noHistory="true"></activity>
         
     </application>
 

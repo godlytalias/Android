@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -80,6 +81,7 @@ public class AlarmRepeater extends Activity {
 		{
 			setContentView(R.layout.addtitle);
 			entertitle = (EditText) findViewById(R.id.getalarmtitle);
+			entertitle.setInputType(InputType.TYPE_CLASS_TEXT);
 			settitle = (Button) findViewById(R.id.settitle);
 			settitle.setOnClickListener(changingtitle);
 		}

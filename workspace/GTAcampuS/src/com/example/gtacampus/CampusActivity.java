@@ -24,12 +24,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
@@ -37,12 +35,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.project.gtacampus.R;
 
 public class CampusActivity extends ListActivity {	
-	private static final int DIALOG_ID = 0,BACKUP_ERROR=1,BACKUP = 2, RESTORE_ALERT=3, BACKUP_EXISTS=4, RESTORE =5, RESTORE_ERROR=6, PASSWORD = 7;
+	private static final int DIALOG_ID = 0,BACKUP_ERROR=1,BACKUP = 2, RESTORE_ALERT=3, BACKUP_EXISTS=4, RESTORE =5, RESTORE_ERROR=6, PASSWORD = 7,DATABASE_ERROR=8;
 	Calendar myCal;
 	public int Year,month,day,hour,Minute;
 	static boolean suc_flag;
@@ -73,7 +70,8 @@ public class CampusActivity extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		initalertnotif();}
+		initalertnotif();
+	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,6 +92,14 @@ public class CampusActivity extends ListActivity {
 				restore();
 			break;
 			
+		case 3:
+			if(resultCode==Activity.RESULT_OK)
+			{
+				Intent i = new Intent (CampusActivity.this, Settings.class);
+				startActivity(i);
+			}
+				break;
+			
 		default:
 			break;
 		}
@@ -102,16 +108,22 @@ public class CampusActivity extends ListActivity {
 	public void initalertnotif(){
 		SharedPreferences alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE);
 		String details = alarmdet.getString("alarmdetails", "none");
+		TextView alarmdet1 = (TextView) findViewById(R.id.alarm_title1);
+		TextView alarmdet2 = (TextView) findViewById(R.id.alarm_title2);
+		TextView alarmdet3 = (TextView) findViewById(R.id.alarm_title3);
+		View div = (View) findViewById(R.id.alertdivider);
 		if(!details.equals("none"))
-		{	TextView alarmdet1 = (TextView) findViewById(R.id.alarm_title1);
+		{	
 			alarmdet1.setVisibility(View.VISIBLE);
 			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-			TextView alarmdet2 = (TextView) findViewById(R.id.alarm_title2);
 			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
-			TextView alarmdet3 = (TextView) findViewById(R.id.alarm_title3);
 			alarmdet3.setText(details);
-			View div = (View) findViewById(R.id.alertdivider);
-			div.setVisibility(View.VISIBLE);	} }
+			div.setVisibility(View.VISIBLE);	}
+		else{
+			alarmdet1.setVisibility(View.INVISIBLE);
+			div.setVisibility(View.INVISIBLE);
+		}
+	}
 		
 	public void exit(View v)
 	{		this.finish();	}
@@ -124,8 +136,12 @@ public class CampusActivity extends ListActivity {
 		startActivity(i);	}
 	
 	public void slotdisp(View v)
-	{	Intent slots = new Intent (CampusActivity.this,Slot.class);
-		startActivity(slots);	}
+	{	if(isdbok()){
+		Intent slots = new Intent (CampusActivity.this,Slot.class);
+		startActivity(slots);
+	}else
+		showDialog(DATABASE_ERROR);
+	}
 	
 	public void coursefn(View v)
 	{	Intent courseintent=new Intent (CampusActivity.this,courses.class);
@@ -242,6 +258,7 @@ public class CampusActivity extends ListActivity {
 				line = restorereader.readLine().trim();
 			}
 			}
+			else suc_flag=false;
 			
 			restorefile = new File(Environment.getExternalStorageDirectory()+"/GTAcampuS/alarms.dat");
 			if(restorefile.exists()){
@@ -273,7 +290,7 @@ public class CampusActivity extends ListActivity {
 				db.insertdata(DataManipulator.TABLE_NAME3, values);
 				line = restorereader.readLine().trim();
 			}
-			}
+			}else suc_flag=false;
 			
 			restorefile = new File(Environment.getExternalStorageDirectory()+"/GTAcampuS/bunks.dat");
 			if(restorefile.exists()){
@@ -288,7 +305,7 @@ public class CampusActivity extends ListActivity {
 				db.insertdata(DataManipulator.TABLE_NAME5, values);
 				line = restorereader.readLine().trim();
 			}
-			}
+			}else suc_flag=false;
 			
 			
 			restorefile = new File(Environment.getExternalStorageDirectory()+"/GTAcampuS/courses.dat");
@@ -313,14 +330,13 @@ public class CampusActivity extends ListActivity {
 				line = restorereader.readLine().trim();
 			}
 			}
+			else{suc_flag=false;}
 			
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				suc_flag= false;
-				showDialog(RESTORE_ERROR);
 				e.printStackTrace();	}
 			catch(IOException e){suc_flag= false;
-			showDialog(RESTORE_ERROR);
 			e.printStackTrace();	}
 			db.close();
 			gtahandler.post(new Runnable() {
@@ -329,10 +345,14 @@ public class CampusActivity extends ListActivity {
 				public void run() {
 					// TODO Auto-generated method stub
 					if(suc_flag){
-					showDialog(RESTORE);
 					Intent i = new Intent(getBaseContext(),MyAlarm.class);
 					i.setAction("setalarm");
-					startService(i);}
+					startService(i);
+					initalertnotif();
+					showDialog(RESTORE);
+					}
+					else
+						showDialog(RESTORE_ERROR);
 				}
 			});
 		}
@@ -373,24 +393,11 @@ public class CampusActivity extends ListActivity {
 				backupwriter.flush();
 				backupwriter.close();
 			}
-			catch(IOException e){e.printStackTrace(); gtahandler.post(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
+			catch(IOException e){e.printStackTrace(); 
 					suc_flag=false;
-					showDialog(BACKUP_ERROR);
-				}
-			});}
-			catch(Exception e){e.printStackTrace();gtahandler.post(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					suc_flag=false;
-					showDialog(BACKUP_ERROR);
-				}
-			});}
+			}
+			catch(Exception e){e.printStackTrace();
+			suc_flag=false;}
 			
 			backupfile = new File(Environment.getExternalStorageDirectory() + "/GTAcampuS/alarms.dat");
 			writetosd(backupfile, db.fetchalarms());
@@ -404,13 +411,16 @@ public class CampusActivity extends ListActivity {
 			
 			db.close();
 			
-		if(suc_flag)
+
 				gtahandler.post(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						showDialog(BACKUP);
+						if(suc_flag)
+						showDialog(BACKUP);		
+						else
+							showDialog(BACKUP_ERROR);
 					}
 				}); 
 		}
@@ -454,12 +464,17 @@ public class CampusActivity extends ListActivity {
 		});}
 	}
 	
+	public void getsettings(View v){
+		startActivityForResult(new Intent(CampusActivity.this,Password.class), 3);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, Menu.FIRST+1, 0, "Exit").setIcon(R.drawable.ic_close);
 		menu.add(0, Menu.FIRST+2, 1, "About App").setIcon(R.drawable.about);
 		menu.add(0, Menu.FIRST+3, 2, "Backup").setIcon(android.R.drawable.ic_partial_secure);
 		menu.add(0, Menu.FIRST+4, 3, "Restore").setIcon(android.R.drawable.stat_notify_sdcard);
+		menu.add(0, Menu.FIRST+5, 4, "Settings").setIcon(android.R.drawable.ic_lock_lock);
 		return super.onCreateOptionsMenu(menu);	}
 	
 	
@@ -490,6 +505,10 @@ public class CampusActivity extends ListActivity {
 			startActivityForResult(new Intent(this, Password.class), 2);
 		else
 			showDialog(RESTORE_ERROR);
+		break;
+		
+		case Menu.FIRST+5:
+			startActivityForResult(new Intent(CampusActivity.this,Password.class), 3);
 		break;
 		
 		default:			break;
@@ -532,7 +551,19 @@ public class CampusActivity extends ListActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				closeOptionsMenu();
+				dismissDialog(DIALOG_ID);
+			}
+		})
+		.setNeutralButton("Help", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				Intent read = new Intent(CampusActivity.this,Textviewer.class);
+				read.putExtra("text", getString(R.string.help));
+				read.putExtra("title", "GTAcampuS Help");
+				startActivity(read);
+				dismissDialog(DIALOG_ID);
 			}
 		});
 		break;
@@ -653,8 +684,25 @@ public class CampusActivity extends ListActivity {
 					SharedPreferences settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 					SharedPreferences.Editor settingseditor = settings.edit();
 					settingseditor.putString("Password", pwd.getText().toString());
+					settingseditor.putBoolean("coursealerts", true);
+					settingseditor.putBoolean("notifications", true);
+					settingseditor.putInt("alerttime", 10);
+					settingseditor.putInt("snoozetime", 3);
+					settingseditor.putInt("interval", 5);
 					settingseditor.commit();
 					removeDialog(PASSWORD);
+				}
+			});
+			break;
+			
+		case DATABASE_ERROR:
+			builder.setMessage("Your database is not set properly. Initialize the application")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dismissDialog(DATABASE_ERROR);
 				}
 			});
 			break;

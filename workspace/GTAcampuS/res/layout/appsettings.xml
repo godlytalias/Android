@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    
+ <LinearLayout android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:background="@android:drawable/dark_header">
+    
+    <TextView android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:textColor="#FFF" 
+        android:padding="2dp" 
+        android:textStyle="bold" 
+        android:text="@string/appsettings"></TextView>
+    
+    
+</LinearLayout>
+
+<View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+ <LinearLayout android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:background="@android:drawable/list_selector_background"
+     android:minHeight="80dp"
+    android:padding="10dp" 
+     android:gravity="center"
+     android:orientation="horizontal">
+
+ <LinearLayout android:layout_width="0dip"
+     android:layout_height="wrap_content"
+     android:layout_weight="1"
+     android:orientation="vertical">
+     
+     	<TextView android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:textSize="18sp" 
+				    android:textColor="#FFF"
+				    android:text="@string/coursealerts">
+				</TextView>
+				
+     	<TextView android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:textSize="14sp"
+				    android:text="@string/appsettings_info7">
+				</TextView> </LinearLayout>
+				
+ <ToggleButton android:layout_width="90dp"
+     android:layout_height="wrap_content"
+     android:textOn="ON"
+     android:textOff="OFF"
+     android:id="@+id/coursealerts"/>
+     
+     
+ </LinearLayout>
+ 
+ <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+  <LinearLayout android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:background="@android:drawable/list_selector_background"
+     android:minHeight="80dp"
+    android:padding="10dp" 
+     android:gravity="center"
+     android:orientation="horizontal">
+			
+ <LinearLayout android:layout_width="0dip"
+     android:layout_height="wrap_content"
+     android:layout_weight="1"
+     android:orientation="vertical">
+     
+     	<TextView android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:textSize="18sp" 
+				    android:textColor="#FFF"
+				    android:text="@string/notifications">
+				</TextView>
+				
+     	<TextView android:layout_width="wrap_content" 
+				    android:layout_height="wrap_content" 
+				    android:textSize="14sp"
+				    android:text="@string/appsettings_info6">
+				</TextView> </LinearLayout>
+				
+ <ToggleButton
+     android:id="@+id/notifications"
+     android:layout_width="90dp"
+     android:layout_height="wrap_content"
+     android:textOff="OFF"
+     android:textOn="ON" />
+     
+ </LinearLayout>
+ 
+   <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+   <LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:gravity="center_vertical"
+    android:orientation="vertical" 
+    android:minHeight="80dp" 
+    android:id="@+id/ll_masterpwd">
+				
+			<TextView android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:textColor="#FFF" 
+			    android:textSize="18sp"
+			    android:text="@string/appsettings_info5"></TextView>
+			
+</LinearLayout>
+			
+   <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+    <LinearLayout android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:background="@android:drawable/dark_header">
+    
+    <TextView android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:textColor="#FFF" 
+        android:padding="2dp" 
+        android:textStyle="bold" 
+        android:text="@string/appsettings_info4"></TextView>
+    
+    
+</LinearLayout>
+
+<View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+ 
+  
+  <LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:id="@+id/ll_coursealert"
+    android:orientation="vertical" 
+    android:minHeight="80dp" >
+	
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
+<TextView android:layout_width="0dip" 
+    android:layout_height="wrap_content" 
+    android:layout_weight="1"
+    android:textColor="#FFF" 
+    android:textSize="18sp" 
+    android:text="@string/appsettings_info3">
+    </TextView>
+
+<TextView android:layout_width="80dp" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="16sp" 
+    android:id = "@+id/coursealerttime"
+    android:text="">
+    </TextView>
+
+    </LinearLayout>	
+    
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:textSize="14sp" 
+    android:text="@string/appsettings_info2">
+    </TextView>
+    
+<SeekBar android:layout_height="wrap_content"
+    android:layout_width = "fill_parent"
+    android:max="40"
+    android:progress="1"
+    android:secondaryProgress="1"
+    android:id="@+id/courseadvtime"/>
+
+</LinearLayout>
+
+  <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+
+  <LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:id="@+id/ll_coursesnoozetimeout"
+    android:orientation="vertical" 
+    android:minHeight="80dp" >
+	
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
+    
+<TextView android:layout_width="0dip" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="18sp" 
+    android:layout_weight="1"
+    android:text="@string/appsettings_info1">
+    </TextView>
+
+<TextView android:layout_width="80dp" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="16sp" 
+    android:id = "@+id/coursesnoozetimesel"
+    android:text="">
+    </TextView>
+
+    </LinearLayout>	
+<SeekBar android:layout_height="wrap_content"
+    android:layout_width = "fill_parent"
+    android:max="9"
+    android:progress="1"
+    android:secondaryProgress="1"
+    android:id="@+id/coursesnoozetime"/>
+
+</LinearLayout>
+
+  <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+  
+  <LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:id="@+id/ll_coursealert"
+    android:orientation="vertical" 
+    android:minHeight="80dp" >
+	
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
+<TextView android:layout_width="0dip" 
+    android:layout_height="wrap_content" 
+    android:layout_weight="1"
+    android:textColor="#FFF" 
+    android:textSize="18sp" 
+    android:text="@string/appsettings_info8">
+    </TextView>
+
+<TextView android:layout_width="80dp" 
+    android:layout_height="wrap_content" 
+    android:textColor="#FFF" 
+    android:textSize="16sp" 
+    android:id = "@+id/intervaltime"
+    android:text="">
+    </TextView>
+
+    </LinearLayout>	
+    
+<TextView android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:textSize="14sp" 
+    android:text="@string/appsettings_info9">
+    </TextView>
+    
+<SeekBar android:layout_height="wrap_content"
+    android:layout_width = "fill_parent"
+    android:max="30"
+    android:progress="1"
+    android:id="@+id/seekintervaltime"/>
+
+</LinearLayout>
+
+  
+</LinearLayout> </ScrollView>

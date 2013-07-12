@@ -150,10 +150,10 @@ public class Alarmsetter extends ListActivity {
 		if(requestCode==3)
 				db.alarmupdate(data,alarmid);
 		db.close();
-		initlist();
 		Intent i = new Intent(getBaseContext(),MyAlarm.class);
 		i.setAction("setalarm");
 		startService(i);
+		initlist();
 			}
 			
 		}
@@ -199,6 +199,7 @@ public class Alarmsetter extends ListActivity {
 					alintent.putExtra("hour", hour);
 					alintent.putExtra("minute", Minute);
 					alintent.putExtra("itemid", itemid);
+					removeDialog(FINALIZE);
 					startActivityForResult(alintent, 2);
 				}
 			})
@@ -208,7 +209,7 @@ public class Alarmsetter extends ListActivity {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					closeOptionsMenu();
+					removeDialog(FINALIZE);
 				}
 			});
 			if(itemid==1)
@@ -227,7 +228,7 @@ public class Alarmsetter extends ListActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(Alarmsetter.this,Password.class), 10);
-					dismissDialog(DELETE_ALARM);
+					removeDialog(DELETE_ALARM);
 				}
 			})
 			.setNegativeButton("No", new DialogInterface.OnClickListener() {

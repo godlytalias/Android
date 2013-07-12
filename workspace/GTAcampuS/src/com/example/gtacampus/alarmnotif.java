@@ -30,11 +30,11 @@ import com.project.gtacampus.R;
 public class alarmnotif extends Activity{
 	NotificationManager alarmnotifier;
 	PendingIntent alarmnotification;
-	SharedPreferences alarmpref;
+	SharedPreferences alarmpref,settings;
 	AudioManager alarm;
 	private Boolean courseflag;
 	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1,SOUND_NOTIFICATION = 3;
-	private int SNOOZE_NOTIFICATION = 1;
+	private int SNOOZE_NOTIFICATION = 88;
 	private LinearLayout rootlayout;
 	private KeyguardLock lock;
 	private Button bt1,bt2;
@@ -45,6 +45,7 @@ public class alarmnotif extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm);
+		settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 		alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
@@ -79,13 +80,14 @@ public class alarmnotif extends Activity{
 		shakesensor.registerListener(shakelistener, shake, SensorManager.SENSOR_DELAY_UI);}
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
 		alarmnotifier = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		if(settings.getBoolean("notifications", true)){
 		Notification alarmnotify = new Notification(R.drawable.ic_launcher, alarmpref.getString("alarmtitle", "Custom Alert"), System.currentTimeMillis());
 		if(!i.getBooleanExtra("snoozingstat", false))
 		{
 		alarmnotify.setLatestEventInfo(getBaseContext(), "GTAcampuS", alarmpref.getString("alarmtitle", "Custom Alert"), alarmnotification);
 		alarmnotify.deleteIntent = alarmnotification;
 		alarmnotify.flags=Notification.FLAG_SHOW_LIGHTS | Notification.DEFAULT_VIBRATE ;
-		alarmnotifier.notify("GTAcampuS", ALARM_NOTIFICATION, alarmnotify);}
+		alarmnotifier.notify("GTAcampuS", ALARM_NOTIFICATION, alarmnotify);}}
 		lock = keyguard.newKeyguardLock("GTAcampuS");
 }
 	
@@ -117,7 +119,6 @@ public class alarmnotif extends Activity{
 	
 	@Override
 	protected void onPause(){
-		lock.reenableKeyguard();
 		super.onPause();
 	}
 	
@@ -164,7 +165,7 @@ public class alarmnotif extends Activity{
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		Notification snoozenotify = new Notification(R.drawable.ic_launcher,"Snoozing!.. " + alarmpref.getString("alarmtitle", "Custom Alert"),System.currentTimeMillis());
 		snoozenotify.setLatestEventInfo(getBaseContext(), alarmpref.getString("alarmtitle", "Custom Alert"), " Snoozing for " + alarmpref.getInt("alarmsnooze", 5) + " min...", alarmnotification);
-		alarmnotifier.notify("GTACampuS",SNOOZE_NOTIFICATION, snoozenotify);
+		alarmnotifier.notify("GTAcampuS",SNOOZE_NOTIFICATION, snoozenotify);
 		SharedPreferences.Editor alarmdet = getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 		alarmdet.putString("alarmdetails", "snoozing...");
 		alarmdet.commit();
@@ -178,7 +179,7 @@ public class alarmnotif extends Activity{
 		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		if(!getIntent().getBooleanExtra("snoozingstat", false))
 		{
-			alarmnotifier.cancel("GTACampuS",SNOOZE_NOTIFICATION);
+			alarmnotifier.cancel("GTAcampuS",SNOOZE_NOTIFICATION);
 		}
 		if(alarmpref.getString("alarmtype", "alarm").equals("task")){
 		DataManipulator db = new DataManipulator(this);
@@ -224,11 +225,15 @@ public class alarmnotif extends Activity{
 				alarm.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_PLAY_SOUND);
 				alarm.setStreamVolume(AudioManager.STREAM_DTMF, 0, 0);
 				alarm.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+				SharedPreferences.Editor settingedit = settings.edit();
+				settingedit.putBoolean("coursealerts", false);
+				settingedit.commit();
 				Intent soundsettingintent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
 				PendingIntent soundsettings = PendingIntent.getActivity(getBaseContext(), 0, soundsettingintent, 0);
+				if(settings.getBoolean("notifications", true)){
 				Notification sounds = new Notification(R.drawable.ic_launcher, "Turning off the alert volumes", System.currentTimeMillis());
 				sounds.setLatestEventInfo(getBaseContext(), "Alert Volumes", "GTAcampuS turned off your alert volumes for avoiding your device making disturbances in class. Click here to set it back", soundsettings);
-			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);
+			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);}
 			    Intent sintent = new Intent(getBaseContext(),MyAlarmBrdcst.class);
 			    sintent.setAction("setbacksounds");
 			    PendingIntent setbacksound = PendingIntent.getBroadcast(getBaseContext(), 1, sintent, 0);
@@ -302,11 +307,12 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 					DataManipulator db = new DataManipulator(alarmnotif.this);
 					db.update(alarmpref.getString("alarmtitle", "Custom Alert"));
 					db.close();
+					if(settings.getBoolean("notifications", true)){
 					Notification notifydet = new Notification (R.drawable.ic_bunk,"ALERT!!",System.currentTimeMillis());	
 					NotificationManager mNotificationManager =
 						    (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
 					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "Bunked " + alarmpref.getString("alarmtitle", "Custom Alert") , null);
-					mNotificationManager.notify(10000,notifydet);
+					mNotificationManager.notify(10000,notifydet);}
 					SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
 					alarmdetedit.clear();
 					alarmdetedit.commit();

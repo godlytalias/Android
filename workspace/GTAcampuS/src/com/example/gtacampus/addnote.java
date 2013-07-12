@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.project.gtacampus.R;
 
 
@@ -35,12 +37,15 @@ public class addnote extends Activity{
 		Text1=t1.getText().toString();
 		t2=(EditText)findViewById(R.id.editText2);
 		Text2=t2.getText().toString();
+		if(!(Text1.equals("") || Text2.equals(""))){
 		this.dh = new DataManipulator(this);
 		this.dh.insertnote(Text1,Text2);
-		
+		dh.close();
 		Intent backtonotes=new Intent(this,notedata.class);
 		startActivity(backtonotes);
-		this.finish();
+		this.finish();}
+		else
+			Toast.makeText(getBaseContext(), "Enter the title and content first", Toast.LENGTH_LONG).show();
 	}
 	
 	

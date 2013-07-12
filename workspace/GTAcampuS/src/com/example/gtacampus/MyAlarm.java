@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -23,6 +22,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+
 import com.project.gtacampus.R;
 
 public class MyAlarm extends Service{
@@ -35,12 +35,12 @@ public class MyAlarm extends Service{
 	DataManipulator db;
 	Notification alarmnotification;
 	NotificationManager alarmnotifier;
-	SharedPreferences alpref;
+	SharedPreferences alpref,settings;
 	static boolean launchflag;
 	long endtime;
 	private int ALARM_NOTIFICATION =10;
 	private static int alarmflag=1;
-	private static long tenmins=10*60*1000;
+	private static long mins;
 	
 	@Override
 	public void onCreate() {
@@ -51,6 +51,7 @@ public class MyAlarm extends Service{
 		wl = pm.newWakeLock(
 				PowerManager.PARTIAL_WAKE_LOCK, "keepAlive");
 		wl.acquire();
+		settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 		alarmnotifier = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 	}
 	
@@ -108,7 +109,7 @@ public class MyAlarm extends Service{
 	am = (AlarmManager)getSystemService(ALARM_SERVICE);
 	am.cancel(pendingalarms);
 		long nxt_time = getnextalarmtime();
-
+		alarmnotifier.cancel("GTAcampuS", 88); //deleting any snooze notifications set
 			if(nxt_time>0)
 			pushalarm(nxt_time, pendingalarms);
 		if(!launchflag)
@@ -118,7 +119,13 @@ public class MyAlarm extends Service{
 	public void snoozealarm()
 	{
 		alpref=getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-		long snoozetime = System.currentTimeMillis() + (alpref.getInt("alarmsnooze", 5)*60000);
+		int mins=0;
+		if(alpref.getString("alarmtype", "task").equals("course")){
+			mins=settings.getInt("snoozetime", 3);
+		}
+		else
+			mins=alpref.getInt("alarmsnooze", 5);
+		long snoozetime = System.currentTimeMillis() + mins*60000;
 		snoozealarm(snoozetime);
 		stopSelf();
 		}
@@ -205,10 +212,11 @@ public class MyAlarm extends Service{
 		catch(NoSuchMethodError e){
 			alarmtimedetails = calendar.get(Calendar.DAY_OF_MONTH) + " / " +calendar.get(Calendar.MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
 		}
+		if(settings.getBoolean("notifications", true)){
 		alarmnotification = new Notification(R.drawable.alarm,"Next alert on "+alarmtimedetails, System.currentTimeMillis());
 		alarmnotification.setLatestEventInfo(this, "GTAcampuS", "Alert Name : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
 		alarmnotification.flags = Notification.FLAG_NO_CLEAR;
-		alarmnotifier.notify(ALARM_NOTIFICATION, alarmnotification);
+		alarmnotifier.notify("GTAcampuS",ALARM_NOTIFICATION, alarmnotification);}
 		SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 		alarmdetedit.putString("alarmdetails", alarmtimedetails);
 		alarmdetedit.commit();
@@ -217,7 +225,7 @@ public class MyAlarm extends Service{
 	public void launchalarm(Intent i)
 	{
 		launchflag=true;
-		alarmnotifier.cancel(ALARM_NOTIFICATION);
+		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_VIBRATE);
 		alarmflag=0;
@@ -253,7 +261,10 @@ public class MyAlarm extends Service{
 		alarm.setStreamVolume(AudioManager.STREAM_DTMF, alarm.getStreamMaxVolume(AudioManager.STREAM_DTMF), 0);
 		alarm.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 		alarmnotifier.cancel("GTAcampuS", 3);
-		stopSelf();
+		SharedPreferences.Editor settingedit = settings.edit();
+		settingedit.putBoolean("coursealerts", true);
+		settingedit.commit();
+		setalarm();
 	}
 	
 	private final Runnable alarmdialog = new Runnable() {
@@ -412,6 +423,7 @@ public class MyAlarm extends Service{
 	
 	public long getnextalarmtime()
 	{
+		mins=settings.getInt("alerttime", 10)*60000;
 		long nxttime=0,nxtalarmtime=0,extratime=0;
 		endtime=0;
 		Calendar cal = Calendar.getInstance();
@@ -423,6 +435,8 @@ public class MyAlarm extends Service{
 		try{
 		db=new DataManipulator(this);
 		
+		
+		if(settings.getBoolean("coursealerts", true)){
 		Cursor slotstat = db.slotstat();
 		int count=0,day;
 		cal = Calendar.getInstance();
@@ -454,7 +468,7 @@ public class MyAlarm extends Service{
 		default: slotstat.moveToFirst();
 			break;
 		}
-		ContentValues times = new ContentValues();			
+		ContentValues times = new ContentValues();
 		do{
 	for(int i=1;i<slotstat.getColumnCount();i++)
 		{
@@ -471,23 +485,24 @@ public class MyAlarm extends Service{
 			//	cal.add(Calendar.DAY_OF_MONTH, count);
 				extratime = count*24*60*60000;
 				nxttime = cal.getTimeInMillis() + extratime;
-			if(nxttime>(cur_time+tenmins) &&(nxttime<nxtalarmtime ||(nxtalarmtime==0)))
+			if(nxttime>(cur_time+mins) &&(nxttime<nxtalarmtime ||(nxtalarmtime==0)))
 				{
-					nxtalarmtime = nxttime-tenmins;
+					nxtalarmtime = nxttime-mins;
 					alarmprefs.putInt("alarmid", 10000);
 					alarmprefs.putLong("coursetime", nxttime);
 					alarmprefs.putString("alarmtype", "course");
 					alarmprefs.putString("alarmtitle", slotstat.getString(i));
-					alarmprefs.putInt("alarmsnooze", 3);
 					alarmprefs.putBoolean("alarmshake", true);
 					alarmprefs.putBoolean("alarmmath", true);
 					endtime = times.getAsLong("endtime")+extratime;
 					alarmprefs.putLong("endtime", endtime);
 					alarmprefs.commit();
 				}
-				if(nxttime/1000==endtime/1000)
+				if(Math.abs((nxttime/1000.0)-(endtime/1000.0))<settings.getInt("interval", 5))
 				{
 					endtime=times.getAsLong("endtime")+extratime;
+					alarmprefs.putLong("endtime", endtime);
+					alarmprefs.commit();
 				}
 			}
 		}
@@ -497,7 +512,9 @@ public class MyAlarm extends Service{
 			slotstat.moveToFirst();
 			count+=2;}
 		}while((nxtalarmtime<System.currentTimeMillis())&&((count<=7)||!cnullflag));
-		slotstat.close();
+		slotstat.close();}
+		
+		
 		Cursor en_alarms = db.fetchenabledalarms();
 		if(en_alarms!=null)
 			{

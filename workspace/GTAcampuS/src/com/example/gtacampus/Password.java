@@ -5,7 +5,7 @@ import com.project.gtacampus.R;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,7 +28,6 @@ public class Password extends Activity {
 		Button done = (Button) findViewById(R.id.settitle);
 		done.setText("GO");
 		pass = (EditText)findViewById(R.id.getalarmtitle);
-		pass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		done.setOnClickListener(check);
 		Animation zoom = AnimationUtils.loadAnimation(Password.this, R.anim.fadein);
 		findViewById(R.id.add_main).startAnimation(zoom);
@@ -45,8 +44,11 @@ public class Password extends Activity {
 			{
 				setResult(Activity.RESULT_OK);
 				finish();}
-				else
-					Toast.makeText(getBaseContext(), "Sorry!..Incorrect Password", Toast.LENGTH_LONG).show();
-			}
+				else{
+					Toast pswd = new Toast(Password.this);
+					pswd = Toast.makeText(getBaseContext(), "Sorry!..Incorrect Password", Toast.LENGTH_LONG);
+					pswd.setGravity(Gravity.CENTER, 0, 0);
+					pswd.show();
+			}}
 		};
 	}

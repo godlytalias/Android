@@ -32,7 +32,6 @@
 
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
     
        
@@ -71,7 +70,6 @@
    
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
    
     <Button
@@ -107,7 +105,6 @@
     
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
          
         <Button
@@ -144,7 +141,6 @@
     
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="4.37"
     android:orientation="horizontal">
 
 <Button
@@ -156,7 +152,7 @@
     android:layout_weight="2.10"
     android:background="@drawable/rect"
     android:padding="5dp"
-    android:text="AC"
+    android:text="@string/ac"
     android:textColor="#FFFFFF"
     android:textStyle="bold" />
     
@@ -180,14 +176,13 @@
         android:background="@drawable/rect"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="=" />
+        android:text="@string/equal" />
 
     </LinearLayout>
 
 
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
     
        
@@ -202,7 +197,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="+" />
+        android:text="@string/plus" />
     
     
     <Button
@@ -216,7 +211,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="-" />
+        android:text="@string/subtract" />
 
     <Button
         android:id="@+id/mul"
@@ -229,7 +224,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="*" />
+        android:text="@string/multiply" />
 
     <Button
         android:id="@+id/div"
@@ -242,13 +237,12 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="/" />
+        android:text="@string/slash" />
     
     </LinearLayout>
     
    <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
     
        
@@ -264,7 +258,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text=".  ," />
+        android:text="@string/decimal" />
     
     <Button
         android:id="@+id/gcd"
@@ -277,7 +271,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="GCD" />
+        android:text="@string/gcd" />
 
     <Button
         android:id="@+id/sqrt"
@@ -290,7 +284,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="√"/>
+        android:text="@string/sqrt"/>
 
     
 
@@ -305,14 +299,13 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="^" />
+        android:text="@string/exponent" />
         
         </LinearLayout>
     
 
        <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="3"
     android:orientation="horizontal">
 
     
@@ -327,7 +320,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="log"/>
+        android:text="@string/log"/>
      
 
      <Button
@@ -341,7 +334,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="sin" />
+        android:text="@string/sin" />
 
 
 
@@ -356,7 +349,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="cos" />
+        android:text="@string/cos" />
 
     <Button
         android:id="@+id/tan"
@@ -369,7 +362,7 @@
         android:background="@drawable/myshape"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:text="tan" />
+        android:text="@string/tan" />
     
 </LinearLayout>
 

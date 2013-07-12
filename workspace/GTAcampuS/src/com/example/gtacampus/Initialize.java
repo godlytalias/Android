@@ -32,6 +32,7 @@ public class Initialize extends Activity{
 		Button next = (Button)findViewById(R.id.next);
 		next.setOnClickListener(gonext);
 		i=1;
+		temp=0;
 	}
 	
 	public void skip(View v)
@@ -58,17 +59,18 @@ public class Initialize extends Activity{
 			// TODO Auto-generated method stub
 		start[i]=classtimings1.getSelectedItem().toString();
 		end[i]=classtimings2.getSelectedItem().toString();
-		temp=classtimings2.getSelectedItemPosition();
+		if((classtimings1.getSelectedItemPosition()>=temp)&&(classtimings1.getSelectedItemPosition()<classtimings2.getSelectedItemPosition())){
 		i++;
+		temp=classtimings2.getSelectedItemPosition();
 		if(i<=no)
 		{
 			switch(i)
 			{
-			case 2:timeseltext.setText("2ND");
+			case 2:timeseltext.setText("2ND ");
 					break;
-			case 3:timeseltext.setText("3RD");
+			case 3:timeseltext.setText("3RD ");
 					break;
-			default:timeseltext.setText(i+"TH");
+			default:timeseltext.setText(i+"TH ");
 					break;
 			}
 			classtimings1.setSelection(temp);
@@ -78,6 +80,10 @@ public class Initialize extends Activity{
 		{
 			initialize_db();
 		}
+		}
+		else
+			Toast.makeText(getBaseContext(), "Invalid timings. Please check your input", Toast.LENGTH_LONG).show();
+		
 		}
 	};
 	
@@ -123,7 +129,7 @@ public class Initialize extends Activity{
 	   classtimings.setVisibility(View.VISIBLE);
 	   nexthour=(Button)findViewById(R.id.timingdone);
 	   timeseltext=(TextView)findViewById(R.id.timeseltext);
-	   timeseltext.setText("1ST");	   
+	   timeseltext.setText("1ST ");	   
 		classtimings1 = (Spinner)findViewById(R.id.classtimings1);
 		classtimings2 = (Spinner)findViewById(R.id.classtimings2);
 		classtimings1.setOnItemSelectedListener(timeselected);

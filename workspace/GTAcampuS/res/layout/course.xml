@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.gtacampus.Slot"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -8,9 +7,9 @@
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:text="ADD ALL THE REGISTERED COURSES HERE"
+        android:text="@string/course_info1"
         android:textColor="#0F0"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -23,106 +22,111 @@
     <LinearLayout android:layout_width="fill_parent"
         android:baselineAligned="false"
     android:layout_height="wrap_content" 
+    android:padding="5dp"
+    android:gravity="center"
     android:orientation="horizontal">
     
-    <LinearLayout android:layout_width="wrap_content"
-    android:layout_height="fill_parent" 
-    android:layout_weight="1"
-    android:orientation="vertical">
-    
+   
         <TextView 
-    android:layout_width="wrap_content"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
     android:textColor="#FFF"
-    android:layout_weight="1"
     android:textSize="20sp"
-    android:text="Course Name : "/>
-    
-        <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:textSize="20sp"
-    android:textColor="#FFF"
-    android:text="Course Code : "/>
+    android:text="@string/coursename"/>
         
-        <TextView 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:textSize="20sp"
-    android:textColor="#FFF"
-    android:text="Teacher : "/>
-
-       </LinearLayout>
-    
-    <LinearLayout android:layout_width="wrap_content"
-    android:layout_height="match_parent" 
-    android:layout_weight="1"
-    android:orientation="vertical">
-    
-        
-        
-   <EditText
+        <EditText
         android:id="@+id/course_name"
         android:minWidth="100dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="#F00" />
-   
-   <EditText
+        android:inputType="text"
+        android:textColor="#F00" /></LinearLayout>
+    
+    
+    <LinearLayout android:layout_width="fill_parent"
+    android:baselineAligned="false"
+    android:layout_height="wrap_content"
+    android:gravity="center" 
+    android:padding="5dp"
+    android:orientation="horizontal">
+    
+        <TextView 
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:textColor="#FFF"
+    android:text="@string/coursecode"/>
+        
+           <EditText
         android:id="@+id/course_code"
         android:minWidth="100dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_weight="1"
-        android:textColor="#F00" />
+        android:textColor="#F00" /></LinearLayout>
     
+        <LinearLayout android:layout_width="fill_parent"
+    android:baselineAligned="false"
+    android:layout_height="wrap_content" 
+    android:gravity="center" 
+    android:padding="5dp"
+    android:orientation="horizontal">
+        
+        <TextView 
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:textColor="#FFF"
+    android:text="@string/teacher"/>
+           
 
     <EditText
         android:id="@+id/course_teacher"
         android:minWidth="100dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_weight="1"
         android:textColor="#F00" />
 
-    </LinearLayout></LinearLayout>
+       </LinearLayout>
+
     
-    <View android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:drawable/divider_horizontal_bright"/>
-    
- <LinearLayout android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:id="@+id/ll_course_timing"
-     android:orientation="vertical">
-    
+        
     <TextView 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
+    android:layout_height="50dp"
     android:textSize="20sp"
     android:textColor="#FFF"
     android:gravity="center"
     android:textStyle="bold"
-    android:text="ADD COURSE TIMINGS"/>
+    android:text="@string/coursetimings"/>
     
     <View android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@android:drawable/divider_horizontal_bright"/>
 
-    </LinearLayout>  
     
 <ScrollView android:layout_width="match_parent"
-     android:layout_height="wrap_content"
+     android:layout_height="0dip"
      android:layout_weight="1"
      android:scrollbars="vertical">
+    
+     <LinearLayout android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="vertical">  
+    
+    <LinearLayout android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:id="@+id/ll_course_timing"
+     android:orientation="vertical">  
+    </LinearLayout>
     
 <LinearLayout android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:id="@+id/ll_get_course_timing"
+     android:layout_marginLeft="40dp"
      android:orientation="horizontal">
     
     <Spinner android:layout_width="wrap_content"
@@ -141,9 +145,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="addtime"
-        android:text="ADD TIME" />
-    
-    </LinearLayout></ScrollView>
+        android:text="@string/addtime" />
+    </LinearLayout>  </LinearLayout>
+    </ScrollView>
     
     <Button
         android:id="@+id/button1"
@@ -152,6 +156,6 @@
         android:gravity="center"
         android:onClick="addata"
         android:drawableLeft="@android:drawable/ic_menu_save"
-        android:text="SAVE COURSE" />
+        android:text="@string/save" />
 
 </LinearLayout>

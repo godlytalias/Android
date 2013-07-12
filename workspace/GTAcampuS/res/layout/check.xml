@@ -24,9 +24,9 @@ android:textColor="#0f0"
 <ListView
 android:id="@android:id/list"
 android:layout_width="fill_parent"
-android:layout_height="wrap_content"
+android:layout_height="0dip"
 android:drawSelectorOnTop="false"
-android:textSize="5sp"
+android:textSize="12sp"
 android:layout_weight="1"
 />
 
@@ -39,5 +39,5 @@ android:layout_weight="1"
         android:textStyle="bold"
         android:onClick="coursefn"
         android:drawableLeft="@android:drawable/ic_input_add"
-        android:text="ADD COURSE"></Button>
+        android:text="@string/addcourse"></Button>
 </LinearLayout>

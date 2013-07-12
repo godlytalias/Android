@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:layout_gravity="center"
     android:gravity="center"    
-    android:background="#ff000000"
+    android:background="#000000"
+    android:keepScreenOn="true"
     android:drawingCacheQuality="high"
     android:orientation="vertical" 
     android:id="@+id/linearlayout">

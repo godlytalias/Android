@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="TITLE"
+        android:text="@string/title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -29,8 +29,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:inputType="textEmailSubject"
+        android:text="@string/emptystring"
         android:ems="10" >
-
         <requestFocus />
     </EditText>
 
@@ -41,7 +41,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editText1"
         android:layout_marginTop="42dp"
-        android:text="NOTE CONTENT"
+        android:text="@string/addnote_info1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
@@ -54,6 +54,7 @@
         android:layout_marginTop="20dp"
         android:overScrollMode="ifContentScrolls"
         android:keepScreenOn="true"
+        android:text="@string/emptystring"
         android:ems="40"
         android:inputType="textMultiLine" />
 
@@ -68,6 +69,6 @@
         android:onClick="save"
         android:drawableLeft="@android:drawable/ic_menu_save"
         android:layout_marginTop="30dp"
-        android:text="Save" />
+        android:text="@string/save" />
     
     </LinearLayout>

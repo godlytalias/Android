@@ -92,7 +92,7 @@ public class Slot extends Activity {
 			divider.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
 			
 			TextView headings = new TextView(this);
-			headings.setWidth(143);
+			headings.setWidth(150);
 			headings.setGravity(Gravity.CENTER);
 			headings.setTextAppearance(getBaseContext(), R.style.mytext);
 			headings.setTextColor(Color.GREEN);
@@ -124,7 +124,7 @@ public class Slot extends Activity {
 			
 			TextView c_slot = new TextView(this);
 			c_slot.setOnLongClickListener(clicked);
-			c_slot.setWidth(143);
+			c_slot.setWidth(150);
 			c_slot.setGravity(Gravity.CENTER);
 			c_slot.setTextAppearance(getBaseContext(), R.style.mytext);
 			c_slot.setTextColor(Color.WHITE);

@@ -32,12 +32,12 @@
 	    android:padding="10dp" 
 	    android:minHeight="50dp">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Everyday"></TextView>
+	    android:text="@string/everyday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -64,12 +64,12 @@
 	    android:padding="10dp" 
 	    android:minHeight="50dp">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Weekdays"></TextView>
+	    android:text="@string/Weekdays"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -97,12 +97,12 @@
 	    android:padding="10dp" 
 	    android:minHeight="50dp">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Sunday"></TextView>
+	    android:text="@string/Sunday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -130,12 +130,12 @@
 	    android:padding="10dip" 
 	    android:minHeight="50dip">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Monday"></TextView>
+	    android:text="@string/Monday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -164,12 +164,12 @@
 	    android:padding="10dip" 
 	    android:minHeight="50dip">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Tuesday"></TextView>
+	    android:text="@string/Tuesday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -197,12 +197,12 @@
 	    android:padding="10dip" 
 	    android:minHeight="50dip">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Wednesday"></TextView>
+	    android:text="@string/Wednesday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -230,12 +230,12 @@
 	    android:padding="10dip" 
 	    android:minHeight="50dip">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Thursday"></TextView>
+	    android:text="@string/Thursday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -262,12 +262,12 @@
 	    android:padding="10dp" 
 	    android:minHeight="50dp">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Friday"></TextView>
+	    android:text="@string/Friday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -295,12 +295,12 @@
 	    android:padding="10dp" 
 	    android:minHeight="50dp">
 	    
-	<TextView android:layout_width="wrap_content" 
+	<TextView android:layout_width="0dip" 
 	    android:layout_height="wrap_content" 
 	    android:textSize="18sp" 
 	    android:textColor="#FFF" 
 	    android:layout_weight="1" 
-	    android:text="Saturday"></TextView>
+	    android:text="@string/Saturday"></TextView>
 				
 				
 	<CheckBox android:layout_width="wrap_content" 
@@ -325,19 +325,21 @@
      android:layout_height="100dp" 
      android:gravity="center_horizontal" 
      android:background="#aa442222">
-<Button android:layout_width="wrap_content" 
-    android:layout_height="wrap_content" 
-    android:id="@+id/donebtn" 
-    android:layout_weight="2"
-    android:text="Done" 
-    android:width="100dp" 
-    android:layout_margin="10dp"></Button>
 
 <Button android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:layout_weight="2"
     android:id="@+id/cancelbtn" 
-    android:text="Cancel" 
+    android:text="@string/cancel" 
+    android:width="100dp" 
+    android:layout_margin="10dp"></Button>
+
+
+<Button android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:id="@+id/donebtn" 
+    android:layout_weight="2"
+    android:text="@string/done" 
     android:width="100dp" 
     android:layout_margin="10dp"></Button>
 </LinearLayout>

@@ -51,7 +51,7 @@ public class bunkom extends ListActivity{
 			String stg;
 
 			for (String[] course : names2) {
-				stg = course[0]+"		-   "+course[2];
+				stg = course[0]+"\t\t-\t"+course[2];
 				stg1[x]=stg;
 				x++;			}
 
@@ -69,7 +69,7 @@ public class bunkom extends ListActivity{
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			// TODO Auto-generated method stub
-			c_name = stg1[arg2].split("		-   ");
+			c_name = stg1[arg2].split("\t\t-\t");
 			showDialog(BUNK);			
 			return false;
 		}
@@ -95,7 +95,7 @@ public class bunkom extends ListActivity{
 	@Override
 	public void onListItemClick(ListView parent, View v, int position, long id){
 		
-		c_name = stg1[position].split("		-   ");
+		c_name = stg1[position].split("\t\t-\t");
 		dm = new DataManipulator(bunkom.this);
 		Cursor dates = dm.getdates(c_name[0]);
 		dates.moveToFirst();
