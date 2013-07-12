@@ -1,6 +1,5 @@
 package com.example.gtacampus;
 
-import android.R.anim;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -10,7 +9,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.KeyguardManager.KeyguardLock;
 import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,32 +18,19 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
-import android.media.AudioTrack;
-import android.media.audiofx.AudioEffect;
-import android.net.Uri;
-import android.net.rtp.AudioStream;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.EditTextPreference;
-import android.provider.MediaStore.Audio;
-import android.renderscript.Type;
-import android.text.Editable;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class alarmnotif extends Activity{
 	NotificationManager alarmnotifier;
 	PendingIntent alarmnotification;
 	SharedPreferences alarmpref;
 	AudioManager alarm;
-	private Handler volhandler;
 	private Boolean courseflag;
 	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1,SOUND_NOTIFICATION = 3;
 	private int SNOOZE_NOTIFICATION = 1;
@@ -59,7 +44,6 @@ public class alarmnotif extends Activity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm);
-		volhandler = new Handler();
 		alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		rootlayout=(LinearLayout)findViewById(R.id.rootlayout);
 		alarmpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
@@ -93,7 +77,7 @@ public class alarmnotif extends Activity{
 			{bt1.setOnClickListener(snoozealarm);
 		shakesensor.registerListener(shakelistener, shake, SensorManager.SENSOR_DELAY_UI);}
 		KeyguardManager keyguard = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
-		alarmnotifier = (NotificationManager)getSystemService(getBaseContext().NOTIFICATION_SERVICE);
+		alarmnotifier = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		Notification alarmnotify = new Notification(R.drawable.ic_launcher, alarmpref.getString("alarmtitle", "Custom Alert"), System.currentTimeMillis());
 		if(!i.getBooleanExtra("snoozingstat", false))
 		{
@@ -169,8 +153,9 @@ public class alarmnotif extends Activity{
 			snoozeit();
 		else
 		{
-			shakesensor.unregisterListener(shakelistener, shake);
-			finish();}}
+			shakesensor.unregisterListener(shakelistener, shake);}
+		finish();
+		}
 	}
 	
 	private void snoozeit()
@@ -183,7 +168,6 @@ public class alarmnotif extends Activity{
 		alarmdet.putString("alarmdetails", "snoozing...");
 		alarmdet.commit();
 		shakesensor.unregisterListener(shakelistener, shake);
-		finish();
 	}
 	
 	private void stoppingalarm(){
@@ -209,19 +193,20 @@ public class alarmnotif extends Activity{
 			// TODO Auto-generated method stub
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-			if(alarm.getStreamVolume(AudioManager.STREAM_ALARM)!=max_vol/5)
+			if(alarm.getStreamVolume(AudioManager.STREAM_ALARM)!=1)
 			{
-			cur_vol=max_vol/5;
-			while(cur_vol<=max_vol){
+			cur_vol=2;
+			do{
 				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(4000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				cur_vol = alarm.getStreamVolume(AudioManager.STREAM_ALARM)+1;
-		}}}
+		}while(cur_vol<=max_vol && cur_vol>2);
+			}}
 	};
 	
 	private View.OnClickListener stopalarm = new View.OnClickListener() {
@@ -233,7 +218,7 @@ public class alarmnotif extends Activity{
 			if(courseflag)
 			{
 				alarm.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_SHOW_UI);
-				alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM)/5, AudioManager.FLAG_VIBRATE);
+				alarm.setStreamVolume(AudioManager.STREAM_ALARM, 1, AudioManager.FLAG_VIBRATE);
 				alarm.setStreamVolume(AudioManager.STREAM_NOTIFICATION,0,AudioManager.FLAG_SHOW_UI);
 				alarm.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_PLAY_SOUND);
 				alarm.setStreamVolume(AudioManager.STREAM_DTMF, 0, 0);
@@ -241,7 +226,7 @@ public class alarmnotif extends Activity{
 				Intent soundsettingintent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
 				PendingIntent soundsettings = PendingIntent.getActivity(getBaseContext(), 0, soundsettingintent, 0);
 				Notification sounds = new Notification(R.drawable.ic_launcher, "Turning off the alert volumes", System.currentTimeMillis());
-				sounds.setLatestEventInfo(getBaseContext(), "Alert Volumes", "GTAcampuS turned your alert volumes off for avoiding your device making disturbances in class. Click here to set it back", soundsettings);
+				sounds.setLatestEventInfo(getBaseContext(), "Alert Volumes", "GTAcampuS turned off your alert volumes for avoiding your device making disturbances in class. Click here to set it back", soundsettings);
 			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);
 			    Intent sintent = new Intent(getBaseContext(),MyAlarmBrdcst.class);
 			    sintent.setAction("setbacksounds");
@@ -316,7 +301,7 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 					DataManipulator db = new DataManipulator(alarmnotif.this);
 					db.update(alarmpref.getString("alarmtitle", "Custom Alert"));
 					db.close();
-					Notification notifydet = new Notification (R.drawable.nitc,"ALERT!!",System.currentTimeMillis());	
+					Notification notifydet = new Notification (R.drawable.ic_bunk,"ALERT!!",System.currentTimeMillis());	
 					NotificationManager mNotificationManager =
 						    (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
 					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "Bunked " + alarmpref.getString("alarmtitle", "Custom Alert") , null);

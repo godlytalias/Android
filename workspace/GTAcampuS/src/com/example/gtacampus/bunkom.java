@@ -11,9 +11,6 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.AlertDialog.Builder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,7 +21,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class bunkom extends ListActivity{
@@ -33,8 +29,6 @@ public class bunkom extends ListActivity{
 	DataManipulator dm;
 	String msg;
 	String[] stg1,c_name;
-	private int SIMPLE_NOTIFICATION_ID=0;
-	private NotificationManager mNotify;
 
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;

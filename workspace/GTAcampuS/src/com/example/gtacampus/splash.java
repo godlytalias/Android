@@ -16,7 +16,6 @@ public class splash extends Activity{
 		super.onCreate(savedInstanceState);
 		fade = AnimationUtils.loadAnimation(this, R.anim.magfade);
 		setContentView(R.layout.splashscr);
-		
 		findViewById(R.id.appimage).startAnimation(fade);
 		splashscreen = new Thread() {
 			@Override

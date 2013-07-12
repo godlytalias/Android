@@ -1,36 +1,23 @@
 package com.example.gtacampus;
 
 import java.util.Calendar;
-
-import org.w3c.dom.Text;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.hardware.input.InputManager;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
-import android.text.method.TextKeyListener;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 public class AlarmOptions extends Activity {
 	Boolean alarmstatus=true,snooze=false,sh_snooze=true,mathsolver=false,sun=false,mon=false,tue=false,wed=false,thu=false,fri=false,sat=false;

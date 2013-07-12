@@ -40,8 +40,8 @@
         <activity android:name="bunkom"></activity>
         <receiver android:name="MyAlarmBrdcst"></receiver>
         <service android:name="MyAlarm" android:singleUser="false" android:enabled="true" android:stopWithTask="false" android:isolatedProcess="false"></service>
-        <activity android:name="alarmnotif" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS"></activity>
-        <activity android:name="Initialize" android:screenOrientation="landscape"></activity>
+        <activity android:name="alarmnotif" android:noHistory="true" android:launchMode="singleInstance" android:theme="@android:style/Theme.InputMethod" android:logo="@drawable/ic_launcher" android:label="GTAcampuS"></activity>
+        <activity android:name="Initialize" android:noHistory="true" android:screenOrientation="landscape"></activity>
         <receiver android:name="BootsetAlarm" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

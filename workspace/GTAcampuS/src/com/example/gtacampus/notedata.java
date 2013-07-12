@@ -21,7 +21,6 @@ import android.widget.TextView;
 public class notedata extends ListActivity{
 	static final int DELETE_NOTE=1;
 	List<String> slots=new ArrayList<String>();
-	private DataManipulator dh;   
 	String message,title;
 	TextView selection;
 	public int idToModify; 

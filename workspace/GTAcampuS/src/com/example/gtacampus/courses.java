@@ -3,10 +3,6 @@ package com.example.gtacampus;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,7 +18,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class courses extends Activity {
 	

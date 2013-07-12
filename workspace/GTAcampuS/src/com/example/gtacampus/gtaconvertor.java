@@ -1,29 +1,18 @@
 package com.example.gtacampus;
 
 
-import java.text.NumberFormat;
-
-import org.w3c.dom.Text;
-
 import android.app.Activity;
 import android.content.ContentValues;
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.WrapperListAdapter;
 
 public class gtaconvertor extends Activity {
 	

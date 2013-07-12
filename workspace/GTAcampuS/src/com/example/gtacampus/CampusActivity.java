@@ -2,33 +2,26 @@ package com.example.gtacampus;
 
 import java.util.Calendar;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.IntentService;
 import android.app.ListActivity;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.FeatureInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 public class CampusActivity extends ListActivity {	
 	private static final int DIALOG_ID = 0;
-	private static final int ALARM_DIALOG_TIME=1;
-	private static final int ALARM_DIALOG_DATE = 2;
 	Calendar myCal;
 	public int Year,month,day,hour,Minute;
 
@@ -37,6 +30,8 @@ public class CampusActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 	    this.requestWindowFeature(Window.FEATURE_CONTEXT_MENU);
 		setContentView(R.layout.activity_campus);
+		Animation fade = AnimationUtils.loadAnimation(this, R.anim.fadein);
+		findViewById(R.id.mainlayout).startAnimation(fade);
 		if(isUpgraded())
 		{	Intent i = new Intent(CampusActivity.this,Initialize.class);
 			startActivity(i);		}

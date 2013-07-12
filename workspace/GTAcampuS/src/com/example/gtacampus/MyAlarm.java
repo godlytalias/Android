@@ -20,10 +20,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.widget.Toast;
 
 public class MyAlarm extends Service{
 	private Ringtone alarmalert;
@@ -36,22 +34,22 @@ public class MyAlarm extends Service{
 	Notification alarmnotification;
 	NotificationManager alarmnotifier;
 	SharedPreferences alpref;
-	static boolean activeflag=false;
+	static boolean launchflag;
 	long endtime;
 	private int ALARM_NOTIFICATION =10;
-	private static int flag =0,alarmflag=1;
+	private static int alarmflag=1;
 	private static long tenmins=10*60*1000;
-	
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		launchflag=false;
 		pm = (PowerManager) this
 				.getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(
 				PowerManager.PARTIAL_WAKE_LOCK, "keepAlive");
 		wl.acquire();
-		alarmnotifier = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+		alarmnotifier = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 	}
 	
 	@Override
@@ -63,7 +61,6 @@ public class MyAlarm extends Service{
 			wl.release();
 		}
 		catch(Exception e){}
-		
 			}
 
 	@Override
@@ -80,7 +77,6 @@ public class MyAlarm extends Service{
 		}
 		catch(Exception e)
 		{}
-		db.close();
 		super.onDestroy();
 	}
 
@@ -89,65 +85,74 @@ public class MyAlarm extends Service{
 		String actiontodo= i.getAction();
 		if(actiontodo.equals("setalarm"))
 			setalarm();
-		if(actiontodo.equals("launchalarm"))
+		else if(actiontodo.equals("launchalarm"))
 			launchalarm(i);
-		if(actiontodo.equals("snooze"))
-			snoozealarm();
-		if(actiontodo.equals("stop"))
+		else if(actiontodo.equals("stop"))
 			stopalarm();
-		if(actiontodo.equals("bootsetalarm"))
-			bootsetalarm();
-		if(actiontodo.equals("setbacksounds"))
+		else if(actiontodo.equals("snooze"))
+			snoozealarm();
+		else if(actiontodo.equals("setbacksounds"))
 			setsounds();
+		else if(actiontodo.equals("bootsetalarm"))
+			bootsetalarm();
 	}
 	
 	
 	public void bootsetalarm()
-	{		
+	{			
+		Intent intent1 = new Intent(MyAlarm.this, MyAlarmBrdcst.class);
+	intent1.setAction("set_alarm");
+	PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
+	am = (AlarmManager)getSystemService(ALARM_SERVICE);
+	am.cancel(pendingalarms);
 		long nxt_time = getnextalarmtime();
-		Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
-		intent1.setAction("set_alarm");
-		PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
+
 			if(nxt_time>0)
 			pushalarm(nxt_time, pendingalarms);
-		if(!activeflag)
-		stopSelf();
-						}
+		if(!launchflag)
+		stopSelf();	
+			}
 	
 	public void snoozealarm()
 	{
 		alpref=getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		long snoozetime = System.currentTimeMillis() + (alpref.getInt("alarmsnooze", 5)*60000);
 		snoozealarm(snoozetime);
+		stopSelf();
 		}
 	
 	public void snoozealarm(long snoozetime)
 	{
-	activeflag=false;
-	Intent i = new Intent(this,MyAlarmBrdcst.class);
+	launchflag=false;
+	Intent i = new Intent(MyAlarm.this,MyAlarmBrdcst.class);
 	i.setAction("set_alarm");
-	setalarm = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-	am = (AlarmManager) this.getSystemService(this
-			.getApplicationContext().ALARM_SERVICE);
+	setalarm = PendingIntent.getBroadcast(this, 0, i, 0);
+	am = (AlarmManager)getSystemService(ALARM_SERVICE);
 	am.cancel(setalarm);
 	am.set(AlarmManager.RTC_WAKEUP, snoozetime, setalarm);
 	//	am.setRepeating(AlarmManager.RTC_WAKEUP, snoozetime, 300000, setalarm);
-	if(alarmalert!=null)
+	if(alarmalert!=null){
 	try{alarmflag=1;
 	alarmalert.stop();
 	alarmalert=null;}
-	catch(Exception e){	}
+	catch(Exception e){
+		alarmflag=1;
+		alarmalert.stop();
+	}}	
 	}
 	
-	
+
 	public void stopalarm()
 	{
-		activeflag=false;
+		launchflag=false;
 		if(alarmalert!=null)
 		try{alarmflag=1;
 		alarmalert.stop();
 		alarmalert=null;}
-		catch(Exception e){}
+		catch(Exception e){
+			alarmflag=1;
+			alarmalert.stop();
+		}
 		setalarm();
 	}
 	
@@ -155,17 +160,15 @@ public class MyAlarm extends Service{
 		{
 		SharedPreferences.Editor alarmdetedit;
 			long nxt_time = getnextalarmtime();
-			Intent intent1 = new Intent(this, MyAlarmBrdcst.class);
+			Intent intent1 = new Intent(MyAlarm.this, MyAlarmBrdcst.class);
 			intent1.setAction("set_alarm");
-			setalarm= PendingIntent.getBroadcast(this, 0, intent1,
-					PendingIntent.FLAG_UPDATE_CURRENT);
+			setalarm= PendingIntent.getBroadcast(this, 0, intent1, 0);
 		
 			if(nxt_time>System.currentTimeMillis())
 				pushalarm(nxt_time,setalarm);
 			else
 			{
-				am = (AlarmManager) this.getSystemService(this
-						.getApplicationContext().ALARM_SERVICE);
+				am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 				am.cancel(setalarm);
 				alarmnotifier.cancel(ALARM_NOTIFICATION);
 				alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
@@ -182,8 +185,8 @@ public class MyAlarm extends Service{
 		SharedPreferences al = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
-		am = (AlarmManager) this.getSystemService(this
-				.getApplicationContext().ALARM_SERVICE);
+		String alarmtimedetails;
+		am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 		am.cancel(setalarm);
 		alarmnotifier.cancel(ALARM_NOTIFICATION);
 		am.set(AlarmManager.RTC_WAKEUP,time,setalarm);
@@ -194,7 +197,12 @@ public class MyAlarm extends Service{
 		resultintent = new Intent(getBaseContext(),Alarmsetter.class);
 		resultintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		PendingIntent result = PendingIntent.getActivity(this, 0, resultintent,0);
-		String alarmtimedetails = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)+ " , " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
+		try{
+		alarmtimedetails = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)+ " , " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US) + " " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
+		}
+		catch(Exception e){
+			alarmtimedetails = calendar.get(Calendar.MONTH) + " / " +calendar.get(Calendar.DAY_OF_MONTH) + "  -  " + ((calendar.get(Calendar.HOUR)==0)?12:calendar.get(Calendar.HOUR)) + " : " + calendar.get(Calendar.MINUTE) + " " + ((calendar.get(Calendar.AM_PM)==1)?"PM":"AM");
+		}
 		alarmnotification = new Notification(R.drawable.alarm,"Next alert on "+alarmtimedetails, System.currentTimeMillis());
 		alarmnotification.setLatestEventInfo(this, "GTAcampuS", "Alert Name : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
 		alarmnotification.flags = Notification.FLAG_NO_CLEAR;
@@ -206,7 +214,7 @@ public class MyAlarm extends Service{
 	
 	public void launchalarm(Intent i)
 	{
-		activeflag=true;
+		launchflag=true;
 		alarmnotifier.cancel(ALARM_NOTIFICATION);
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_VIBRATE);
@@ -235,7 +243,7 @@ public class MyAlarm extends Service{
 	}
 	
 	public void setsounds(){
-		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
+		AudioManager alarm = (AudioManager)this.getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_MUSIC, alarm.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_VIBRATE);
 		alarm.setStreamVolume(AudioManager.STREAM_NOTIFICATION,alarm.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),0);
@@ -243,7 +251,6 @@ public class MyAlarm extends Service{
 		alarm.setStreamVolume(AudioManager.STREAM_DTMF, alarm.getStreamMaxVolume(AudioManager.STREAM_DTMF), 0);
 		alarm.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 		alarmnotifier.cancel("GTAcampuS", 3);
-		if(!activeflag)
 		stopSelf();
 	}
 	
@@ -289,10 +296,10 @@ public class MyAlarm extends Service{
 			AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 			int cur_vol,max_vol;
 			max_vol=alarm.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-			if(alarm.getStreamVolume(AudioManager.STREAM_ALARM)!=max_vol/5)
+			if(alarm.getStreamVolume(AudioManager.STREAM_ALARM)!=1)
 			{
-			cur_vol=max_vol/5;
-			while(cur_vol<=max_vol){
+			cur_vol=2;
+			do{
 				alarm.setStreamVolume(AudioManager.STREAM_ALARM, cur_vol, AudioManager.FLAG_VIBRATE);
 				try {
 					Thread.sleep(2000);
@@ -301,7 +308,8 @@ public class MyAlarm extends Service{
 					e.printStackTrace();
 				}
 				cur_vol = alarm.getStreamVolume(AudioManager.STREAM_ALARM)+1;				
-		}}}
+		}while(cur_vol<=max_vol && cur_vol>2);
+			}}
 	};
 	
 	public void playalarmtone()
