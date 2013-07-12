@@ -102,7 +102,7 @@
         android:layout_weight="1"
         android:layout_margin="10dp"
         android:text=""
-        android:background="@drawable/rect"
+        android:background="@drawable/styledbuttons"
         android:layout_marginLeft="10dp"
         android:textColor="#FFFFFF"
         android:textSize="25sp"

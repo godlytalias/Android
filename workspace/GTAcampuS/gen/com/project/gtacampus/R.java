@@ -40,6 +40,7 @@ public final class R {
         public static final int nextbutton=0x7f020010;
         public static final int rect=0x7f020011;
         public static final int sgtacampus=0x7f020012;
+        public static final int styledbuttons=0x7f020013;
     }
     public static final class id {
         public static final int add=0x7f090013;
@@ -100,7 +101,7 @@ public final class R {
         public static final int fri_check=0x7f09003e;
         public static final int gcd=0x7f090018;
         public static final int getalarmtitle=0x7f090026;
-        public static final int goback=0x7f090084;
+        public static final int goback=0x7f090085;
         public static final int intervaltime=0x7f090062;
         public static final int linearlayout=0x7f090028;
         public static final int ll_alarmtime=0x7f090046;
@@ -167,7 +168,8 @@ public final class R {
         public static final int textView2=0x7f090021;
         public static final int textView3=0x7f090081;
         public static final int textView4=0x7f090082;
-        public static final int textviewer=0x7f090083;
+        public static final int textviewer=0x7f090084;
+        public static final int textviewerpad=0x7f090083;
         public static final int thu_check=0x7f09003c;
         public static final int timebutton=0x7f090074;
         public static final int timeseltext=0x7f09007b;

@@ -62,7 +62,6 @@ public class courses extends Activity {
 	
 	public void addtime(View v)
 	{
-		if(class_count<15){
 		db = new DataManipulator(this);
 		int day = course_day.getSelectedItemPosition();
 		int hour_ps = course_time.getSelectedItemPosition()+1;
@@ -81,7 +80,7 @@ public class courses extends Activity {
 		else showDialog(NOT_FREE);
 		slotstat.close();
 		db.close();
-	}}
+	}
 		
 	
 	public void addata(View v)

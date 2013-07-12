@@ -115,12 +115,16 @@ public class CampusActivity extends ListActivity {
 		if(!details.equals("none"))
 		{	
 			alarmdet1.setVisibility(View.VISIBLE);
+			alarmdet2.setVisibility(View.VISIBLE);
+			alarmdet3.setVisibility(View.VISIBLE);
 			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
 			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
 			alarmdet3.setText(details);
 			div.setVisibility(View.VISIBLE);	}
 		else{
 			alarmdet1.setVisibility(View.INVISIBLE);
+			alarmdet2.setVisibility(View.INVISIBLE);
+			alarmdet3.setVisibility(View.INVISIBLE);
 			div.setVisibility(View.INVISIBLE);
 		}
 	}

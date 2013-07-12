@@ -3,7 +3,10 @@ package com.example.gtacampus;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.project.gtacampus.R;
 
@@ -14,6 +17,9 @@ public class Textviewer extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.textviewer);
+		LinearLayout textviewer = (LinearLayout) findViewById(R.id.textviewerpad);
+		Animation animation = AnimationUtils.loadAnimation(Textviewer.this, R.anim.fadein);
+		textviewer.startAnimation(animation);
 		this.setTitle(getIntent().getStringExtra("title"));
 		TextView text = (TextView) findViewById(R.id.textviewer);
 		text.setText(getIntent().getStringExtra("text"));

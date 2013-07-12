@@ -66,6 +66,7 @@ public class Slot extends Activity {
 	{
 		TextView c_days = new TextView(this);
 		c_days.setWidth(100);
+		c_days.setPadding(2, 1, 1, 1);
 		c_days.setTextAppearance(getBaseContext(), R.style.mytext);
 		c_days.setTextColor(Color.GREEN);
 		c_days.setLayoutParams(dim);
@@ -92,7 +93,7 @@ public class Slot extends Activity {
 			divider.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
 			
 			TextView headings = new TextView(this);
-			headings.setWidth(150);
+			headings.setWidth(170);
 			headings.setGravity(Gravity.CENTER);
 			headings.setTextAppearance(getBaseContext(), R.style.mytext);
 			headings.setTextColor(Color.GREEN);
@@ -124,7 +125,7 @@ public class Slot extends Activity {
 			
 			TextView c_slot = new TextView(this);
 			c_slot.setOnLongClickListener(clicked);
-			c_slot.setWidth(150);
+			c_slot.setWidth(170);
 			c_slot.setGravity(Gravity.CENTER);
 			c_slot.setTextAppearance(getBaseContext(), R.style.mytext);
 			c_slot.setTextColor(Color.WHITE);

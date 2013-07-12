@@ -227,13 +227,13 @@ public class alarmnotif extends Activity{
 				alarm.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
 				SharedPreferences.Editor settingedit = settings.edit();
 				settingedit.putBoolean("coursealerts", false);
+				settingedit.putBoolean("userflag", false);
 				settingedit.commit();
 				Intent soundsettingintent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
 				PendingIntent soundsettings = PendingIntent.getActivity(getBaseContext(), 0, soundsettingintent, 0);
-				if(settings.getBoolean("notifications", true)){
 				Notification sounds = new Notification(R.drawable.ic_launcher, "Turning off the alert volumes", System.currentTimeMillis());
 				sounds.setLatestEventInfo(getBaseContext(), "Alert Volumes", "GTAcampuS turned off your alert volumes for avoiding your device making disturbances in class. Click here to set it back", soundsettings);
-			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);}
+			    alarmnotifier.notify("GTAcampuS", SOUND_NOTIFICATION, sounds);
 			    Intent sintent = new Intent(getBaseContext(),MyAlarmBrdcst.class);
 			    sintent.setAction("setbacksounds");
 			    PendingIntent setbacksound = PendingIntent.getBroadcast(getBaseContext(), 1, sintent, 0);

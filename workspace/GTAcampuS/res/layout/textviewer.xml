@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
+    android:id="@+id/textviewerpad"
     android:orientation="vertical" >
     
     <ScrollView android:layout_width="match_parent"
@@ -22,8 +23,11 @@
     
     <Button
         android:id="@+id/goback"
-        style="@style/Menu_Button"
         android:layout_width="match_parent"
+        style="@style/Menu_Button"
+        android:minWidth="200dp"
+        android:textColor="#ffffff"
+        android:layout_margin="5dp"
         android:layout_height="50dp"
         android:layout_weight="0.07"
         android:text="@string/close" />

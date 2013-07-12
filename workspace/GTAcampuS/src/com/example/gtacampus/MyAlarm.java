@@ -147,8 +147,7 @@ public class MyAlarm extends Service{
 	catch(Exception e){
 		alarmflag=1;
 		alarmalert.stop();
-	}}	
-	}
+	}}}
 	
 
 	public void stopalarm()
@@ -179,7 +178,7 @@ public class MyAlarm extends Service{
 			{
 				am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 				am.cancel(setalarm);
-				alarmnotifier.cancel(ALARM_NOTIFICATION);
+				alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 				alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
 				alarmdetedit.putString("alarmdetails", "none");
 				alarmdetedit.commit();
@@ -197,7 +196,7 @@ public class MyAlarm extends Service{
 		String alarmtimedetails;
 		am = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 		am.cancel(setalarm);
-		alarmnotifier.cancel(ALARM_NOTIFICATION);
+		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		am.set(AlarmManager.RTC_WAKEUP,time,setalarm);
 		Intent resultintent;
 		if(al.getString("alarmtype", "alarm").equals("course"))
@@ -224,8 +223,8 @@ public class MyAlarm extends Service{
 	
 	public void launchalarm(Intent i)
 	{
-		launchflag=true;
 		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
+		launchflag=true;
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
 		alarm.setStreamVolume(AudioManager.STREAM_ALARM, alarm.getStreamVolume(AudioManager.STREAM_ALARM), AudioManager.FLAG_VIBRATE);
 		alarmflag=0;
@@ -336,89 +335,100 @@ public class MyAlarm extends Service{
 	}
 	
 		
-	public int getday(int day, int dayofweek, ContentValues week){
+	public int getdayadd(ContentValues week,Boolean todayflag){
+		Calendar cal = Calendar.getInstance();
+		int addcount=0;
+		if(!todayflag)
+		{
+			addcount=1;
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+		}
+		int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
 		while(true){
 		if(dayofweek==Calendar.SUNDAY){
 			if(week.getAsBoolean("sun"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.MONDAY){
+		else if(dayofweek==Calendar.MONDAY){
 			if(week.getAsBoolean("mon"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.TUESDAY){
+		else if(dayofweek==Calendar.TUESDAY){
 			if(week.getAsBoolean("tue"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.WEDNESDAY){
+		else if(dayofweek==Calendar.WEDNESDAY){
 			if(week.getAsBoolean("wed"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.THURSDAY){
+		else if(dayofweek==Calendar.THURSDAY){
 			if(week.getAsBoolean("thu"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.FRIDAY){
+		else if(dayofweek==Calendar.FRIDAY){
 			if(week.getAsBoolean("fri"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 		
-		if(dayofweek==Calendar.SATURDAY){
+		else if(dayofweek==Calendar.SATURDAY){
 			if(week.getAsBoolean("sat"))
 				break;
 			else{
-				day++;
-				dayofweek++;
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+				dayofweek=cal.get(Calendar.DAY_OF_WEEK);
+				addcount+=1;
 			}
 		}
 	}
-		return day;
+		return addcount;
 		}
 	
 	
 	public long alarmgetmillis(int hour,int minute, ContentValues week)
 	{
 		Calendar cal = Calendar.getInstance();
-		long cur_time = cal.getTimeInMillis();
-		int day,month,year,cur_day;
-		month = cal.get(Calendar.MONTH);
-		year = cal.get(Calendar.YEAR);
-		cur_day = cal.get(Calendar.DAY_OF_MONTH);
-		day=getday(cur_day, cal.get(Calendar.DAY_OF_WEEK), week);		
-		cal.set(year, month, day, hour, minute, 0);
-		if(cal.getTimeInMillis()<cur_time)
-			day=getday(cur_day+1, cal.get(Calendar.DAY_OF_WEEK), week);
-		cal.set(year, month, day, hour, minute, 0);
-		return cal.getTimeInMillis();
+		cal.set(Calendar.HOUR_OF_DAY,hour);
+		cal.set(Calendar.MINUTE,minute);
+		cal.set(Calendar.SECOND, 0);
+		cal.add(Calendar.DAY_OF_YEAR, getdayadd(week,true));
+		if(cal.getTimeInMillis()<System.currentTimeMillis())
+			cal.add(Calendar.DAY_OF_YEAR, getdayadd(week,false));
+		return cal.getTimeInMillis(); 
 	}
 	
 	public long getnextalarmtime()
@@ -498,7 +508,7 @@ public class MyAlarm extends Service{
 					alarmprefs.putLong("endtime", endtime);
 					alarmprefs.commit();
 				}
-				if(Math.abs((nxttime/1000.0)-(endtime/1000.0))<settings.getInt("interval", 5))
+				if(Math.abs((nxttime/1000.0)-(endtime/1000.0))<=(settings.getInt("interval", 5))*60)
 				{
 					endtime=times.getAsLong("endtime")+extratime;
 					alarmprefs.putLong("endtime", endtime);
@@ -544,8 +554,8 @@ public class MyAlarm extends Service{
 				alarmprefs.putInt("alarmid", en_alarms.getInt(0));
 				alarmprefs.putString("alarmtype", en_alarms.getString(7));
 				alarmprefs.putString("alarmtitle", en_alarms.getString(6));
-				alarmprefs.putInt("alarmsnooze", en_alarms.getInt(9));
 				alarmprefs.putLong("coursetime", 0);
+				alarmprefs.putInt("alarmsnooze", en_alarms.getInt(9));
 				alarmprefs.putBoolean("alarmshake", en_alarms.getInt(10)!=0);
 				alarmprefs.putBoolean("alarmmath", en_alarms.getInt(11)!=0);
 				alarmprefs.commit();

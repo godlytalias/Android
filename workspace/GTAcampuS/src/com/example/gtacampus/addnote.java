@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +18,8 @@ import com.project.gtacampus.R;
 public class addnote extends Activity{
 	static final int DIALOG_ID = 0;
 	String message;
-	
+	EditText t1,t2;
+	Intent i;
 	private DataManipulator dh;     
 	
 	
@@ -26,20 +28,30 @@ public class addnote extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addnotes);
-	
+		t1=(EditText)findViewById(R.id.editText1);
+		t2=(EditText)findViewById(R.id.editText2);
+		i = getIntent();
+		if(i.getAction().equals("update")){
+			t1.setText(i.getStringExtra("title"));
+			t2.setText(i.getStringExtra("content"));
+		}
 	}
 	
 	public void save(View v)
 	{
 		String Text1,Text2;
-		EditText t1,t2;
-		t1=(EditText)findViewById(R.id.editText1);
+		ContentValues vals = new ContentValues();
 		Text1=t1.getText().toString();
-		t2=(EditText)findViewById(R.id.editText2);
 		Text2=t2.getText().toString();
+		vals.put("title", Text1);
+		vals.put("notes", Text2);
 		if(!(Text1.equals("") || Text2.equals(""))){
-		this.dh = new DataManipulator(this);
-		this.dh.insertnote(Text1,Text2);
+			this.dh = new DataManipulator(this);
+		if(i.getAction().equals("add"))
+			this.dh.insertnote(Text1,Text2);
+		else
+			this.dh.updatenote(i.getIntExtra("id", -1),vals);
+		
 		dh.close();
 		Intent backtonotes=new Intent(this,notedata.class);
 		startActivity(backtonotes);

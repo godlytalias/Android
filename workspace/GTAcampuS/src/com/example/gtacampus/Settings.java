@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -70,7 +71,8 @@ public class Settings extends Activity {
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			changesettings.putInt("interval", prg);
-			changesettings.commit();		}
+			changesettings.commit();	
+			resetalarm();}
 		
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {

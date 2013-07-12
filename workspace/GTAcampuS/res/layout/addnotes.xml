@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
+        android:textStyle="bold"
         android:inputType="textEmailSubject"
         android:text="@string/emptystring"
         android:ems="10" >

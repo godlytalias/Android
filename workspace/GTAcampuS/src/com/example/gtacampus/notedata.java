@@ -21,7 +21,8 @@ import com.project.gtacampus.R;
 
 
 public class notedata extends ListActivity{
-	static final int DELETE_NOTE=1;
+	static final int DELETE_NOTE=1,NOTE_OPTIONS=2;
+	Integer selid;
 	List<String> slots=new ArrayList<String>();
 	String message,title;
 	TextView selection;
@@ -32,6 +33,7 @@ public class notedata extends ListActivity{
 	List<String[]> list = new ArrayList<String[]>();
 	List<String[]> names2 =null ;
 	String[] stg1,stg2;
+	Integer[] ids;
 
 	
 	@Override
@@ -46,13 +48,14 @@ public class notedata extends ListActivity{
 		      dm.close();
 		      stg1=new String[names2.size()]; 
 		      stg2=new String[names2.size()];
-
+		      ids = new Integer[names2.size()];
 				int x=0;
 
 				for (String[] note : names2) {
 					
 					stg2[x]=note[2];
 					stg1[x]=note[1];
+					ids[x]=Integer.parseInt(note[0]);
 					x++;
 				}
 				
@@ -65,6 +68,11 @@ public class notedata extends ListActivity{
 	public void add(View v)
 	{
 		Intent noteintent= new Intent(this,addnote.class);
+		noteintent.setAction("add");
+		addnote(noteintent);
+	}
+	
+	private void addnote(Intent noteintent){
 		startActivity(noteintent);
 		this.finish();
 	}
@@ -77,7 +85,8 @@ public class notedata extends ListActivity{
 			// TODO Auto-generated method stub
 				message = stg2[arg2];
 				title = stg1[arg2];
-				showDialog(DELETE_NOTE);
+				selid = ids[arg2];
+				showDialog(NOTE_OPTIONS);
 				return false;
 		}
 	};
@@ -86,6 +95,7 @@ public class notedata extends ListActivity{
 	public void onListItemClick(ListView parent, View v, int position, long id){
 		message=stg2[position];
 		title = stg1[position];
+		selid = ids[position];
 		Intent read = new Intent(notedata.this,Textviewer.class);
 		read.putExtra("text", message);
 		read.putExtra("title", title);
@@ -96,46 +106,74 @@ public class notedata extends ListActivity{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==Activity.RESULT_OK){
 		switch(requestCode){
 		case 0:
-			if(resultCode==Activity.RESULT_OK){
-				dm=new DataManipulator(notedata.this);
-				dm.deletenote(message);
-				dm.close();
-				onCreate(state);
-			}
-		break;
+				showDialog(DELETE_NOTE);
+				break;
+		case 1:
+				Intent note = new Intent(notedata.this,addnote.class);
+				note.setAction("update");
+				note.putExtra("id", selid);
+				note.putExtra("title", title);
+				note.putExtra("content", message);
+				addnote(note);
+				break;
 		default: break;
-		}
+		}}
 	}
 	
 	protected final Dialog onCreateDialog(final int id) {
 		Dialog dialog = null;
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		switch(id) {
-		case DELETE_NOTE:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Do you want to delete this note?! ")
-			.setCancelable(false)
-			.setPositiveButton("NO", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					dismissDialog(DELETE_NOTE);
-				}})
-			.setNegativeButton("YES",new DialogInterface.OnClickListener() {
+		case NOTE_OPTIONS:
+			builder.setTitle(title)
+			.setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					startActivityForResult(new Intent(notedata.this, Password.class), 1);
+					dismissDialog(NOTE_OPTIONS);
+				}
+			})
+			.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
 					startActivityForResult(new Intent(notedata.this, Password.class), 0);
-					dismissDialog(DELETE_NOTE);
+					dismissDialog(NOTE_OPTIONS);
 				}
 			});
-				AlertDialog alert = builder.create(); 
-			dialog = alert;
+			break;
+		case DELETE_NOTE:
+			builder.setMessage("Are you sure to delete this note?! ")
+			.setCancelable(false)
+			.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					removeDialog(DELETE_NOTE);
+				}})
+			.setNegativeButton("YES",new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stubdm=new DataManipulator(notedata.this);
+					dm.deletenote(selid);
+					dm.close();
+					onCreate(state);
+					removeDialog(DELETE_NOTE);
+				}
+			});
+				
 			break;
 
 		default: break;
 
 		}
+		AlertDialog alert = builder.create(); 
+		dialog = alert;
 		return dialog;
 	}
 	

@@ -326,8 +326,12 @@ public class DataManipulator {
 		return timings;
 	}
 	
-	public void deletenote(String note){
-		db.delete(TABLE_NAME2, String.format("%s=?","notes"), new String[]{note});
+	public void deletenote(Integer id){
+		db.delete(TABLE_NAME2, String.format("%s=?","id"), new String[]{id.toString()});
+	}
+	
+	public void updatenote(Integer id,ContentValues vals){
+		db.update(TABLE_NAME2, vals, String.format("id=%d", id), null);
 	}
 
 	public void deletealarm(int alarmid){
