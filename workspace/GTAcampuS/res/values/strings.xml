@@ -2,7 +2,7 @@
 
     <string name="app_name">GTAcampuS</string>
     <string name="action_settings">Settings</string>
-    <string name="init_text"><i>PLEASE PROVIDE THE FOLLOWING DETAILS TO INITIALIZE THE APPLICATION. IF YOU SKIP THIS STEP, DEFAULT VALUES WILL BE USED FOR CLASS TIMINGS.\n<b>PLEASE SPEND SOME TIME TO INITIALIZE THE APPLICATION.</b></i></string>
+    <string name="init_text"><i>PLEASE PROVIDE THE FOLLOWING DETAILS TO INITIALIZE THE APPLICATION. IF YOU SKIP THIS STEP, DEFAULT VALUES WILL BE USED FOR CLASS TIMINGS.</i>\n<b>PLEASE SPEND SOME TIME TO INITIALIZE THE APPLICATION.</b></string>
     <string name="rights">Licensed under GNU GPLv3</string>
     <string name="copyright">Copyright © 2013</string>
     <string name="developer">Godly T.Alias</string>
@@ -101,7 +101,38 @@
     <string name="emptystring"/>
     <string name="help">
 This application consists mainly features like alarms, notes, convertor and a calculator.\n
-On installing the application you will be requested to initialize the application
+\n<b><u>INITIALIZE</u></b>\n
+\tOn installing the application you will be requested to initialize the application. The values you enter can\'t be changed later unless you re-install the application. You will be asked to set the master password also which should not be forgotten, if you forget the password then you need to re-install the application to access administrator features.\n
+\n\n<b><u>MENU ITEMS</u></b>
+\n  1. EXIT\n
+\tOn clicking on this menu item you will be able to exit the application\n
+\n	2. BACKUP\n
+\tThis menu feature helps you to backup the whole database of your application so that you will be able to restore your alerts, courses and notes. Backup will be made in your SD card as a folder.\n
+\n  3. RESTORE\n
+\tThis menu feature restores the application which restores the deleted alerts, courses and notes if you have a backup of it in your SD card.\n
+\n  4. SETTINGS\n
+\tThis menu feature includes options to turn off/on course alerts, notifications and also to change your password. You can also set here the time in advance of the course time you need to get alert, the snooze-timeout for courses and also interval length which will help you to avoid getting alerts for classes following breaks with the duration of entered time.\n
+
+\n\n<b><u>ALERTS</u></b>\n
+\tYou can set custom tasks, alarms in addition to the course alerts that will be set by default on entering the course details. If you want to update any features of alerts like snooze time-out, math-mode, shake-mode, enabling/disabling etc., you can set it by  by clicking on the respective alert or in case of course alerts go to settings menu.\n
+\n<b>SHAKE MODE</b>\n
+\tIf you set this mode then you will be able to snooze your alarm by just shaking the device\n
+\n<b>MATH MODE</b>\n
+\tIf this mode is set, you need to solve a maths problem of multiplication with single digit numbers in order to stop the alert\n
+\n<b>CUSTOM TASKS</b>\n
+\tIf you set a task with a past time, you won\'t get alert ever even though the alert is enabled. An alert of type \'task\' will be automatically disabled on alerting, so if you need to set an alert again with the same item, you need to take care to enable the alert, else you won\'t get the alert.\n
+\n\n<b><u>TIME TABLE</u></b>\n
+\tThis consists of the full view of your weekly class hours. Free hours are represented by a \'-\'. The no:of hours is set on initializing the application which can\'t be changed later. You can see the course details and bunk details by a long click on the corresponding course\n
+\n\n<b><u>COURSES</u></b>\n
+\tIn the course tab you will be able to add courses. Here you will have to enter the course name, code and teacher\'s name which can\'t be edited later. The timings you enter here will be visible in the time-table view\n
+\n\n<b><u>NOTES</u></b>\n
+\tUsing this option you can make short notes or memos. You will be able to edit the note later by a long click on the respective note.\n
+\n\n<b><u>BUNK-O-METER</u></b>\n
+\tBunk-O-Meter stores your bunk statistics. It will display the coursename as well as the no:of classes bunked. If you make a click on the respective course you will be able to see the date and time you bunked the course. If you just want to add a bunk to a course, you can add a single bunk to a course by a long click.\n
+\n\n<b><u>CONVERTOR</u></b>\n
+\tThis tool helps you to convert values from one unit to other. You can select the main section in the drop-down menu on top and the units to be converted in the drop-down menu in the bottom.\n
+\n\n<b><u>CALCULATOR</u></b>\n
+\tThis calculator can take digits of very high length. The output will be made in the exponent format(number E number).\n
 </string>
     <string name="close">Close</string>
     <string name="addnote">ADD NOTE</string>
