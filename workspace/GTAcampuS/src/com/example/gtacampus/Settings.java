@@ -194,6 +194,7 @@ public class Settings extends Activity {
 		TextView text = new TextView(this);
 		text.setText("Enter the new password    ");
 		text.setClickable(false);
+		text.setPadding(2, 2, 2, 2);
 		text.setTextColor(getResources().getColor(android.R.color.white));
 		pwd = new EditText(this);
 		pwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);

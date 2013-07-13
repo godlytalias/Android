@@ -558,7 +558,7 @@ public class CampusActivity extends ListActivity {
 		
 		switch(id){
 		case DIALOG_ID:
-		builder.setMessage("        GTAcampuS v1.0\n        Copyright © 2013 Godly T.Alias\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nhttp://github.com/godlytalias/Android/workspace/GTAcampuS \n\nDeveloped by:\nGodly T.Alias\nDepartment of Computer Science & Engineering\nNIT Calicut\n")
+		builder.setMessage("        GTAcampuS v1.0\n        Copyright © 2013 Godly T.Alias\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nhttp://github.com/godlytalias/Android/workspace/GTAcampuS \n\nDeveloped by:\nGodly T.Alias\nDepartment of Computer Science & Engineering\nNIT Calicut\n")
 		.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
@@ -668,6 +668,7 @@ public class CampusActivity extends ListActivity {
 			ll.setOrientation(LinearLayout.HORIZONTAL);
 			TextView text = new TextView(this);
 			text.setText("Set a master password    ");
+			text.setPadding(2, 2, 2, 2);
 			text.setClickable(false);
 			text.setTextColor(getResources().getColor(android.R.color.black));
 			pwd = new EditText(this);

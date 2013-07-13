@@ -519,7 +519,7 @@ public class MyAlarm extends Service{
 					alarmprefs.putLong("endtime", endtime);
 					alarmprefs.commit();
 				}
-				if(Math.abs((nxttime/1000.0)-(endtime/1000.0))<=(settings.getInt("interval", 5))*60)
+				if(Math.abs((nxttime/1000)-(endtime/1000))<=(settings.getInt("interval", 5))*60)
 				{
 					endtime=times.getAsLong("endtime")+extratime;
 					alarmprefs.putLong("endtime", endtime);

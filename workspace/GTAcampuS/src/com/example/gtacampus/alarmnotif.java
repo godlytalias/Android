@@ -47,8 +47,8 @@ public class alarmnotif extends Activity{
 	SharedPreferences alarmpref,settings;
 	AudioManager alarm;
 	private Boolean courseflag;
-	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1,SOUND_NOTIFICATION = 3;
-	private int SNOOZE_NOTIFICATION = 88;
+	private final int ALARM_NOTIFICATION = 0,MATH_ALARM=1,SOUND_NOTIFICATION = 3,SNOOZE_NOTIFICATION = 88;
+	private int bunkc;
 	private LinearLayout rootlayout;
 	private KeyguardLock lock;
 	private Button bt1,bt2;
@@ -77,7 +77,8 @@ public class alarmnotif extends Activity{
 		if(alarmpref.getString("alarmtype", "alarm").equals("course")){
 			DataManipulator db = new DataManipulator(this);
 			TextView alerts = (TextView)findViewById(R.id.alerts);
-			alerts.setText("Bunked " + db.getbunk(alarmpref.getString("alarmtitle", "Custom Alert")) + " Class/es");
+			bunkc = db.getbunk(alarmpref.getString("alarmtitle", "Custom Alert"));
+			alerts.setText("Bunked " + bunkc + " Class/es");
 			alerts.setVisibility(View.VISIBLE);
 			db.close();
 			bt2.setText("BUNK");
@@ -315,10 +316,11 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 					db.update(alarmpref.getString("alarmtitle", "Custom Alert"));
 					db.close();
 					if(settings.getBoolean("notifications", true)){
-					Notification notifydet = new Notification (R.drawable.ic_bunk,"ALERT!!",System.currentTimeMillis());	
+						bunkc+=1;
+					Notification notifydet = new Notification (R.drawable.alert,"ALERT!!",System.currentTimeMillis());	
 					NotificationManager mNotificationManager =
-						    (NotificationManager) getSystemService(getBaseContext().NOTIFICATION_SERVICE);
-					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "Bunked " + alarmpref.getString("alarmtitle", "Custom Alert") , null);
+						    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+					notifydet.setLatestEventInfo(getBaseContext(), "Alert!!", "You had bunked " +bunkc+" classes of "+ alarmpref.getString("alarmtitle", "Custom Alert") , null);
 					mNotificationManager.notify(10000,notifydet);}
 					SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS", MODE_PRIVATE).edit();
 					alarmdetedit.clear();
