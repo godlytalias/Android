@@ -692,6 +692,7 @@ public class CampusActivity extends ListActivity {
 					settingseditor.putInt("alerttime", 10);
 					settingseditor.putInt("snoozetime", 3);
 					settingseditor.putInt("interval", 5);
+					settingseditor.putLong("boot", System.currentTimeMillis());
 					settingseditor.commit();
 					removeDialog(PASSWORD);
 				}

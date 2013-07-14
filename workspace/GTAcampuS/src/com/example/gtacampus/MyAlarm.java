@@ -36,6 +36,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.widget.Toast;
 
 import com.project.gtacampus.R;
 
@@ -117,6 +118,9 @@ public class MyAlarm extends Service{
 	
 	public void bootsetalarm()
 	{	
+	SharedPreferences.Editor editsettings = settings.edit();
+	editsettings.putLong("boot", System.currentTimeMillis());
+	editsettings.commit();
 		Intent intent1 = new Intent(MyAlarm.this, MyAlarmBrdcst.class);
 	intent1.setAction("set_alarm");
 	PendingIntent pendingalarms = PendingIntent.getBroadcast(this, 0, intent1, 0);
@@ -237,6 +241,11 @@ public class MyAlarm extends Service{
 	
 	public void launchalarm(Intent i)
 	{
+		if(Math.abs(System.currentTimeMillis()-settings.getLong("boot", 0))<5000)
+		{
+			Toast.makeText(getBaseContext(), "You had missed some alerts!", Toast.LENGTH_LONG).show();
+			stopSelf();}
+		else{
 		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		launchflag=true;
 		AudioManager alarm = (AudioManager)getSystemService(AUDIO_SERVICE);
@@ -245,7 +254,7 @@ public class MyAlarm extends Service{
 		Thread alarmhandler = new Thread(alarmdialog);
 		alarmhandler.setDaemon(true);
 		alarmhandler.start();
-		playalarmtone();}
+		playalarmtone();}}
 		
 
 	
