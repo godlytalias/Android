@@ -22,7 +22,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -72,6 +71,14 @@ public class Settings extends Activity {
 		intrvltime = (TextView) findViewById(R.id.intervaltime);
 		intervaltime.setProgress(settings.getInt("interval", 5));
 	}
+
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		resetalarm();
+		super.onStop();
+	}
 	
 	private void resetalarm(){
 		Intent setalarm = new Intent(Settings.this,MyAlarm.class);
@@ -84,8 +91,7 @@ public class Settings extends Activity {
 		public void onStopTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
 			changesettings.putInt("interval", prg);
-			changesettings.commit();	
-			resetalarm();}
+			changesettings.commit();}
 		
 		public void onStartTrackingTouch(SeekBar seekBar) {
 			// TODO Auto-generated method stub
@@ -105,7 +111,6 @@ public class Settings extends Activity {
 			// TODO Auto-generated method stub
 			if(finalsnoozetime>finaladvtime){
 				advtime.setProgress(finalsnoozetime-5);
-				resetalarm();
 			}
 		}
 		
@@ -132,7 +137,6 @@ public class Settings extends Activity {
 			if(finaladvtime<finalsnoozetime){
 				snoozetime.setProgress(finaladvtime-1);
 			}
-			resetalarm();
 		}
 		
 		public void onStartTrackingTouch(SeekBar seekBar) {
@@ -167,8 +171,6 @@ public class Settings extends Activity {
 				
 				changesettings.putBoolean("notifications", isChecked);
 				changesettings.commit();
-
-				resetalarm();
 		}
 	};
 	
@@ -181,7 +183,6 @@ public class Settings extends Activity {
 			
 			changesettings.putBoolean("coursealerts", isChecked);
 			changesettings.commit();
-			resetalarm();
 		}
 	};
 	

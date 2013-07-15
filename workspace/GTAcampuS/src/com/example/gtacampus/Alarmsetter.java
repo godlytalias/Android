@@ -229,7 +229,7 @@ public class Alarmsetter extends ListActivity {
 		case DELETE_ALARM :
 			AlertDialog.Builder delalarm = new AlertDialog.Builder(this);
 			delalarm.setTitle("Deleting alert")
-			.setMessage("Are you sure to delete the alert '"+alarmtitle+"' ?!")
+			.setMessage("Are you sure to delete the alert, "+alarmtitle+"?!")
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				
 				public void onClick(DialogInterface dialog, int which) {

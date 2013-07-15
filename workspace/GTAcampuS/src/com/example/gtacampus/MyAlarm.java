@@ -231,7 +231,7 @@ public class MyAlarm extends Service{
 		}
 		if(settings.getBoolean("notifications", true)){
 		alarmnotification = new Notification(R.drawable.alarm,"Next alert on "+alarmtimedetails, System.currentTimeMillis());
-		alarmnotification.setLatestEventInfo(this, "GTAcampuS", "Alert Name : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
+		alarmnotification.setLatestEventInfo(this, "GTAcampuS", al.getString("alarmtype", "Alert").toUpperCase()+" NAME : " + al.getString("alarmtitle", "Custom Alert") + "   -   " + alarmtimedetails,result);
 		alarmnotification.flags = Notification.FLAG_NO_CLEAR;
 		alarmnotifier.notify("GTAcampuS",ALARM_NOTIFICATION, alarmnotification);}
 		SharedPreferences.Editor alarmdetedit = getBaseContext().getSharedPreferences("GTAcampuS_alarmdet", MODE_PRIVATE).edit();
@@ -241,10 +241,14 @@ public class MyAlarm extends Service{
 	
 	public void launchalarm(Intent i)
 	{
-		if(Math.abs(System.currentTimeMillis()-settings.getLong("boot", 0))<5000)
+		alpref = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
+		//in unexpected situations in which user change the system time a set alarm will fire automatically if the new system time is
+		//more than the time set for alarm. In such case we need to avoid the launching of alarm. Some devices invoke 'bootset' function
+		//first and some other invoke 'launchalarm' function so we need this extended check to avoid the launching of alarm.
+		if((Math.abs(System.currentTimeMillis()-settings.getLong("boot", 0))<3000) || ((!(Math.abs(System.currentTimeMillis()-settings.getLong("boot", 0))<3000)) && Math.abs(alpref.getLong("time", System.currentTimeMillis())-System.currentTimeMillis())>(40*60000)))
 		{
-			Toast.makeText(getBaseContext(), "You had missed some alerts!", Toast.LENGTH_LONG).show();
-			stopSelf();}
+			Toast.makeText(getBaseContext(), "Sorry!. You had missed some alerts!", Toast.LENGTH_LONG).show();
+			setalarm();} //here instead of setalarm() function we can use stopself() as bootset will also set alarm, but for a little safety i am using setalarm() function even though it will run the same function twice.
 		else{
 		alarmnotifier.cancel("GTAcampuS",ALARM_NOTIFICATION);
 		launchflag=true;
@@ -520,6 +524,8 @@ public class MyAlarm extends Service{
 					nxtalarmtime = nxttime-mins;
 					alarmprefs.putInt("alarmid", 10000);
 					alarmprefs.putLong("coursetime", nxttime);
+					alarmprefs.putLong("time", nxtalarmtime);
+					alarmprefs.putInt("alarmsnooze", settings.getInt("snoozetime", 3));
 					alarmprefs.putString("alarmtype", "course");
 					alarmprefs.putString("alarmtitle", slotstat.getString(i));
 					alarmprefs.putBoolean("alarmshake", true);
@@ -575,6 +581,7 @@ public class MyAlarm extends Service{
 				alarmprefs.putString("alarmtype", en_alarms.getString(7));
 				alarmprefs.putString("alarmtitle", en_alarms.getString(6));
 				alarmprefs.putLong("coursetime", 0);
+				alarmprefs.putLong("time", nxtalarmtime);
 				alarmprefs.putInt("alarmsnooze", en_alarms.getInt(9));
 				alarmprefs.putBoolean("alarmshake", en_alarms.getInt(10)!=0);
 				alarmprefs.putBoolean("alarmmath", en_alarms.getInt(11)!=0);
