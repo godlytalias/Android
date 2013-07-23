@@ -56,7 +56,8 @@ public class addnote extends Activity{
 		String Text1,Text2;
 		ContentValues vals = new ContentValues();
 		Text1=t1.getText().toString();
-		Text2=t2.getText().toString();
+		CharSequence a = "\\\'";
+		Text2=t2.getText().toString().replaceAll("'", "\'");
 		vals.put("title", Text1);
 		vals.put("notes", Text2);
 		if(!(Text1.equals("") || Text2.equals(""))){

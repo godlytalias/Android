@@ -31,6 +31,7 @@
         android:textStyle="bold"
         android:inputType="textEmailSubject"
         android:text="@string/emptystring"
+        android:hint="@string/title"
         android:ems="10" >
         <requestFocus />
     </EditText>
@@ -54,6 +55,7 @@
         android:layout_marginLeft="22dp"
         android:layout_marginTop="20dp"
         android:overScrollMode="ifContentScrolls"
+        android:hint="@string/addnote_info1"
         android:keepScreenOn="true"
         android:text="@string/emptystring"
         android:ems="40"

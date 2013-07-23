@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:minWidth="90dp"
         android:gravity="center_horizontal"
+        android:id="@+id/mainsidebar"
         android:orientation="vertical">
 
         <DigitalClock

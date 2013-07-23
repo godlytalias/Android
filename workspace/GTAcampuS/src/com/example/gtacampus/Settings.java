@@ -80,6 +80,12 @@ public class Settings extends Activity {
 		super.onStop();
 	}
 	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+	
 	private void resetalarm(){
 		Intent setalarm = new Intent(Settings.this,MyAlarm.class);
 		setalarm.setAction("setalarm");

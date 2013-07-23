@@ -40,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:hint="@string/coursename"
         android:inputType="text"
         android:textColor="#F00" /></LinearLayout>
     
@@ -63,6 +64,7 @@
         android:minWidth="100dp"
         android:layout_width="match_parent"
         android:textStyle="bold"
+        android:hint = "@string/coursecode"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:textColor="#F00" /></LinearLayout>
@@ -88,6 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+        android:hint="@string/teacher"
         android:textStyle="bold"
         android:textColor="#F00" />
 

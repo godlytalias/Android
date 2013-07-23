@@ -66,7 +66,10 @@ public class DataManipulator {
 	}
 	public void insertnote(String title, String note)
 	{
-		db.execSQL("insert into "+TABLE_NAME2+" (title,notes) values ('" + title + "','" + note + "')");
+		ContentValues values = new ContentValues();
+		values.put("title", title);
+		values.put("notes", note);
+		db.insert(TABLE_NAME2, null, values);
 	}
 	public void update(String course)
 	{

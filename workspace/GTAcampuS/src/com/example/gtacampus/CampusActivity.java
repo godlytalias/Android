@@ -67,6 +67,9 @@ public class CampusActivity extends ListActivity {
 		setContentView(R.layout.activity_campus);
 		Animation fade = AnimationUtils.loadAnimation(this, R.anim.fadein);
 		findViewById(R.id.mainlayout).startAnimation(fade);
+		LinearLayout sidebar = (LinearLayout)findViewById(R.id.mainsidebar);
+		if(getWindowManager().getDefaultDisplay().getWidth()<200)
+			sidebar.setVisibility(View.GONE);
 		if(isUpgraded()||!(isdbok()))
 		{	Intent i = new Intent(CampusActivity.this,Initialize.class);
 			startActivityForResult(i, 0);		}
