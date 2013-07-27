@@ -85,6 +85,9 @@
         <item >TEMPERATURE</item>
         <item> DIGITAL STORAGE</item>
         <item >FUEL CONSUMPTION</item>
+        <item >ENERGY</item>
+        <item >PRESSURE</item>
+        <item >POWER</item>
     </string-array>
     <string name="zero">0</string>
     <string name="one">1</string>

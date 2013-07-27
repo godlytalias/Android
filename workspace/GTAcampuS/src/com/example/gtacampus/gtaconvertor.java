@@ -61,16 +61,16 @@ public class gtaconvertor extends Activity {
 				// TODO Auto-generated method stub
 				switch(arg2){
 				case 0: //length
-					items = new String[]{"Meter","KiloMeter","Mile","Yard","Foot","Centimeter","Inch","Nautical Mile","Millimetre","Light Year"};
+					items = new String[]{"Centimeter","Foot","Inch","KiloMeter","Light Year","Meter","Mile","Millimetre","Nautical Mile","Yard"};
 					break;
 				case 1: //mass
-					items = new String[]{"Gram","Kilogram","Milligram","Stone", "Pound", "Ounce","Tray Ounce","Carat", "Mcg", "Short ton", "Long ton", "Metric Ton"};
+					items = new String[]{"Carat", "Gram","Kilogram", "Long ton" ,"Mcg","Metric Ton","Milligram","Ounce", "Pound","Stone", "Short ton", "Tray Ounce"};
 					break;
 				case 2: //speed
-					items = new String[]{"Miles/hr", "Feet/sec", "meter/sec", "Km/hr", "Knot"};
+					items = new String[]{"Feet/sec",   "Km/hr", "Knot","meter/sec","Miles/hr"};
 					break;
 				case 3: //area
-					items = new String[]{"Sq.m","Sq.Km", "Sq.mile","Sq.yard","Sq.ft","Sq.inch","Sq.cm","Cent","Acre","Are","Hectare"};
+					items = new String[]{"Acre","Are","Cent","Hectare","Sq.m","Sq.Km", "Sq.mile","Sq.yard","Sq.ft","Sq.inch","Sq.cm"};
 					break;
 				case 4: //volume
 					items = new String[]{"Litre","Millilitre","Cubic.m","Cubic.ft","Cubic.inch","Cubic.cm","Cubic.yard","us gal","us pint","us cup","us quart","us oz","us tbsp","us tsp","imp. gal","imp. pint","imp. quart","imp. oz","imp. tbsp","imp. tsp"};
@@ -86,6 +86,15 @@ public class gtaconvertor extends Activity {
 					break;
 				case 8: //fuel consumption
 					items = new String[]{"Km/l","mpg(us)","mpg(imp)"};
+					break;
+				case 9: //energy
+					items = new String[]{"Calorie","electron-Volt","erg","Joule","kiloWatt-hour","therm"};
+					break;
+				case 10: //pressure
+					items = new String[]{"atm","bar","Pascal","pieze","torr","Water Column (cm)"};
+					break;
+				case 11: //power
+					items = new String[]{"BTU/min","Horsepower","Joule/sec","Kilowatts","Newton-meter/sec","watts"};
 					break;
 				default: break;
 				}
@@ -179,11 +188,47 @@ public class gtaconvertor extends Activity {
 		case 7: text =""+ storage(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
 		case 8: text =""+ fuel(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+				break;		
+		case 9:text =""+ energyconv(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+				break;
+		case 10:text =""+ pressconv(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
+				break;				
+		case 11: text =""+ powerconv(value, conv_selcat1.getText().toString(), conv_selcat2.getText().toString());
 				break;
 		default:break;}
 		convr_value.setText(text);
 	}
 		
+	
+	private double pressconv(double val,String giv,String ret){
+		double res,temp;  //Normalised with atm
+		values.put("atm", 1.0);
+		values.put("bar",0.980665);
+		values.put("Pascal", 98066.5);
+		values.put("pieze", 98.0665);
+		values.put("torr", 735.55923136);
+		values.put("Water Column (cm)",1000.0);
+		
+		temp=values.getAsDouble(ret)/values.getAsDouble(giv);
+		res=temp*val;
+		return res;
+	}
+
+	
+	
+	private double energyconv(double val,String giv,String ret){
+		double res,temp; //Normalised with Joule
+		
+		values.put("Joule", 1.0);
+		values.put("electron-Volt", 1.60217733*Math.pow(10, -19));
+		values.put("kiloWatt-hour", 3600000.0);
+		values.put("Calorie",4186.8);
+		values.put("therm",105505600.0);		
+		values.put("erg",0.0000001);
+		temp=values.getAsDouble(giv)/values.getAsDouble(ret);
+		res=temp*val;
+		return res;
+	}
 	
 	private double length(double val,String giv,String ret){
 		double res,temp;  //Normalised with meter
@@ -199,6 +244,19 @@ public class gtaconvertor extends Activity {
 		values.put("Light Year",(1/9460800000000000.0));
 		temp=values.getAsDouble(ret)/values.getAsDouble(giv);
 		res=temp*val;
+		return res;
+	}
+	
+	private double powerconv(double val,String giv, String ret){
+		double res,temp;
+		values.put("watts", 1.0);
+		values.put("BTU/min", 0.056869027);
+		values.put("Kilowatts",1000.0);
+		values.put("Horsepower",0.001341022);
+		values.put("Joule/sec",1.0);
+		values.put("Newton-meter/sec",1.0);		
+		temp = values.getAsDouble(ret)/values.getAsDouble(giv);
+		res = temp*val;
 		return res;
 	}
 	
