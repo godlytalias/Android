@@ -58,7 +58,7 @@ public class CampusActivity extends ListActivity {
 	Calendar myCal;
 	public int Year,month,day,hour,Minute;
 	static boolean suc_flag;
-	EditText pwd;
+	EditText pwd,uname;
 	Handler gtahandler;
 
 	@Override
@@ -78,7 +78,7 @@ public class CampusActivity extends ListActivity {
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setFocusable(false);
 		list.setScrollbarFadingEnabled(true);
-		String[] functions = new String[]{"Alerts","TimeTable","Courses","Notes","Bunk-O-Meter","Convertor","Calculator"};
+		String[] functions = new String[]{"Alerts","TimeTable","Courses","Notes","Bunk-O-Meter","Convertor","Calculator","Messages"};
 		ArrayAdapter<String> listadapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,functions);
 		this.setListAdapter(listadapter);
 		this.setTitle("Welcome to GTAcampuS!");
@@ -94,33 +94,33 @@ public class CampusActivity extends ListActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
+		Intent i;
 		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode==Activity.RESULT_OK){
 		switch(requestCode){
 		case 0:
 			showDialog(PASSWORD);
 			break;
 			
-		case 1:
-			if(resultCode==Activity.RESULT_OK)
+		case 1:		
 				backup();
 			break;
 			
 		case 2:
-			if(resultCode==Activity.RESULT_OK)
 				restore();
 			break;
 			
 		case 3:
-			if(resultCode==Activity.RESULT_OK)
-			{
-				Intent i = new Intent (CampusActivity.this, Settings.class);
+				i = new Intent (CampusActivity.this, Settings.class);
 				startActivity(i);
-			}
 				break;
-			
+		case 4:
+			i= new Intent(CampusActivity.this,Inbox.class);
+			startActivity(i);
+			break;
 		default:
 			break;
-		}
+		}}
 	}
 	
 	public void initalertnotif(){
@@ -156,6 +156,10 @@ public class CampusActivity extends ListActivity {
 	public void Calculator(View v)
 	{	Intent i= new Intent(CampusActivity.this,GTAcalC.class);
 		startActivity(i);	}
+	
+	public void Message(){
+		startActivityForResult(new Intent(CampusActivity.this,Password.class), 4);
+			}
 	
 	public void slotdisp(View v)
 	{	if(isdbok()){
@@ -551,6 +555,9 @@ public class CampusActivity extends ListActivity {
 				break;
 		case 6:Calculator(v);
 				break;
+		case 7:Message();
+				break;
+		default : break;
 		}
 	}
 	
@@ -667,10 +674,28 @@ public class CampusActivity extends ListActivity {
 			break;
 			
 		case PASSWORD:
+			LinearLayout lll = new LinearLayout(this);
+			lll.setOrientation(LinearLayout.VERTICAL);
 			LinearLayout ll = new LinearLayout(this);
 			ll.setOrientation(LinearLayout.HORIZONTAL);
+			TextView utext = new TextView(this);
+			utext.setText("Set a User name\t\t\t\t");
+			utext.setPadding(2, 2, 2, 2);
+			utext.setClickable(false);
+			utext.setTextColor(getResources().getColor(android.R.color.black));
+			uname = new EditText(this);
+			uname.setInputType(InputType.TYPE_CLASS_TEXT);
+			uname.setEms(15);
+			uname.setText("GTAcampuS User");
+			uname.setFocusable(true);
+			uname.setTextColor(getResources().getColor(android.R.color.black));
+			ll.addView(utext);
+			ll.addView(uname);
+			lll.addView(ll);
+			ll= new LinearLayout(this);
+			ll.setOrientation(LinearLayout.HORIZONTAL);
 			TextView text = new TextView(this);
-			text.setText("Set a master password    ");
+			text.setText("Set a master password\t");
 			text.setPadding(2, 2, 2, 2);
 			text.setClickable(false);
 			text.setTextColor(getResources().getColor(android.R.color.black));
@@ -681,7 +706,8 @@ public class CampusActivity extends ListActivity {
 			pwd.setTextColor(getResources().getColor(android.R.color.darker_gray));
 			ll.addView(text);
 			ll.addView(pwd);
-			builder.setView(ll)
+			lll.addView(ll);
+			builder.setView(lll)
 			.setCancelable(false)
 			.setPositiveButton("Set", new DialogInterface.OnClickListener() {
 				
@@ -690,6 +716,7 @@ public class CampusActivity extends ListActivity {
 					SharedPreferences settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 					SharedPreferences.Editor settingseditor = settings.edit();
 					settingseditor.putString("Password", pwd.getText().toString());
+					settingseditor.putString("Username", uname.getEditableText().toString());
 					settingseditor.putBoolean("coursealerts", true);
 					settingseditor.putBoolean("notifications", true);
 					settingseditor.putInt("alerttime", 10);
