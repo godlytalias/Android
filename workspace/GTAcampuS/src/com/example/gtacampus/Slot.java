@@ -79,7 +79,7 @@ public class Slot extends Activity {
 	for(int i=0;i<6;i++)
 	{
 		TextView c_days = new TextView(this);
-		c_days.setWidth(100);
+		c_days.setWidth(112);
 		c_days.setPadding(2, 1, 1, 1);
 		c_days.setTextAppearance(getBaseContext(), R.style.mytext);
 		c_days.setTextColor(Color.GREEN);

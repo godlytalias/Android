@@ -75,11 +75,7 @@ public class MyAlarm extends Service{
 	{
 		super.onStart(i,startId);
 		action(i);
-		try{
-			wl.release();
-		}
-		catch(Exception e){}
-			}
+					}
 
 	@Override
 	public IBinder onBind(Intent intent) {
