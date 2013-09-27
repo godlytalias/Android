@@ -37,11 +37,12 @@ public class Settings extends Activity {
 	
 	SharedPreferences settings;
 	SharedPreferences.Editor changesettings;
-	EditText pwd;
+	EditText pwd,path;
+	String addr;
 	SeekBar advtime,snoozetime,intervaltime;
 	TextView alerttime, snoozetimetxt,intrvltime;
 	int finaladvtime, finalsnoozetime;
-	static final int PASSWORD=0;
+	static final int PASSWORD=0,SERVER=1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class Settings extends Activity {
 		notifications.setOnCheckedChangeListener(c_notifs);
 		LinearLayout setpwd = (LinearLayout) findViewById(R.id.ll_masterpwd);
 		setpwd.setOnClickListener(chngpwd);
+		LinearLayout serv = (LinearLayout) findViewById(R.id.ll_serverconfig);
+		serv.setOnClickListener(configserv);
 		advtime = (SeekBar) findViewById(R.id.courseadvtime);
 		advtime.setOnSeekBarChangeListener(setadvtime);
 		snoozetime = (SeekBar) findViewById(R.id.coursesnoozetime);
@@ -73,18 +76,16 @@ public class Settings extends Activity {
 	}
 
 	
+	
+	
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
-		resetalarm();
-		super.onStop();
+       resetalarm();
+       startActivity(new Intent(Settings.this,CampusActivity.class));
+       super.onStop();
 	}
 	
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-	}
 	
 	private void resetalarm(){
 		Intent setalarm = new Intent(Settings.this,MyAlarm.class);
@@ -168,6 +169,15 @@ public class Settings extends Activity {
 		}
 	};
 	
+	
+	View.OnClickListener configserv = new View.OnClickListener() {
+		
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			showDialog(SERVER);
+		}
+	};
+	
 	CompoundButton.OnCheckedChangeListener c_notifs = new CompoundButton.OnCheckedChangeListener() {
 		
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -194,15 +204,16 @@ public class Settings extends Activity {
 	
 	protected final Dialog onCreateDialog(int id) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		switch(id){
-		case PASSWORD:
 		LinearLayout ll = new LinearLayout(this);
 		ll.setOrientation(LinearLayout.HORIZONTAL);
 		TextView text = new TextView(this);
-		text.setText("Enter the new password    ");
 		text.setClickable(false);
 		text.setPadding(2, 2, 2, 2);
 		text.setTextColor(getResources().getColor(android.R.color.white));
+		
+		switch(id){
+		case PASSWORD:		
+		text.setText("Enter the new password    ");
 		pwd = new EditText(this);
 		pwd.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		pwd.setEms(15);
@@ -225,6 +236,39 @@ public class Settings extends Activity {
 		});
 		
 		break;
+		
+		case SERVER:
+			
+			settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
+			text.setText("Enter the address where you hosted the web-services ");
+			path = new EditText(this);
+			if(settings.getString("server", "NULL").equals("NULL"))
+			path.setText("http://");
+			else
+			path.setText(settings.getString("server", "http://"));
+			path.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
+			path.setFocusable(true);
+			addr = new String();
+			ll.addView(text);
+			ll.addView(path);
+			builder.setView(ll)
+			.setCancelable(false)
+			.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					SharedPreferences.Editor settingseditor = settings.edit();
+					addr = path.getText().toString().trim();
+					if (addr.endsWith("/")) 
+						settingseditor.putString("server",addr );
+						else settingseditor.putString("server", addr+"/");
+					settingseditor.commit();
+					removeDialog(SERVER);
+				}
+			});
+			
+			break;
+		
 		
 		default: break;
 		}

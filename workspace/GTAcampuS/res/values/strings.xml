@@ -137,6 +137,8 @@
 \tThis tool helps you to convert values from one unit to other. You can select the main section in the drop-down menu on top and the units to be converted in the drop-down menu in the bottom. Convertor will automatically put results at the moment you press the done button of the virtual keyboard. If the results are big numbers it will come in the exponent format (base E power).\n
 \n\n<b><u>CALCULATOR</u></b>\n
 \tThis calculator can deal calculations with very big digits. If the results are big numbers it will come in the exponent format (base E power). The final result will be toasted also. The calculator also includes options for finding GCD(Greatest Common Divisor - HCF) and LCM(Least Common Multiple).\n
+\n\n<b><u>MESSAGE</u></b>\n
+\tThis can be used for passing some important informations as group messages which will be helpful especially for teachers or class leaders. A server is to be configured first with the GTAcampuS web-services and database file(available @ http://goo.gl/4Vklkg or in the github repo). The messages will be passed to all those who having their application configured to the same server location. \n
 </string>
     <string name="close">Close</string>
     <string name="addnote">ADD NOTE</string>
@@ -216,5 +218,7 @@
     <string name="ac">AC</string>
     <string name="appsettings_info8">Set Interval Length</string>
     <string name="appsettings_info9">Application won\'t alert for courses after short breaks if previous class is not bunked</string>
+    <string name="appsettings_info10">Server Address</string>
+    <string name="appsettings_info11">Enter the full path where you\'d hosted the application web-services</string>
 
 </resources>

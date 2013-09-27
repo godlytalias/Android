@@ -103,7 +103,7 @@
      
  </LinearLayout>
  
-   <View android:layout_width="fill_parent"
+     <View android:layout_width="fill_parent"
     android:layout_height="1dp"
     android:background="@android:drawable/divider_horizontal_dark">
 			</View>
@@ -123,7 +123,38 @@
 			    android:layout_height="wrap_content" 
 			    android:textColor="#FFF" 
 			    android:textSize="18sp"
-			    android:text="@string/appsettings_info5"></TextView>
+			    android:text="@string/appsettings_info7"></TextView>
+			
+</LinearLayout>
+  
+  
+   <View android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:drawable/divider_horizontal_dark">
+			</View>
+			
+   <LinearLayout android:layout_height="wrap_content" 
+    android:focusable="true" 
+    android:layout_width="fill_parent" 
+    android:padding="10dp" 
+    android:background="@android:drawable/list_selector_background" 
+    android:clickable="true" 
+    android:gravity="center_vertical"
+    android:orientation="vertical" 
+    android:minHeight="80dp" 
+    android:id="@+id/ll_serverconfig">
+				
+			<TextView android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:textColor="#FFF" 
+			    android:textSize="18sp"
+			    android:text="@string/appsettings_info10"></TextView>
+			
+			<TextView android:layout_width="wrap_content" 
+			    android:layout_height="wrap_content" 
+			    android:textColor="#FFF" 
+			    android:textSize="14sp"
+			    android:hint="@string/appsettings_info11"></TextView>
 			
 </LinearLayout>
 			

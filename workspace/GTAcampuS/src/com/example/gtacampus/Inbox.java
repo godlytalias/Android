@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +19,21 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import com.project.gtacampus.R;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,10 +51,13 @@ public class Inbox extends ListActivity {
 	Handler myhandler;
 	NetworkInfo mWifi,mob;
 	Integer pos;
+	SharedPreferences servraddr;
+	final int loading=0,reading=1,CONFIG=2,checking=3;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onCreate(savedInstanceState);
+	servraddr= getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 	setContentView(R.layout.notes);
 	msgs = new ArrayList<String>();
 	button = (Button) findViewById(R.id.button1);
@@ -60,10 +68,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 	
 	if(mWifi.isConnected()||mob.isConnected()){
+	if(checkfiles("gtacinbox.php")){
 	Thread net = new Thread(networkthread);
+	showDialog(loading);
 	net.setDaemon(true);
 	net.start();
-	while(!(net.getState()==Thread.State.TERMINATED)){}
+	while(!(net.getState()==Thread.State.TERMINATED)){
+	}
+	dismissDialog(loading);
 	listadapter = new String[msgs.size()];
 	int i=0;
 	for(String temp: msgs){
@@ -75,6 +87,10 @@ protected void onCreate(Bundle savedInstanceState) {
 			listadapter);
     Inbox.this.setListAdapter(adapter);
 	}
+	 else{
+		 showDialog(CONFIG);
+	 }
+	 }
 	else
 		Toast.makeText(getBaseContext(), "No Internet Connection!", Toast.LENGTH_LONG).show();
 }
@@ -86,15 +102,22 @@ protected void onListItemClick(ListView l, View v, int position, long id) {
 	String[] parts = listadapter[position].split(" . ");
 	pos=Integer.parseInt(parts[0]);
 	if(mWifi.isConnected()||mob.isConnected()){
+		if(!checkfiles("gtacinbox.php"))
+		{
+			showDialog(CONFIG);
+		}
+		else{
+			showDialog(reading);
 	Thread msg = new Thread(msgreadthread);
 	msg.setDaemon(true);
 	msg.start();
 	while(!(msg.getState()==Thread.State.TERMINATED)){}
+	dismissDialog(reading);
 	Intent read = new Intent(Inbox.this,Textviewer.class);
 	read.putExtra("text", result);
 	read.putExtra("title", parts[1]);
 	startActivity(read);
-	}
+	}}
 	else
 		Toast.makeText(getBaseContext(), "Internet not available!", Toast.LENGTH_LONG).show();
 }
@@ -105,7 +128,7 @@ private Runnable msgreadthread = new Runnable() {
 		// TODO Auto-generated method stub
 		Looper.prepare();
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://athena.nitc.ac.in/~godly_bcs10/GTAcampuS/gtacread.php");
+		HttpPost httppost = new HttpPost(servraddr.getString("server", null)+"gtacread.php");
 
 		
 		try {
@@ -120,10 +143,10 @@ private Runnable msgreadthread = new Runnable() {
 			result = httpclient.execute(httppost, responseHandler);				
 		}
 			catch (ClientProtocolException e) {
-				result = e.toString();
+				result = "Problems in connecting to server, check your connection";
 				// TODO Auto-generated catch block
 				} catch (IOException e) {
-				result = e.toString();
+				result = "Problems in connecting to server, check your connection";
 				// TODO Auto-generated catch block
 				}
 		
@@ -137,7 +160,7 @@ private Runnable networkthread = new Runnable() {
 		// TODO Auto-generated method stub
 		Looper.prepare();
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost("http://athena.nitc.ac.in/~godly_bcs10/GTAcampuS/gtacinbox.php");
+		HttpPost httppost = new HttpPost(servraddr.getString("server", null)+"gtacinbox.php");
 
 		
 		try {
@@ -168,6 +191,53 @@ private Runnable networkthread = new Runnable() {
 };
 
 
+public boolean checkfiles(final String filename){
+
+result=new String();
+Thread checkthread = new Thread(new Runnable() {
+	
+	public void run() {
+		// TODO Auto-generated method stub
+		Looper.prepare();
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpPost httppost = new HttpPost(servraddr.getString("server", null)+"check.php");
+
+		
+		try {
+			// Add your data
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+			SharedPreferences user = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
+			nameValuePairs.add(new BasicNameValuePair("FILE", filename));
+	
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			// Execute HTTP Post Request
+
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			result = httpclient.execute(httppost, responseHandler);				
+		}
+			catch (ClientProtocolException e) {
+				result = e.toString();
+				// TODO Auto-generated catch block
+				} catch (IOException e) {
+				result = e.toString();
+				// TODO Auto-generated catch block
+				}
+			}});
+
+showDialog(checking);
+checkthread.setDaemon(true);
+checkthread.start();
+while(checkthread.getState()!=State.TERMINATED){}
+dismissDialog(checking);
+
+if(result.equals("true"))
+	return true;
+else
+	return false;
+}
+
+
 View.OnClickListener compose = new View.OnClickListener() {
 	
 	public void onClick(View v) {
@@ -177,11 +247,45 @@ View.OnClickListener compose = new View.OnClickListener() {
 		NetworkInfo mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		if (mWifi.isAvailable() || mob.isAvailable()) {
 		Intent i= new Intent(Inbox.this,Messages.class);
-		startActivity(i);}
+		startActivity(i);
+		finish();
+		}
 		else
 			Toast.makeText(getBaseContext(), "Turn on your Wi-fi and get a Internet connection first", Toast.LENGTH_LONG).show();
 	}
 };
 
+protected Dialog onCreateDialog(int id) {
+	ProgressDialog dialog = new ProgressDialog(Inbox.this);
+	dialog.setIndeterminate(true);
+	dialog.setCancelable(true);
+	switch(id){
+	case reading:
+	dialog.setMessage("Reading Message...");
+	return dialog;
+	
+	case checking:
+		dialog.setMessage("Checking services...");
+		return dialog;
+	
+	case CONFIG:
+		AlertDialog.Builder builder= new AlertDialog.Builder(Inbox.this);
+		builder.setMessage("The web-service file is not found in the given location. Configure your server properly")
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				removeDialog(2);
+			}
+		});
+	
+		return builder.create();
+	case loading:
+		dialog.setMessage("Loading Messages. This may take some time depending on your connection speed");
+		return dialog;
+	};
+
+return null;
 	
 	}
+}

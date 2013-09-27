@@ -88,7 +88,7 @@ public class CampusActivity extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		initalertnotif();
+	initalertnotif();	
 	}
 	
 	@Override
@@ -113,6 +113,7 @@ public class CampusActivity extends ListActivity {
 		case 3:
 				i = new Intent (CampusActivity.this, Settings.class);
 				startActivity(i);
+				finish();
 				break;
 		case 4:
 			i= new Intent(CampusActivity.this,Inbox.class);
@@ -158,6 +159,15 @@ public class CampusActivity extends ListActivity {
 		startActivity(i);	}
 	
 	public void Message(){
+		SharedPreferences serversettings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
+		if(serversettings.getString("server", "NULL").equals("NULL"))
+		{
+			Intent serv = new Intent(CampusActivity.this,Textviewer.class);
+			serv.putExtra("title", "Alert!");
+			serv.putExtra("text", "You haven't configured the server. Go to GTAcampuS Settings and set the address where you'd hosted the GTAcampuS web-service files and also import the database file to your server database. GTAcampus web-service files are available here http://goo.gl/4Vklkg");
+			startActivity(serv);	
+		}
+		else
 		startActivityForResult(new Intent(CampusActivity.this,Password.class), 4);
 			}
 	
@@ -717,6 +727,7 @@ public class CampusActivity extends ListActivity {
 					SharedPreferences.Editor settingseditor = settings.edit();
 					settingseditor.putString("Password", pwd.getText().toString());
 					settingseditor.putString("Username", uname.getEditableText().toString());
+					settingseditor.putString("server", "NULL");
 					settingseditor.putBoolean("coursealerts", true);
 					settingseditor.putBoolean("notifications", true);
 					settingseditor.putInt("alerttime", 10);
