@@ -60,15 +60,15 @@ After cloning the required branch, start eclipse
 - you will be taken to ``Import Projects`` dialog box, click ``Browse``
   button and select the cloned repository.
 
-Documentation
+ Documentation
 -------------
 
 For User manual and Technical Document, please visit 
-`here <https://github.com/godlytalias/Android/tree/master/workspace/GTAcampuS/docs/>`_ 
+`here <https://github.com/godlytalias/Android/tree/master/workspace/GTAcampuS/docs>`_ 
 
 
 
-or read my `blog <http://godlytalias.blogspot.com/2013/09/gtacampus-android-application-source.html>`_Help, bugs, feedback-------#. Users can mail their queries, feedback and suggestions at
+or read my `blog <http://godlytalias.blogspot.com/2013/09/gtacampus-android-application-source.html>`_ Help, bugs, feedback-------#. Users can mail their queries, feedback and suggestions at
  godlytalias@yahoo.co.in 
 #. Developers/Contributor can raise issues at `issues
    <https://github.com/godlytalias/Android/issues>`_ or in my `blog <http://godlytalias.blogspot.com/2013/09/gtacampus-android-application-source.html>`_
