@@ -27,8 +27,7 @@ Simple and recommended install procedure
 Usage 
 ------
 
-This `branch` contains an Android(2.2, API-8) code for the User
-Interface of Aakash Business Tool.
+This `branch` contains an Android(2.2, API-8) code.
 
 User's can clone this repo by typing ::
 
