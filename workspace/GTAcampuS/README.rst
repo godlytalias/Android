@@ -2,12 +2,12 @@
 GTAcampuS Android Application
 =====================
 
-**GTAcampuS** is an application for Android platform (versions above Gingerbread) 
+**GTAcampuS** is an application for Android (GINGERBREAD or later versions) 
 intended for Students and is developed for Aakash Tablets. `Aakash
 <http://aakashlabs.org>`_ is a low cost computing device/tablet for
 students, the project is initiated and funded by MHRD, Govt. of
-India. Aakash already runs Android 4.2 with many educational apps 
-developed at IIT Bombay. GTAcampuS provides an easy to use interface and is specially developed for making the day-to-day life of a student more easy. I have tried to
+India. Aakash already runs Android 4.2 with many educational apps
+developed at IIT Bombay.  GTAcampuS provides an easy to use interface and is specially developed for making the day to day life of a student more easy. I have tried to
  make the user's experience simple and elegant. This initial version includes features like alerts, some course related features, Group Messaging, notes, convertor and calculator. This application helps you mainly to alert at the time of courses. The application itself will change your device to silent mode when you’re in classes so that your device won’t make disturbances during class hours and application will put back the device to normal state after the class hours, it will also keep out the statistics of bunks made by you for each course. You can also set custom alerts and save notes/memos. This application also provides you with a convertor and calculator which are so much useful for a student. 
 
 
