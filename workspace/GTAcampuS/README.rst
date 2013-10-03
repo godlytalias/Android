@@ -2,13 +2,31 @@
 GTAcampuS Android Application
 =====================
 
-**GTAcampuS** is an application for Android (GINGERBREAD or later versions) 
-intended for Students and is developed for Aakash Tablets. `Aakash
+**GTAcampuS** is an Android application (supports GINGERBREAD or later versions) 
+intended for students and is developed for Aakash Tablets. `Aakash
 <http://aakashlabs.org>`_ is a low cost computing device/tablet for
 students, the project is initiated and funded by MHRD, Govt. of
 India. Aakash already runs Android 4.2 with many educational apps
 developed at IIT Bombay.  GTAcampuS provides an easy to use interface and is specially developed for making the day to day life of a student more easy. I have tried to
-make the user's experience simple and elegant. This initial version includes features like alerts, some course related features, Group Messaging, notes, convertor and calculator. This application helps you mainly to alert at the time of courses. The application itself will change your device to silent mode when you�re in classes so that your device won�t make disturbances during class hours and application will put back the device to normal state after the class hours, it will also keep out the statistics of bunks made by you for each course. You can also set custom alerts and save notes/memos. This application also provides you with a convertor and calculator which are so much useful for a student. 
+make the user's experience simple and elegant.
+
+The application will make alerts before the class hours, on making alert application will provide options like ‘SNOOZE’, ‘ON THE WAY’ & ‘BUNK’. If the student dismiss the alert with the 'ON THE WAY' option then the application will turn off the alert volumes of the device and will change the device to silent mode automatically which will be restored back to normal state after the class time. If ‘BUNK’ is selected then bunk-o-meter database of the application will be updated and the no: of classes bunked will be incremented for that respective course. If the no: of bunked classes crosses a limit then the application will give notifications. The application will provide a timetable view showing the class hours user have in the week. User can check the statistics and details of the classes they bunked at any time. This application also contains a calculator, a converter, feature for setting extra-alerts, saving notes and also option for back-up and restoring the database. You can also send group messages using this application. Messages can be seen by all those who are configured to the particular server, this will be much useful for class representatives or teacher for passing an information to all students in a class.
+
+You can watch a DEMO VIDEO of the application `here <http://www.youtube.com/watch?v=FXxfec_vvOc>`_
+
+
+Main Features
+-------------
+	
+	- Attendance Management
+	- Alerts for classes & Custom alerts
+	- Bunk-O-Meter
+	- Timetable
+	- Notes
+	- Convertor
+	- Calculator
+	- Group Messaging
+	- Password Protection, Backup & Restore Features
 
 
 How to install
@@ -20,7 +38,7 @@ Simple and recommended install procedure
 - Download and install the GTAcampus.apk file.
 - Download the web-service files and host it in a server (if you want to use group-messaging feature).
 - After installing the application, click on the GTAcampuS icon in the android application menu.
-- On first use the application is to be initialized with the class timings and also server address where the web-service files are hosted
+- On first use the application is to be initialized with the class timings, registered courses, username, password and also server address where the web-service files are hosted
 
 Alternate installation from your system
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -35,7 +53,7 @@ This `branch` contains an Android(2.2, API-8) code.
 
 Users can clone this repo by typing :
 
-   git clone https://github.com/godlytalias/Android/tree/master/workspace/GTAcampuS.git 
+   git clone https://github.com/godlytalias/Android.git 
 
 Importing **GTAcampuS** as an `eclipse <http://www.eclipse.org/>`_ project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
