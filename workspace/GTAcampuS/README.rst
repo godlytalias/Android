@@ -22,10 +22,11 @@ Simple and recommended install procedure
   #. After installing the application, click on the GTAcampuS icon in the android application menu
   #. On first use the application is to be initialized with the class timings and also server address where the web-service files are hosted
 
-  Alternate installation from your system
+.  Alternate installation from your system
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  #. You can also get the apk file from `Amazon appstore <http://www.amazon.com/Godly-T-Alias-GTAcampuS/dp/B00E7AQLM0>`_.
+  - You can also download the application from `Amazon appstore <http://www.amazon.com/Godly-T-Alias-GTAcampuS/dp/B00E7AQLM0>`_.
   
 
 Usage 
