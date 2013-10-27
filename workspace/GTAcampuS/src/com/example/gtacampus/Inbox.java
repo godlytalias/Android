@@ -102,7 +102,7 @@ protected void onListItemClick(ListView l, View v, int position, long id) {
 	super.onListItemClick(l, v, position, id);
 	String[] parts = listadapter[position].split(" . ");
 	pos=Integer.parseInt(parts[0]);
-	if(mWifi.isConnected()||mob.isConnected() || lan.isConnected()){
+	if(mWifi.isConnected()||mob.isConnected()){
 		if(!checkfiles("gtacinbox.php"))
 		{
 			showDialog(CONFIG);
@@ -243,6 +243,9 @@ View.OnClickListener compose = new View.OnClickListener() {
 	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		NetworkInfo mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		if (mWifi.isConnected() || mob.isConnected()|| lan.isConnected()) {
 		Intent i= new Intent(Inbox.this,Messages.class);
 		startActivity(i);
