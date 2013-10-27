@@ -578,7 +578,7 @@ public class CampusActivity extends ListActivity {
 		
 		switch(id){
 		case DIALOG_ID:
-		builder.setMessage("        GTAcampuS v1.0\n        Copyright © 2013 Godly T.Alias\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nhttp://github.com/godlytalias/Android/workspace/GTAcampuS \n\nDeveloped by:\nGodly T.Alias\nDepartment of Computer Science & Engineering\nNIT Calicut\n")
+		builder.setMessage("        GTAcampuS v1.1\n        Copyright © 2013 Godly T.Alias\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nhttp://github.com/godlytalias/Android/workspace/GTAcampuS \n\nDeveloped by:\nGodly T.Alias\nDepartment of Computer Science & Engineering\nNIT Calicut\n")
 		.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
@@ -725,7 +725,7 @@ public class CampusActivity extends ListActivity {
 					// TODO Auto-generated method stub
 					SharedPreferences settings = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
 					SharedPreferences.Editor settingseditor = settings.edit();
-					settingseditor.putString("Password", pwd.getText().toString());
+					settingseditor.putInt("Password", pwd.getText().toString().hashCode());
 					settingseditor.putString("Username", uname.getEditableText().toString());
 					settingseditor.putString("server", "NULL");
 					settingseditor.putBoolean("coursealerts", true);

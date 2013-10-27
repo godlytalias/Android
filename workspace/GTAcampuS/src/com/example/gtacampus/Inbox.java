@@ -49,7 +49,7 @@ public class Inbox extends ListActivity {
 	StringBuilder sbuilder;
 	String result;
 	Handler myhandler;
-	NetworkInfo mWifi,mob;
+	NetworkInfo mWifi,mob,lan;
 	Integer pos;
 	SharedPreferences servraddr;
 	final int loading=0,reading=1,CONFIG=2,checking=3;
@@ -65,9 +65,10 @@ protected void onCreate(Bundle savedInstanceState) {
 	button.setOnClickListener(compose);
 	ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 	mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+	lan=connManager.getNetworkInfo(ConnectivityManager.TYPE_ETHERNET);
 	mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 	
-	if(mWifi.isConnected()||mob.isConnected()){
+	if(mWifi.isConnected()||mob.isConnected()||lan.isConnected()){
 	if(checkfiles("gtacinbox.php")){
 	Thread net = new Thread(networkthread);
 	showDialog(loading);
@@ -245,13 +246,13 @@ View.OnClickListener compose = new View.OnClickListener() {
 		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		NetworkInfo mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		if (mWifi.isAvailable() || mob.isAvailable()) {
+		if (mWifi.isConnected() || mob.isConnected()|| lan.isConnected()) {
 		Intent i= new Intent(Inbox.this,Messages.class);
 		startActivity(i);
 		finish();
 		}
 		else
-			Toast.makeText(getBaseContext(), "Turn on your Wi-fi and get a Internet connection first", Toast.LENGTH_LONG).show();
+			Toast.makeText(getBaseContext(), "Get an active Internet connection first", Toast.LENGTH_LONG).show();
 	}
 };
 

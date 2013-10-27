@@ -53,7 +53,7 @@ public class Password extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			SharedPreferences pwd = getSharedPreferences("GTAcampuSettings", MODE_PRIVATE);
-			if(pass.getText().toString().equals(pwd.getString("Password", "")))
+			if(pass.getText().toString().hashCode()==(pwd.getInt("Password", 0)))
 			{
 				setResult(Activity.RESULT_OK);
 				finish();}

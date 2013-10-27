@@ -103,7 +103,7 @@
     <string name="nextalert">NEXT ALERT</string>
     <string name="emptystring"/>
     <string name="help">
-   GTAcampuSv1.0 consists of features like alerts, time-table of classes, notes, convertor and calculator.\n
+   GTAcampuSv1.1 consists of features like alerts, time-table of classes, notes, convertor and calculator.\n
 \n<b><u>INITIALIZE</u></b>\n
 \tOn installing the application you will be requested to initialize the application. The values you enter can\'t be changed later unless you re-install the application. You will be asked to set the master password also which should not be forgotten, if you forget the password then you need to re-install the application and set the password again in order to access administrator features.\n
 \n\n<b><u>MENU ITEMS</u></b>
