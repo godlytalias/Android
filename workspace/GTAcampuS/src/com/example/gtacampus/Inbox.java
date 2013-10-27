@@ -102,7 +102,7 @@ protected void onListItemClick(ListView l, View v, int position, long id) {
 	super.onListItemClick(l, v, position, id);
 	String[] parts = listadapter[position].split(" . ");
 	pos=Integer.parseInt(parts[0]);
-	if(mWifi.isConnected()||mob.isConnected()){
+	if(mWifi.isConnected()||mob.isConnected() || lan.isConnected()){
 		if(!checkfiles("gtacinbox.php"))
 		{
 			showDialog(CONFIG);
@@ -243,13 +243,15 @@ View.OnClickListener compose = new View.OnClickListener() {
 	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		NetworkInfo mob = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		if (mWifi.isConnected() || mob.isConnected()|| lan.isConnected()) {
+			if(checkfiles("gtacampus.php")){
 		Intent i= new Intent(Inbox.this,Messages.class);
 		startActivity(i);
-		finish();
+		finish();}
+			else
+				Toast.makeText(getBaseContext(),"Web Service file not found!. Configure your server properly" , Toast.LENGTH_LONG).show();
+				
+				
 		}
 		else
 			Toast.makeText(getBaseContext(), "Get an active Internet connection first", Toast.LENGTH_LONG).show();
