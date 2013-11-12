@@ -7,7 +7,7 @@ if(!$connection)
 {
 die("database failed".mysql_error());}
 $dbselect=mysql_select_db($dbase,$connection);
-if(!dbselect)
+if(!$dbselect)
 {
 die("database failed".mysql_error());}
 
