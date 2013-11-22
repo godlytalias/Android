@@ -1,0 +1,146 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#aaffffff"
+    android:orientation="vertical" >
+    
+    <View android:layout_width="match_parent"
+        android:layout_height="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:text="THE HEAVENS PROCLAIM HIS RIGHTEOUSNESS," />
+    
+    <View android:layout_width="match_parent"
+        android:layout_height="3dp"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:text="AND ALL NATIONS SEE HIS GLORY" />
+    
+    <View android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:id="@+id/avivradio"
+        android:src="@drawable/logoavivradio" />
+    
+    <View android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="5dp"/>
+    
+    
+     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:src="@drawable/design" />
+     
+     <View android:layout_width="match_parent"
+         android:layout_weight="0.5"
+        android:layout_height="5dp"/>
+     
+     <LinearLayout android:layout_width="wrap_content"
+         android:layout_height="90dp"
+         android:layout_weight="1"
+         android:orientation="horizontal"
+         android:layout_gravity="center">
+         
+          <View android:layout_width="2dp"
+        android:layout_height="wrap_content"/>
+     
+     <Button android:layout_width="80dp"
+         android:layout_height="80dp"
+         android:layout_gravity="center"
+         android:id="@+id/play"
+         android:background="@drawable/buttonstyle" />
+     
+     <View android:layout_width="20dp"
+        android:layout_height="wrap_content"/>
+     
+     <Button android:layout_width="80dp"
+         android:layout_height="80dp"
+         android:layout_gravity="center"
+         android:id="@+id/stop"
+         android:background="@drawable/stopbutton" />
+     
+     <View android:layout_width="20dp"
+        android:layout_height="wrap_content"/>
+     
+    
+
+     <SeekBar
+         android:layout_width="120dp"
+         android:layout_height="wrap_content" 
+         android:layout_gravity="center_vertical"
+         android:max="10"
+         android:progress="1"
+         android:id="@+id/vol"/> 
+         
+          <View android:layout_width="5dp"
+        android:layout_height="wrap_content"/></LinearLayout>
+  
+      
+      <TextView android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:gravity="center"
+          android:id="@+id/playing_track"
+          android:layout_weight="0.5"/>
+      
+      <View android:layout_width="match_parent"
+         android:layout_weight="0.5"
+        android:layout_height="5dp"/>
+      
+     <!--  <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:src="@drawable/image" /> -->
+      
+      <LinearLayout android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:layout_gravity="center"
+          android:orientation="horizontal">
+          
+          <Button android:layout_width="33dp"
+         android:layout_height="33dp"
+         android:id="@+id/fb"
+         android:background="@drawable/fb" />
+          
+           <View android:layout_width="12dp"
+        android:layout_height="30dp"/>
+          
+          <Button android:layout_width="53dp"
+         android:layout_height="40dp"
+         android:id="@+id/twitter"
+         android:background="@drawable/twitter" />
+          
+           <View android:layout_width="12dp"
+        android:layout_height="30dp"/>
+          
+          <Button android:layout_width="40dp"
+         android:layout_height="25dp"
+         android:id="@+id/mail"
+         android:background="@drawable/mail" />
+          
+      </LinearLayout>
+
+</LinearLayout>
