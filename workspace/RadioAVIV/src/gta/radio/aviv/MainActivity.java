@@ -23,11 +23,13 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -175,6 +177,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     {
     	try{
     	avivplayer.stop();
+    	avivplayer.reset();
   //  	timer.cancel();
     	notifs.cancel("RadioAVIV",0);}
     	catch(Exception e)
@@ -294,7 +297,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
     	menu.add(0, Menu.FIRST+1, 0, "Exit").setIcon(R.drawable.close);
-    	menu.add(0,Menu.FIRST+2,1,"About RadioAVIV").setIcon(R.drawable.aviv);
+    	menu.add(0,Menu.FIRST+2,1,"About RadioAVIV").setIcon(R.drawable.avivico);
     	menu.add(0,Menu.FIRST+3,2,"Contact Us").setIcon(android.R.drawable.ic_menu_call);
     	return super.onCreateOptionsMenu(menu);
     }
@@ -306,6 +309,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     	{
     	case Menu.FIRST+1:
     		onDestroy();
+    		this.finish();
     		break;
     		
     	case Menu.FIRST+2:
@@ -365,10 +369,18 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	
 	protected final Dialog onCreateDialog(final int id)
 	{
-		Dialog dialog=null;
+		ScrollView txt = new ScrollView(MainActivity.this);
+		txt.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
+		txt.setVerticalScrollBarEnabled(true);
+		TextView msg = new TextView(MainActivity.this);
 		AlertDialog.Builder builder =  new AlertDialog.Builder(MainActivity.this);
 		switch(id){
-		case ABOUT: builder.setMessage(getString(R.string.about)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		case ABOUT: 
+			msg.setText(getString(R.string.about));
+			msg.setTextColor(getResources().getColor(android.R.color.white));
+			msg.setGravity(Gravity.CENTER);
+			txt.addView(msg);
+			builder.setView(txt).setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -378,8 +390,16 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		});
 					break;
 					
-		case CONTACTS: builder.setMessage(getString(R.string.contacts)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			
+		case CONTACTS: 
+		msg.setText(R.string.contacts);
+		msg.setLinksClickable(true);
+		msg.setFocusable(true);
+		msg.setClickable(true);
+		msg.setTextColor(getResources().getColor(android.R.color.white));
+		msg.setGravity(Gravity.CENTER);
+		txt.addView(msg);
+		builder.setView(txt).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
