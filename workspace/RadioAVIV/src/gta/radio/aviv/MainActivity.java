@@ -1,25 +1,30 @@
 package gta.radio.aviv;
 
+/*
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
+import android.os.AsyncTask; */
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +36,7 @@ public class MainActivity extends Activity implements
 MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener,
 MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	
+	final int ABOUT=1,CONTACTS=2;
 	Button play,stop,fb,twitter,mail;
 	MediaPlayer avivplayer=null;
 	SeekBar vol;
@@ -39,10 +45,10 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	NetworkInfo internet;
 	NotificationManager notifs;
 	Notification notification;
-	IcyStreamMeta streamMeta;
-	MetadataTask2 metadataTask2;
-	String title_artist;
-	Timer timer;
+/*	IcyStreamMeta streamMeta;
+	MetadataTask2 metadataTask2; */
+/*	String title_artist;
+	Timer timer; */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +73,15 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
         mail=(Button) findViewById(R.id.mail);
         mail.setOnClickListener(mailer);
        
-       streamMeta = new IcyStreamMeta();
-       metadataTask2=new MetadataTask2();
+      // streamMeta = new IcyStreamMeta();
+     //  metadataTask2=new MetadataTask2();
 
        checkinternet();
           
        
     }
     
-    public void initialize_meta(){
+  /*  public void initialize_meta(){
     	 try {
     			streamMeta.setStreamUrl(new URL("http://s2.voscast.com:8452/"));
     		 metadataTask2.execute(new URL(("http://s2.voscast.com:8452/")));}
@@ -110,7 +116,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		};
         timer.schedule(timertask, (long)0, (long)10000);
 
-    } 
+    } */
     
     public Boolean checkinternet()
     {
@@ -157,22 +163,19 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
-    	    }
-    
-    @Override
-    protected void onStop() {
-    	// TODO Auto-generated method stub
-    	super.onStop();
     	try{
         	if(!avivplayer.isPlaying())
-        		avivplayer.release();}catch(Exception e){}
-    }
+        		avivplayer.release();
+        avivplayer=null;	
+    	}catch(Exception e){}
+    	    }
     
+      
     public void stop()
     {
     	try{
     	avivplayer.stop();
-    	timer.cancel();
+  //  	timer.cancel();
     	notifs.cancel("RadioAVIV",0);}
     	catch(Exception e)
     	{Log.d("RadiAVIV","mediaplayer already stopped");}
@@ -207,26 +210,24 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 				Intent avivintent = new Intent(getBaseContext(), MainActivity.class);
 				PendingIntent radioaviv = PendingIntent.getActivity(getBaseContext(), 0, avivintent, 0);
 				notification = new Notification(R.drawable.aviv, "RadioAVIV", System.currentTimeMillis());
-				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV", radioaviv);
+				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV 97.6", radioaviv);
 				
-				initialize_meta();
+			//	initialize_meta();
 			Uri myUri = Uri.parse("http://s2.voscast.com:8452");
 			  try {
 			   if (avivplayer==null) {
 			    avivplayer = new MediaPlayer();
-			    avivplayer.setDataSource(MainActivity.this, myUri); // Go to Initialized state
-				   avivplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-				   avivplayer.setOnPreparedListener(MainActivity.this);
-				   avivplayer.setOnBufferingUpdateListener(MainActivity.this);
+			   			   } 
+			   avivplayer.setDataSource(MainActivity.this, myUri); // Go to Initialized state
+			   avivplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			   avivplayer.setOnPreparedListener(MainActivity.this);
+			   avivplayer.setOnBufferingUpdateListener(MainActivity.this);
 
-				   avivplayer.setOnErrorListener(MainActivity.this);
-				   avivplayer.prepareAsync();
-				   avivplayer.start();
-					track.setText("Loading...");
+			   avivplayer.setOnErrorListener(MainActivity.this);
+			   avivplayer.prepareAsync();
 
-					notifs.notify("RadioAVIV", 0, notification);
-			   } 
-			   else if(avivplayer.isPlaying())
+				notifs.notify("RadioAVIV", 0, notification);
+			   if(avivplayer.isPlaying())
 				{
 			    avivplayer.pause();
 			    track.setText("Paused");
@@ -249,7 +250,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	{
 		Log.d("AvivRadio","Prepared..Starting");
 		avivplayer.start();
-		track.setText("Playing...");
+		track.setText("RADIO AVIV 97.6, Thanks for listening!");
 	}
     
     View.OnClickListener fbpage = new View.OnClickListener() {
@@ -292,10 +293,32 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    	menu.add(0, Menu.FIRST+1, 0, "Exit").setIcon(R.drawable.close);
+    	menu.add(0,Menu.FIRST+2,1,"About RadioAVIV").setIcon(R.drawable.aviv);
+    	menu.add(0,Menu.FIRST+3,2,"Contact Us").setIcon(android.R.drawable.ic_menu_call);
+    	return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	// TODO Auto-generated method stub
+    	switch(item.getItemId())
+    	{
+    	case Menu.FIRST+1:
+    		onDestroy();
+    		break;
+    		
+    	case Menu.FIRST+2:
+    		showDialog(ABOUT);
+    		break;
+    	
+    	case Menu.FIRST+3:
+    	    showDialog(CONTACTS);
+    	    break;
+    	}
+    	
+    	return true;
+    }
 
 	@Override
 	public void onBufferingUpdate(MediaPlayer aviv, int percent) {
@@ -340,7 +363,36 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		track.setText("Track over");
 	}
 	
-	protected class MetadataTask2 extends AsyncTask<URL, Void, IcyStreamMeta> 
+	protected final Dialog onCreateDialog(final int id)
+	{
+		Dialog dialog=null;
+		AlertDialog.Builder builder =  new AlertDialog.Builder(MainActivity.this);
+		switch(id){
+		case ABOUT: builder.setMessage(getString(R.string.about)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(ABOUT);
+			}
+		});
+					break;
+					
+		case CONTACTS: builder.setMessage(getString(R.string.contacts)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(CONTACTS);
+			}
+		});
+		   break;
+		}
+		
+		return builder.create();
+	}
+	
+/*	protected class MetadataTask2 extends AsyncTask<URL, Void, IcyStreamMeta> 
     {
         @Override
         protected IcyStreamMeta doInBackground(URL... urls) 
@@ -374,6 +426,6 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
                 Log.e(MetadataTask2.class.toString(), e.getMessage());
             }
         }
-    }
+    } */
     
 }
