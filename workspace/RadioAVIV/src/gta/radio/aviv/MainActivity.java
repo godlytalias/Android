@@ -1,12 +1,12 @@
 package gta.radio.aviv;
 
-/*
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.os.AsyncTask; */
+import android.os.AsyncTask; 
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -20,8 +20,10 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -47,24 +49,26 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	NetworkInfo internet;
 	NotificationManager notifs;
 	Notification notification;
-/*	IcyStreamMeta streamMeta;
-	MetadataTask2 metadataTask2; */
-/*	String title_artist;
-	Timer timer; */
+	IcyStreamMeta streamMeta;
+	MetadataTask2 metadataTask2; 
+	String title_artist;
+	Timer timer; 
+	Boolean executed;
+//	SharedPreferences radioaviv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         notifs = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                
+    //    radioaviv=getSharedPreferences("RadioAVIV", Context.MODE_PRIVATE);
+        
         play=(Button) findViewById(R.id.play);
         play.setOnClickListener(avivstreaming);
         stop=(Button) findViewById(R.id.stop);
         stop.setOnClickListener(stopstreaming);
         vol=(SeekBar) findViewById(R.id.vol);
         vol.setOnSeekBarChangeListener(volchanged);
-        vol.setProgress(10);
         track = (TextView) findViewById(R.id.playing_track);
         aviv = (ImageView) findViewById(R.id.avivradio);
         aviv.setOnClickListener(webpage);
@@ -74,23 +78,50 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
         twitter.setOnClickListener(twitterpage);
         mail=(Button) findViewById(R.id.mail);
         mail.setOnClickListener(mailer);
-       
-      // streamMeta = new IcyStreamMeta();
-     //  metadataTask2=new MetadataTask2();
+ 	   vol.setProgress(10);
+ 	   executed=false;
+       streamMeta = new IcyStreamMeta();
+      metadataTask2=new MetadataTask2();
+      
 
        checkinternet();
+       
+ /*      if(radioaviv.getBoolean("status", false))
+       {
+    	   track.setText(radioaviv.getString("title", "RadioAviv 97.6  Thanks for listening!"));
+    	   vol.setProgress(radioaviv.getInt("vol", 10));
+    	   executed=radioaviv.getBoolean("executed", false);
+       }
+       else{
+    	   vol.setProgress(10);
+    	   executed=false;
+       }*/
           
        
     }
     
-  /*  public void initialize_meta(){
+    public void initialize_meta(){
     	 try {
     			streamMeta.setStreamUrl(new URL("http://s2.voscast.com:8452/"));
-    		 metadataTask2.execute(new URL(("http://s2.voscast.com:8452/")));}
+    		if(!executed){
+    		 metadataTask2.execute(new URL(("http://s2.voscast.com:8452/")));
+    		 executed=true;}
+    		else
+    		{
+    			getMeta();
+    		}
+    			}
     	       catch (MalformedURLException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
-    			}  
+    			}
+   /* 	 try {
+			title_artist=streamMeta.getStreamTitle();
+			track.setText(title_artist);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
     }
     
     public void getMeta(){
@@ -100,15 +131,11 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 			
         	public void run() {
 
-                URL url;
                 //Message msg = handler.obtainMessage();
                 try {
-                     url = new URL("http://s2.voscast.com:8452");
-                      IcyStreamMeta icy = new IcyStreamMeta(url);
                		streamMeta.refreshMeta();
-
                     title_artist=streamMeta.getStreamTitle();
-                    track.setText(title_artist);
+               		Log.d("Timertask",title_artist);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -118,7 +145,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		};
         timer.schedule(timertask, (long)0, (long)10000);
 
-    } */
+    } 
     
     public Boolean checkinternet()
     {
@@ -165,6 +192,17 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
     protected void onDestroy() {
     	// TODO Auto-generated method stub
     	super.onDestroy();
+    	if(!(timer==null))
+    		timer.cancel();
+    	if(executed)
+    	metadataTask2.cancel(true);
+    	executed=false;
+    	try{
+        	avivplayer.stop();
+        	avivplayer.reset();
+        	notifs.cancel("RadioAVIV",0);}
+        	catch(Exception e)
+        	{Log.d("RadiAVIV","mediaplayer already stopped");}
     	try{
         	if(!avivplayer.isPlaying())
         		avivplayer.release();
@@ -175,10 +213,13 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
       
     public void stop()
     {
+    	if(executed){
+    	timer.cancel();
+    	timer=null;
+    	}
     	try{
     	avivplayer.stop();
     	avivplayer.reset();
-  //  	timer.cancel();
     	notifs.cancel("RadioAVIV",0);}
     	catch(Exception e)
     	{Log.d("RadiAVIV","mediaplayer already stopped");}
@@ -210,17 +251,21 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(checkinternet()){
-				Intent avivintent = new Intent(getBaseContext(), MainActivity.class);
-				PendingIntent radioaviv = PendingIntent.getActivity(getBaseContext(), 0, avivintent, 0);
 				notification = new Notification(R.drawable.aviv, "RadioAVIV", System.currentTimeMillis());
-				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV 97.6", radioaviv);
+				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV 97.6", null);
 				
-			//	initialize_meta();
-			Uri myUri = Uri.parse("http://s2.voscast.com:8452");
+				initialize_meta();
+			Uri myUri = Uri.parse("http://s2.voscast.com:8452/");
 			  try {
 			   if (avivplayer==null) {
 			    avivplayer = new MediaPlayer();
 			   			   } 
+			   
+			  } catch (Throwable t) {
+				   Log.d("AvivRadio", t.toString());
+				  }
+			  
+			  try{
 			   avivplayer.setDataSource(MainActivity.this, myUri); // Go to Initialized state
 			   avivplayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			   avivplayer.setOnPreparedListener(MainActivity.this);
@@ -229,7 +274,10 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 			   avivplayer.setOnErrorListener(MainActivity.this);
 			   avivplayer.prepareAsync();
 
-				notifs.notify("RadioAVIV", 0, notification);
+				notifs.notify("RadioAVIV", 0, notification); } catch (Throwable t) {
+					   Log.d("AvivRadio", t.toString());
+				  }
+			  try{
 			   if(avivplayer.isPlaying())
 				{
 			    avivplayer.pause();
@@ -241,12 +289,11 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 				
 				notifs.notify("RadioAVIV", 0, notification);
 				
-			     Log.d("AvivRadio", "LoadClip Done");}
-			  } catch (Throwable t) {
-			   Log.d("AvivRadio", t.toString());
-			  }
+			     Log.d("AvivRadio", "LoadClip Done");} } catch (Throwable t) {
+					   Log.d("AvivRadio", t.toString());
+			 
 		}}
-	};
+	} };
 	
 	@Override
 	public void onPrepared(MediaPlayer avivplayer)
@@ -328,8 +375,8 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 	public void onBufferingUpdate(MediaPlayer aviv, int percent) {
 		// TODO Auto-generated method stub
 		Log.d("AvivRadio","Buffering");
-		if(percent<100)
-		track.setText("Buffering...");
+		if(!(title_artist.equals("") || track.getText().toString().equals("Paused")))
+        track.setText(title_artist);
 	}
 
 
@@ -412,7 +459,7 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 		return builder.create();
 	}
 	
-/*	protected class MetadataTask2 extends AsyncTask<URL, Void, IcyStreamMeta> 
+	protected class MetadataTask2 extends AsyncTask<URL, Void, IcyStreamMeta> 
     {
         @Override
         protected IcyStreamMeta doInBackground(URL... urls) 
@@ -420,12 +467,14 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
             try 
             {
                 streamMeta.refreshMeta();
-                Log.e("Retrieving MetaData","Refreshed Metadata");
+                Log.e("Retrieving MetaData","AsyncTask executed");
             } 
             catch (IOException e) 
             {
                 Log.e(MetadataTask2.class.toString(), e.getMessage());
             }
+            
+        	
             return streamMeta;
         }
 
@@ -436,16 +485,13 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
             {
                 title_artist=streamMeta.getStreamTitle();
                 Log.e("Retrieved title_artist", title_artist);
-                if(title_artist.length()>0)
-                {
-                    streamMeta.refreshMeta();
-                }
             }
             catch (IOException e) 
             {
                 Log.e(MetadataTask2.class.toString(), e.getMessage());
             }
+            getMeta();
         }
-    } */
+    } 
     
 }
