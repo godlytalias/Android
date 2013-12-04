@@ -4,7 +4,7 @@ RadioAVIV Android Application
 
 **RadioAVIV** is a radio station using the SHOUTcast server.
 
-`Listen to RadioAVIV <http://www.avivradio.com`_
+Listen to  `RadioAVIV <http://www.avivradio.com>`_
 
 
 How to install
