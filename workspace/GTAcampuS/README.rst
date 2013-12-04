@@ -26,7 +26,8 @@ Main Features
 	- Convertor
 	- Calculator
 	- Group Messaging
-	- Password Protection, Backup & Restore Features
+	- Password Protection
+	- Backup & Restore Features
 
 
 How to install
