@@ -252,7 +252,8 @@ MediaPlayer.OnErrorListener, MediaPlayer.OnBufferingUpdateListener {
 			// TODO Auto-generated method stub
 			if(checkinternet()){
 				notification = new Notification(R.drawable.aviv, "RadioAVIV", System.currentTimeMillis());
-				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV 97.6", null);
+				notification.flags |= Notification.FLAG_ONGOING_EVENT;
+				notification.setLatestEventInfo(getBaseContext(), "RadioAVIV", "You're now listening to RadioAVIV 97.6", PendingIntent.getActivity(MainActivity.this,0, new Intent(MainActivity.this.getBaseContext(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_CANCEL_CURRENT));
 				
 				initialize_meta();
 			Uri myUri = Uri.parse("http://s2.voscast.com:8452/");
