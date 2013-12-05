@@ -24,6 +24,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -137,7 +138,7 @@ public class CampusActivity extends ListActivity {
 			alarmdet2.setVisibility(View.VISIBLE);
 			alarmdet3.setVisibility(View.VISIBLE);
 			alarmdet = getSharedPreferences("GTAcampuS", MODE_PRIVATE);
-			alarmdet2.setText(alarmdet.getString("alarmtitle", "Custom Alert"));
+			alarmdet2.setText(shorten(alarmdet.getString("alarmtitle", "Custom Alert")));
 			alarmdet3.setText(details);
 			div.setVisibility(View.VISIBLE);	}
 		else{
@@ -148,6 +149,26 @@ public class CampusActivity extends ListActivity {
 		}
 	}
 		
+	public String shorten(String string)
+	{
+		int start=0;
+		StringBuilder str = new StringBuilder();
+		if(string.length()>20)
+		{
+			str.append(string.charAt(0));
+			str.append(' ');
+			for(start=1;start<string.length();start++)
+			{
+			if(string.charAt(start-1)==' '){
+			str.append(string.charAt(start));
+			str.append(' ');}
+			}
+			return str.toString().toUpperCase(Locale.UK);
+		}
+		else
+		return string;
+	}
+	
 	public void exit(View v)
 	{		this.finish();	}
 	

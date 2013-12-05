@@ -315,7 +315,7 @@ private View.OnClickListener bunkit = new View.OnClickListener() {
 					DataManipulator db = new DataManipulator(alarmnotif.this);
 					db.update(alarmpref.getString("alarmtitle", "Custom Alert"));
 					db.close();
-					if(settings.getBoolean("notifications", true)){
+					if(settings.getBoolean("notifications", true) && bunkc>0){
 						bunkc+=1;
 					Notification notifydet = new Notification (R.drawable.alert,"ALERT!!",System.currentTimeMillis());	
 					NotificationManager mNotificationManager =

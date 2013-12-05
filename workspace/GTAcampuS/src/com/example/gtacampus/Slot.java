@@ -14,6 +14,8 @@
 
 package com.example.gtacampus;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -79,7 +81,7 @@ public class Slot extends Activity {
 	for(int i=0;i<6;i++)
 	{
 		TextView c_days = new TextView(this);
-		c_days.setWidth(112);
+		c_days.setWidth(142);
 		c_days.setPadding(2, 1, 1, 1);
 		c_days.setTextAppearance(getBaseContext(), R.style.mytext);
 		c_days.setTextColor(Color.GREEN);
@@ -143,7 +145,7 @@ public class Slot extends Activity {
 			c_slot.setGravity(Gravity.CENTER);
 			c_slot.setTextAppearance(getBaseContext(), R.style.mytext);
 			c_slot.setTextColor(Color.WHITE);
-			c_slot.setText(slotstat.getString(j));
+			c_slot.setText(shorten(slotstat.getString(j)));
 			c_slot.setTag(slotstat.getString(j));
 			slots.addView(divider);
 			slots.addView(c_slot);
@@ -157,6 +159,26 @@ public class Slot extends Activity {
 		timetablemain.addView(subtimetable);
 		setContentView(timetablemain);
 		db.close();
+	}
+	
+	public String shorten(String string)
+	{
+		int start=0;
+		StringBuilder str = new StringBuilder();
+		if(string.length()>12)
+		{
+			str.append(string.charAt(0));
+			str.append(' ');
+			for(start=1;start<string.length();start++)
+			{
+			if(string.charAt(start-1)==' '){
+			str.append(string.charAt(start));
+			str.append(' ');}
+			}
+			return str.toString().toUpperCase(Locale.UK);
+		}
+		else
+		return string;
 	}
 	
 	View.OnLongClickListener clicked = new View.OnLongClickListener() {

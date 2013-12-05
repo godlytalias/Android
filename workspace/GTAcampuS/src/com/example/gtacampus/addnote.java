@@ -25,8 +25,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.project.gtacampus.R;
+
 
 
 public class addnote extends Activity{
