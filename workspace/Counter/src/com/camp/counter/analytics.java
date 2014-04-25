@@ -15,7 +15,6 @@ public class analytics extends Activity {
 	
 	LinearLayout counter1,counter2,counter3;
 	TextView total_read;
-	int tot;
 	float total;
 	
 	@Override
@@ -27,8 +26,7 @@ public class analytics extends Activity {
 		total_read = new TextView(this);
 		total_read = (TextView) findViewById(R.id.total);
 		total = analytics.getIntExtra("total", 0);
-		tot = analytics.getIntExtra("total", 0);
-		total_read.setText(tot+"");
+		total_read.setText((int)total+"");
 		init();
 		Button restart = new Button(this);
 		restart = (Button) findViewById(R.id.restart);
