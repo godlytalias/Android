@@ -15,7 +15,7 @@ public class database{
 	static SQLiteDatabase db;
 
 private static final String DATABASE_NAME = "counter.db";
-private static final int DATABASE_VERSION = 3;
+private static final int DATABASE_VERSION = 1;
 private static final String TABLE_NAME1="question";
 private static final String TABLE_NAME2="answers";
 
