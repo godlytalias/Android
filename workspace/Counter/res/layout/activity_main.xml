@@ -16,7 +16,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:textStyle="bold"
-           android:text="Enter Question"
+           android:text="@string/enterq"
            android:textAppearance="?android:attr/textAppearanceMedium" />
       
        <View android:layout_width="fill_parent" 
@@ -38,7 +38,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:textStyle="bold"
-           android:text="Add Options"
+           android:text="@string/enteropt"
            android:textAppearance="?android:attr/textAppearanceMedium" />
       
        <View android:layout_width="fill_parent" 
@@ -63,11 +63,12 @@
                  android:layout_height="wrap_content"
                  android:inputType="text"
                  android:minWidth="150dp"
+                 android:ems="10"
                  android:id="@+id/opt"/>
              
              <Button android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="Add Option"
+                 android:text="@string/addopt"
                  android:id="@+id/addopt"/>
          </LinearLayout>
     

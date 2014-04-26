@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
-
 public class database{
 	
 	private static Context context;
@@ -15,7 +13,7 @@ public class database{
 	static SQLiteDatabase db;
 
 private static final String DATABASE_NAME = "counter.db";
-private static final int DATABASE_VERSION = 1;
+private static final int DATABASE_VERSION = 4;
 private static final String TABLE_NAME1="question";
 private static final String TABLE_NAME2="answers";
 
@@ -31,8 +29,8 @@ public void setquestion(String question){
 	db.insert(TABLE_NAME1, null, qn);
 }
 
-public void setanswers(ContentValues vals){
-	db.insert(TABLE_NAME2, null, vals);
+long setanswers(ContentValues vals){
+		return db.insert(TABLE_NAME2, null, vals);
 }
 
 public void close(){
@@ -77,7 +75,7 @@ private static class openhelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (question TEXT)");
-		db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, answers TEXT, count INTEGER)");
+		db.execSQL("CREATE TABLE " + TABLE_NAME2 + " (id INTEGER PRIMARY KEY, answers TEXT UNIQUE, count INTEGER)");
 	}
 
 	@Override

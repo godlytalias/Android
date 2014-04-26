@@ -2,9 +2,15 @@ package com.camp.counter;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +27,12 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		setContentView(R.layout.activity_main);
 		i=0;
+		database db = new database(this);
+		db.clear_table();
+		db.close();
 		options = new LinearLayout(this);
 		options = (LinearLayout)findViewById(R.id.options);
 		option = new EditText(this);
@@ -35,9 +45,6 @@ public class MainActivity extends Activity {
 		done.setOnClickListener(doneadd);
 		addopt = (Button) findViewById(R.id.addopt);
 		addopt.setOnClickListener(addoption);
-		database db = new database(this);
-		db.clear_table();
-		db.close();
 	}
 	
 	View.OnClickListener doneadd = new View.OnClickListener() {
@@ -66,27 +73,64 @@ public class MainActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 		if(!option.getText().toString().equals("")){
-			i++;
-			ContentValues answers = new ContentValues();
 			database db = new database(MainActivity.this);
-			TextView addedoption = new TextView(MainActivity.this);
-			addedoption.setText(i+". "+option.getText().toString());
+			ContentValues answers = new ContentValues();
 			answers.put("answers", option.getText().toString());
 			answers.put("count", 0);
-			db.setanswers(answers);
-			option.setText("");
-			options.addView(addedoption);
-			db.close();}
+			if(db.setanswers(answers)>=0)
+			{
+				i++;
+				TextView addedoption = new TextView(MainActivity.this);
+				addedoption.setText(i+". "+option.getText().toString());
+				option.setText("");
+				options.addView(addedoption);}
+			else
+				Toast.makeText(getBaseContext(), "Option already entered", Toast.LENGTH_SHORT).show();
+			db.close();
+		}
 		else
-			Toast.makeText(getBaseContext(), "Blank field", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getBaseContext(), "Blank fields are not allowed", Toast.LENGTH_SHORT).show();
 		}
 	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		menu.add(0, Menu.FIRST+1, 0, "Exit");
+		menu.add(0,Menu.FIRST+2,1,"About Application");
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()){
+		case Menu.FIRST+1 : this.finish();
+							break;
+		case Menu.FIRST+2 : showDialog(0);
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	protected final	Dialog onCreateDialog(final int id){
+		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		TextView txt = new TextView(MainActivity.this);
+		txt.setText("Counter Application\nCopyright © 2014 Davis Abraham\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.");
+		txt.setGravity(Gravity.CENTER);
+		
+		switch(id){
+		case 0:
+		builder.setView(txt)
+		.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dismissDialog(0);
+			}
+		});
+		break;
+		};
+		return builder.create();
 	}
 
 }

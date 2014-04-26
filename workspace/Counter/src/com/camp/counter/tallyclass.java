@@ -2,8 +2,8 @@ package com.camp.counter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +23,7 @@ public class tallyclass extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 		setContentView(R.layout.tallylayout);
 		reading = new TextView(this);
 		reading = (TextView) findViewById(R.id.reading);
@@ -42,8 +43,8 @@ public class tallyclass extends Activity {
 		Cursor options = db.getoption();
 		options.moveToFirst();
 		
-		LayoutParams text = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 4);
-		LayoutParams buttons = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1);
+		LayoutParams text = new LayoutParams(LayoutParams.WRAP_CONTENT, 80, 4);
+		LayoutParams buttons = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT, 1);
 		
 		while(!options.isAfterLast()){
 			LinearLayout counterviews = new LinearLayout(this);
@@ -53,6 +54,7 @@ public class tallyclass extends Activity {
 			TextView opt = new TextView(this);
 			opt.setText(options.getString(0));
 			opt.setLayoutParams(text);
+			opt.setEms(10);
 			opt.setGravity(Gravity.CENTER);
 			
 			Button subtract = new Button(tallyclass.this);
@@ -84,6 +86,7 @@ public class tallyclass extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 		if(count_reg>=1){
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 			Intent analytics = new Intent(tallyclass.this,analytics.class);
 			analytics.putExtra("total", count_reg);
 			startActivity(analytics);

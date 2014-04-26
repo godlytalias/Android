@@ -5,5 +5,18 @@
     <string name="action_settings">Settings</string>
     <string name="list">list</string>
     <string name="done">Done</string>
+    <string name="totalcount">Total Count : </string>
+    <string name="wspace"></string>
+    <string name="option">OPTION</string>
+    <string name="count">COUNT</string>
+    <string name="percent">PERCENTAGE</string>
+    <string name="restart">Restart</string>
+    <string name="exit">Exit</string>
+    <string name="counter">Counter</string>
+    <string name="totreads">Total Readings : </string>
+    <string name="zero">0</string>
+    <string name="enterq">Enter Question</string>
+    <string name="enteropt">Add Options</string>
+    <string name="addopt">Add Option</string>
 
 </resources>

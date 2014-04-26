@@ -21,13 +21,13 @@
     <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textColor="#F00"
-        android:text="Total count : "/>
+        android:text="@string/totalcount"/>
     
      <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#F00"
         android:id="@+id/total"
-        android:text=""/>
+        android:text="@string/wspace"/>
     
     </LinearLayout>
     
@@ -39,71 +39,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="5">
-<LinearLayout 
-    android:layout_width="match_parent"
+  
+<TableLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-    
-    <LinearLayout android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:id="@+id/list1">
-        
-        <TextView android:layout_width="fill_parent"
+    android:showDividers="middle"
+    android:divider="@android:drawable/divider_horizontal_dark"    
+    android:orientation="horizontal"
+    android:baselineAligned="true"
+    android:id="@+id/tallytable">
+  
+    <TableRow android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="5dip">
+  
+        <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OPTION"
+            android:text="@string/option"
+            android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"/>
         
-        <View android:layout_width="fill_parent" 
-     android:layout_height="1dip" 
-     android:background="@android:drawable/divider_horizontal_dark"></View>	
         
-    </LinearLayout>
-    
-     <LinearLayout android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:id="@+id/list2">
-         
-          <TextView android:layout_width="fill_parent"
+        <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="COUNT"
+            android:text="@string/count"
+            android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"/>
-          
-          <View android:layout_width="fill_parent" 
-     android:layout_height="1dip" 
-     android:background="@android:drawable/divider_horizontal_dark"></View>	
-         
-     </LinearLayout>
-     
-      <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:id="@+id/list3">
-          
-           <TextView android:layout_width="wrap_content"
+        
+        <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PERCENTAGE"
             android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/percent"
             android:textStyle="bold"/>
-           
-           <View android:layout_width="fill_parent" 
-     android:layout_height="1dip" 
-     android:background="@android:drawable/divider_horizontal_dark"></View>	
-          
-      </LinearLayout>
-    
+        
+    </TableRow>
+      
+</TableLayout>
 
-</LinearLayout></ScrollView>
+</ScrollView>
 
 <LinearLayout android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -115,13 +91,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/restart"
-        android:text="Restart"/>
+        android:text="@string/restart"/>
     
     <Button android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/exit"
-        android:text="Exit"/>
+        android:text="@string/exit"/>
     
 </LinearLayout>
 

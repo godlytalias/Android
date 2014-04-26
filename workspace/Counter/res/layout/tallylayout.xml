@@ -7,7 +7,7 @@
     
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Counter"
+        android:text="@string/counter"
         android:textStyle="bold"/>
     
      <View android:layout_width="fill_parent" 
@@ -21,13 +21,13 @@
      
      <TextView android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:text="Total Readings : "/>
+         android:text="@string/totreads"/>
      
      <TextView android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:id="@+id/reading"
          android:textColor="#F00"
-         android:text="0"/>
+         android:text="@string/zero"/>
      </LinearLayout>
      
      
@@ -44,6 +44,7 @@
          android:layout_height="wrap_content"
          android:layout_weight="1"
          android:id="@+id/counter"
+         android:layout_gravity="center"
          android:orientation="vertical"></LinearLayout>
          
               <View android:layout_width="fill_parent" 
@@ -55,7 +56,7 @@
          android:layout_marginTop="10dp"
          android:layout_weight="1"
          android:id="@+id/donecount"
-         android:text="Done"/>
+         android:text="@string/done"/>
      </LinearLayout>
        </ScrollView>
                  
