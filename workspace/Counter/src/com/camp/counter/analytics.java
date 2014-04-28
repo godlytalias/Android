@@ -1,10 +1,16 @@
 package com.camp.counter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +22,7 @@ public class analytics extends Activity {
 	
 	TableLayout tallytable;
 	TextView total_read;
+	String question;
 	float total;
 	
 	@Override
@@ -31,12 +38,82 @@ public class analytics extends Activity {
 		tallytable = new TableLayout(this);
 		tallytable = (TableLayout) findViewById(R.id.tallytable);
 		init();
+		savelog();
 		Button restart = new Button(this);
 		restart = (Button) findViewById(R.id.restart);
 		restart.setOnClickListener(newcalc);
 		Button exit = new Button(this);
 		exit = (Button) findViewById(R.id.exit);
 		exit.setOnClickListener(exitpgm);
+	}
+	
+	private String remchar(String string)
+	{
+		int start=0;
+		StringBuilder str= new StringBuilder();
+		for(start=0;start<string.length();start++)
+		{
+		if(((string.charAt(start)>=65)&&(string.charAt(start)<=90))||((string.charAt(start)>=97)&&(string.charAt(start)<=122))||((string.charAt(start)>=48)&&(string.charAt(start)<=57)))
+			str.append(string.charAt(start));
+		}
+		return str.toString();
+	}
+	
+	private String shorten(String string)
+	{
+		int start=0;
+		StringBuilder str = new StringBuilder();
+		if(string.length()>15)
+		{
+			str.append(string.charAt(0));
+			str.append(' ');
+			for(start=1;start<string.length();start++)
+			{
+			if(string.charAt(start-1)==' '){
+			str.append(string.charAt(start));
+			str.append(' ');}
+			}
+			return str.toString().toUpperCase(Locale.UK);
+		}
+		else
+		return string;
+	}
+	
+	private void savelog()
+	{
+		File dir = new File(Environment.getExternalStorageDirectory()+"/Counter");
+		dir.mkdirs();
+		File log = new File(dir,remchar(shorten(question))+".txt");
+		try {
+			log.createNewFile();
+			BufferedWriter backupwriter = new BufferedWriter(new FileWriter(log));
+			backupwriter.write("Options\t\tCount\t\tPercentage");
+			backupwriter.newLine();
+			database db = new database(this);
+					
+			Cursor options = db.getoption();
+			Cursor counts = db.getvalues();
+			options.moveToFirst();
+			counts.moveToFirst();
+							
+			while(!options.isAfterLast()){
+				backupwriter.newLine();
+				backupwriter.write(shorten(options.getString(0))+"\t\t");
+				backupwriter.write(counts.getString(0)+"\t\t");
+				backupwriter.write(((Integer.parseInt(counts.getString(0))/total)*100)+" %");
+				options.moveToNext();
+				counts.moveToNext();
+			}
+			backupwriter.flush();
+			backupwriter.close();
+			options.close();
+			counts.close();
+			db.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	View.OnClickListener exitpgm = new View.OnClickListener() {
@@ -67,7 +144,8 @@ public class analytics extends Activity {
 		
 		TextView qn = new TextView(analytics.this);
 		qn = (TextView) findViewById(R.id.question);
-		qn.setText(db.getquestion());
+		question = db.getquestion();
+		qn.setText(question);
 		
 		Cursor options = db.getoption();
 		Cursor counts = db.getvalues();
@@ -104,7 +182,8 @@ public class analytics extends Activity {
 			options.moveToNext();
 			counts.moveToNext();
 		}
-		
+		options.close();
+		counts.close();
 		db.close();
 		
 	}
