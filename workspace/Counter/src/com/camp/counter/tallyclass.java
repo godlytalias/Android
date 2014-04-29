@@ -103,12 +103,12 @@ public class tallyclass extends Activity {
 			if(!(db.getvalue(v.getTag().toString()).equals("0")))
 			{
 			db.subtract(v.getTag().toString());
-			db.close();
 			count_reg-=1;
 			reading.setText(count_reg+"");
 			}
 			else
 				Toast.makeText(getBaseContext(), "Values can't be negative!", Toast.LENGTH_SHORT).show();
+			db.close();
 		}
 	};
 
