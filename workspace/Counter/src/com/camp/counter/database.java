@@ -42,6 +42,12 @@ public Cursor getoption(){
 	return db.query(TABLE_NAME2, new String[]{"answers"}, null, null, null, null, null);
 }
 
+public String getvalue(String str){
+	Cursor val = db.query(TABLE_NAME2, new String[]{"count"}, String.format("answers='%s'", str),null,null,null,null);
+	val.moveToFirst();
+	return val.getString(0);
+}
+
 public Cursor getvalues(){
 	return db.query(TABLE_NAME2, new String[]{"count"}, null, null, null, null, null);
 }

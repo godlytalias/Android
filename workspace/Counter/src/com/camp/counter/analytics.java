@@ -87,7 +87,7 @@ public class analytics extends Activity {
 		try {
 			log.createNewFile();
 			BufferedWriter backupwriter = new BufferedWriter(new FileWriter(log));
-			backupwriter.write("Options\t\tCount\t\tPercentage");
+			backupwriter.write(String.format("%15s %15s %15s", "Options","Count","Percentage"));
 			backupwriter.newLine();
 			database db = new database(this);
 					
@@ -98,9 +98,9 @@ public class analytics extends Activity {
 							
 			while(!options.isAfterLast()){
 				backupwriter.newLine();
-				backupwriter.write(shorten(options.getString(0))+"\t\t");
-				backupwriter.write(counts.getString(0)+"\t\t");
-				backupwriter.write(((Integer.parseInt(counts.getString(0))/total)*100)+" %");
+				backupwriter.write(String.format("%15s",shorten(options.getString(0))));
+				backupwriter.write(String.format("%15s",counts.getString(0)));
+				backupwriter.write(String.format("%15s",((Integer.parseInt(counts.getString(0))/total)*100)+" %"));
 				options.moveToNext();
 				counts.moveToNext();
 			}

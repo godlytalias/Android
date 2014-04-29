@@ -100,10 +100,15 @@ public class tallyclass extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			database db = new database(tallyclass.this);
+			if(!(db.getvalue(v.getTag().toString()).equals("0")))
+			{
 			db.subtract(v.getTag().toString());
 			db.close();
 			count_reg-=1;
 			reading.setText(count_reg+"");
+			}
+			else
+				Toast.makeText(getBaseContext(), "Values can't be negative!", Toast.LENGTH_SHORT).show();
 		}
 	};
 
